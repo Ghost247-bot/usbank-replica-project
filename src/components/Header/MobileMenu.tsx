@@ -1,7 +1,8 @@
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { X, ChevronDown, TrendingUp, PiggyBank, Shield, Users, Crown, FileText, Calculator, BarChart, Coins } from 'lucide-react';
+import { X, ChevronDown, TrendingUp, PiggyBank, Shield, Users, Crown, FileText, Calculator, BarChart, Coins, CreditCard, Home, Car, GraduationCap, Smartphone, Globe, Building, DollarSign, Briefcase } from 'lucide-react';
+import { personalBankingItems, businessBankingItems } from './navigationData';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -64,6 +65,59 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
     }
   ];
 
+  const getPersonalBankingIcon = (title: string) => {
+    switch (title) {
+      case 'Checking Accounts':
+      case 'Savings Accounts':
+        return PiggyBank;
+      case 'Credit Cards':
+        return CreditCard;
+      case 'Mortgages':
+      case 'Home Equity Loans':
+        return Home;
+      case 'Auto Loans':
+        return Car;
+      case 'Student Loans':
+        return GraduationCap;
+      case 'Online Banking':
+        return Globe;
+      case 'Mobile Banking':
+        return Smartphone;
+      case 'Overdraft Protection':
+        return Shield;
+      default:
+        return CreditCard;
+    }
+  };
+
+  const getBusinessBankingIcon = (title: string) => {
+    switch (title) {
+      case 'Business Checking':
+        return Building;
+      case 'Business Credit Cards':
+        return CreditCard;
+      case 'Business Loans':
+      case 'Business Lines of Credit':
+      case 'SBA Loans':
+        return DollarSign;
+      case 'Merchant Services':
+        return TrendingUp;
+      case 'Treasury Management':
+        return Briefcase;
+      case 'Equipment Financing':
+      case 'Commercial Real Estate':
+        return Building;
+      case 'Payroll Services':
+        return Users;
+      case 'Business Insurance':
+        return Shield;
+      case 'International Banking':
+        return Globe;
+      default:
+        return Building;
+    }
+  };
+
   if (!isOpen) return null;
 
   const toggleSection = (section: string) => {
@@ -86,21 +140,71 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
         
         <div className="py-4 overflow-y-auto">
           <div className="space-y-1 px-4">
-            <Link
-              to="/"
-              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
-              onClick={onClose}
-            >
-              Personal Banking
-            </Link>
+            <div>
+              <button
+                onClick={() => toggleSection('personal')}
+                className="flex items-center justify-between w-full px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+              >
+                <span>Personal Banking</span>
+                <ChevronDown
+                  className={`h-5 w-5 transition-transform ${
+                    expandedSection === 'personal' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              
+              {expandedSection === 'personal' && (
+                <div className="mt-2 space-y-1 pl-4">
+                  {personalBankingItems.map((item) => {
+                    const IconComponent = getPersonalBankingIcon(item.title);
+                    return (
+                      <Link
+                        key={item.href}
+                        to={item.href}
+                        className="flex items-center space-x-3 px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+                        onClick={onClose}
+                      >
+                        <IconComponent className="h-4 w-4" />
+                        <span>{item.title}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
             
-            <Link
-              to="/business/business-checking"
-              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
-              onClick={onClose}
-            >
-              Business Banking
-            </Link>
+            <div>
+              <button
+                onClick={() => toggleSection('business')}
+                className="flex items-center justify-between w-full px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+              >
+                <span>Business Banking</span>
+                <ChevronDown
+                  className={`h-5 w-5 transition-transform ${
+                    expandedSection === 'business' ? 'rotate-180' : ''
+                  }`}
+                />
+              </button>
+              
+              {expandedSection === 'business' && (
+                <div className="mt-2 space-y-1 pl-4">
+                  {businessBankingItems.map((item) => {
+                    const IconComponent = getBusinessBankingIcon(item.title);
+                    return (
+                      <Link
+                        key={item.href}
+                        to={item.href}
+                        className="flex items-center space-x-3 px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+                        onClick={onClose}
+                      >
+                        <IconComponent className="h-4 w-4" />
+                        <span>{item.title}</span>
+                      </Link>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
             
             <div>
               <button

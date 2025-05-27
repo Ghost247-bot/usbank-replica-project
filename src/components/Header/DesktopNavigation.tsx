@@ -1,29 +1,15 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PersonalBankingDropdown from './PersonalBankingDropdown';
+import BusinessBankingDropdown from './BusinessBankingDropdown';
 import WealthManagementDropdown from './WealthManagementDropdown';
 
 const DesktopNavigation = () => {
   return (
     <nav className="hidden lg:flex items-center space-x-8">
-      <div className="relative group">
-        <Link 
-          to="/" 
-          className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
-        >
-          Personal Banking
-        </Link>
-      </div>
-      
-      <div className="relative group">
-        <Link 
-          to="/business/business-checking" 
-          className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
-        >
-          Business Banking
-        </Link>
-      </div>
-      
+      <PersonalBankingDropdown />
+      <BusinessBankingDropdown />
       <WealthManagementDropdown />
       
       <div className="relative group">
