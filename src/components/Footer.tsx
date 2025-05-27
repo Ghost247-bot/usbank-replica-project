@@ -56,16 +56,16 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Logo and Description */}
           <div className="lg:col-span-1">
-            <div className="text-2xl font-bold text-red-400 mb-4">US Bank</div>
+            <div className="text-2xl font-bold text-green-500 mb-4">US Bank</div>
             <p className="text-gray-400 text-sm mb-4">
               Your trusted financial partner, providing innovative banking solutions 
               to help you achieve your financial goals.
             </p>
             <div className="flex space-x-4">
-              <Facebook className="h-5 w-5 text-gray-400 hover:text-red-400 cursor-pointer transition-colors" />
-              <Twitter className="h-5 w-5 text-gray-400 hover:text-red-400 cursor-pointer transition-colors" />
-              <Linkedin className="h-5 w-5 text-gray-400 hover:text-red-400 cursor-pointer transition-colors" />
-              <Instagram className="h-5 w-5 text-gray-400 hover:text-red-400 cursor-pointer transition-colors" />
+              <Facebook className="h-5 w-5 text-gray-400 hover:text-green-500 cursor-pointer transition-colors" />
+              <Twitter className="h-5 w-5 text-gray-400 hover:text-green-500 cursor-pointer transition-colors" />
+              <Linkedin className="h-5 w-5 text-gray-400 hover:text-green-500 cursor-pointer transition-colors" />
+              <Instagram className="h-5 w-5 text-gray-400 hover:text-green-500 cursor-pointer transition-colors" />
             </div>
           </div>
 
@@ -76,7 +76,7 @@ const Footer = () => {
               <ul className="space-y-2">
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
-                    <a href="#" className="text-gray-400 hover:text-red-400 text-sm transition-colors">
+                    <a href="#" className="text-gray-400 hover:text-green-500 text-sm transition-colors">
                       {link}
                     </a>
                   </li>
@@ -93,10 +93,10 @@ const Footer = () => {
               © 2024 US Bank. All rights reserved. Member FDIC. Equal Housing Lender.
             </div>
             <div className="flex space-x-6 text-sm">
-              <a href="#" className="text-gray-400 hover:text-red-400 transition-colors">Privacy</a>
-              <a href="#" className="text-gray-400 hover:text-red-400 transition-colors">Terms</a>
-              <a href="#" className="text-gray-400 hover:text-red-400 transition-colors">Accessibility</a>
-              <a href="#" className="text-gray-400 hover:text-red-400 transition-colors">Site Map</a>
+              <a href="#" className="text-gray-400 hover:text-green-500 transition-colors">Privacy</a>
+              <a href="#" className="text-gray-400 hover:text-green-500 transition-colors">Terms</a>
+              <a href="#" className="text-gray-400 hover:text-green-500 transition-colors">Accessibility</a>
+              <a href="#" className="text-gray-400 hover:text-green-500 transition-colors">Site Map</a>
             </div>
           </div>
         </div>

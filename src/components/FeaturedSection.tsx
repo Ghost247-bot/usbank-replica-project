@@ -14,17 +14,17 @@ const FeaturedSection = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="text-center">
-              <Award className="h-12 w-12 text-red-600 mx-auto mb-4" />
+              <Award className="h-12 w-12 text-green-700 mx-auto mb-4" />
               <h3 className="text-2xl font-bold text-gray-900">Best Digital Bank</h3>
               <p className="text-gray-600">Banking Innovation Awards 2024</p>
             </div>
             <div className="text-center">
-              <Star className="h-12 w-12 text-red-600 mx-auto mb-4" />
+              <Star className="h-12 w-12 text-green-700 mx-auto mb-4" />
               <h3 className="text-2xl font-bold text-gray-900">4.8/5 Rating</h3>
               <p className="text-gray-600">Customer satisfaction score</p>
             </div>
             <div className="text-center">
-              <Users className="h-12 w-12 text-red-600 mx-auto mb-4" />
+              <Users className="h-12 w-12 text-green-700 mx-auto mb-4" />
               <h3 className="text-2xl font-bold text-gray-900">15M+ Customers</h3>
               <p className="text-gray-600">Trust us with their finances</p>
             </div>
@@ -43,31 +43,31 @@ const FeaturedSection = () => {
             </p>
             <ul className="space-y-3 mb-6">
               <li className="flex items-center text-gray-700">
-                <div className="w-2 h-2 bg-red-600 rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-green-700 rounded-full mr-3"></div>
                 Mobile check deposit
               </li>
               <li className="flex items-center text-gray-700">
-                <div className="w-2 h-2 bg-red-600 rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-green-700 rounded-full mr-3"></div>
                 Real-time notifications
               </li>
               <li className="flex items-center text-gray-700">
-                <div className="w-2 h-2 bg-red-600 rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-green-700 rounded-full mr-3"></div>
                 Biometric security
               </li>
               <li className="flex items-center text-gray-700">
-                <div className="w-2 h-2 bg-red-600 rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-green-700 rounded-full mr-3"></div>
                 24/7 customer support
               </li>
             </ul>
-            <Button className="bg-red-600 hover:bg-red-700 text-white flex items-center space-x-2">
+            <Button className="bg-green-700 hover:bg-green-800 text-white flex items-center space-x-2">
               <span>Download App</span>
               <ArrowRight className="h-4 w-4" />
             </Button>
           </div>
-          <div className="bg-gradient-to-br from-red-100 to-red-200 rounded-lg p-8 lg:p-12">
+          <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-lg p-8 lg:p-12">
             <div className="bg-white rounded-lg shadow-xl p-6 max-w-sm mx-auto">
               <div className="text-center">
-                <div className="w-16 h-16 bg-red-600 rounded-full mx-auto mb-4 flex items-center justify-center">
+                <div className="w-16 h-16 bg-green-700 rounded-full mx-auto mb-4 flex items-center justify-center">
                   <span className="text-white font-bold text-xl">$</span>
                 </div>
                 <h4 className="text-lg font-semibold mb-2">Available Balance</h4>
@@ -118,23 +118,23 @@ const FeaturedSection = () => {
             </p>
             <ul className="space-y-3 mb-6">
               <li className="flex items-center text-gray-700">
-                <div className="w-2 h-2 bg-red-600 rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-green-700 rounded-full mr-3"></div>
                 Professional portfolio management
               </li>
               <li className="flex items-center text-gray-700">
-                <div className="w-2 h-2 bg-red-600 rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-green-700 rounded-full mr-3"></div>
                 Low fees and transparent pricing
               </li>
               <li className="flex items-center text-gray-700">
-                <div className="w-2 h-2 bg-red-600 rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-green-700 rounded-full mr-3"></div>
                 Tax-optimized strategies
               </li>
               <li className="flex items-center text-gray-700">
-                <div className="w-2 h-2 bg-red-600 rounded-full mr-3"></div>
+                <div className="w-2 h-2 bg-green-700 rounded-full mr-3"></div>
                 Retirement planning tools
               </li>
             </ul>
-            <Button className="bg-red-600 hover:bg-red-700 text-white flex items-center space-x-2">
+            <Button className="bg-green-700 hover:bg-green-800 text-white flex items-center space-x-2">
               <span>Start Investing</span>
               <ArrowRight className="h-4 w-4" />
             </Button>
