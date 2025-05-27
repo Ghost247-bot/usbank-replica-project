@@ -1,135 +1,41 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Smartphone, Download, Shield, Bell, CreditCard, MapPin, Camera, Fingerprint, QrCode, Settings } from 'lucide-react';
+import { CheckCircle, Star, Shield, Smartphone, Camera, Users, DollarSign, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const MobileApp = () => {
-  const [selectedPlatform, setSelectedPlatform] = useState('ios');
-
-  const features = [
-    {
-      icon: Smartphone,
-      title: "Mobile Banking",
-      description: "Full banking functionality on your mobile device"
-    },
-    {
-      icon: Download,
-      title: "Easy Download",
-      description: "Available on iOS and Android app stores"
-    },
-    {
-      icon: Shield,
-      title: "Secure Access",
-      description: "Biometric login and advanced security features"
-    },
-    {
-      icon: Bell,
-      title: "Push Notifications",
-      description: "Real-time alerts for account activity"
-    }
+  const benefits = [
+    "Award-winning mobile app",
+    "Biometric login security",
+    "Mobile check deposit",
+    "Real-time notifications",
+    "Digital wallet integration",
+    "24/7 account access"
   ];
 
   const appFeatures = [
     {
-      icon: CreditCard,
-      title: "Account Management",
-      description: "View balances, transaction history, and account details",
-      category: "Banking"
-    },
-    {
       icon: Camera,
-      title: "Mobile Deposit",
-      description: "Deposit checks by taking a photo",
-      category: "Banking"
+      title: "Check deposit",
+      description: "Deposit checks instantly by taking a photo with your smartphone camera"
     },
     {
-      icon: MapPin,
-      title: "Branch & ATM Locator",
-      description: "Find the nearest locations and check hours",
-      category: "Tools"
+      icon: Shield,
+      title: "Advanced security",
+      description: "Fingerprint and face ID login with real-time fraud monitoring"
     },
     {
-      icon: Bell,
-      title: "Account Alerts",
-      description: "Customizable notifications for transactions and balances",
-      category: "Security"
+      icon: Smartphone,
+      title: "Mobile payments",
+      description: "Pay with Apple Pay, Google Pay, or Samsung Pay anywhere"
     },
     {
-      icon: Fingerprint,
-      title: "Biometric Login",
-      description: "Secure access with fingerprint or face recognition",
-      category: "Security"
-    },
-    {
-      icon: QrCode,
-      title: "Quick Pay",
-      description: "Send money using QR codes or contact list",
-      category: "Payments"
-    },
-    {
-      icon: Settings,
-      title: "Account Settings",
-      description: "Manage preferences, limits, and security settings",
-      category: "Tools"
-    },
-    {
-      icon: CreditCard,
-      title: "Card Controls",
-      description: "Lock/unlock cards, set spending limits, and view PINs",
-      category: "Security"
-    }
-  ];
-
-  const securityFeatures = [
-    "256-bit encryption",
-    "Biometric authentication",
-    "Multi-factor authentication",
-    "Device registration",
-    "Automatic logout",
-    "Transaction monitoring"
-  ];
-
-  const requirements = {
-    ios: {
-      version: "iOS 13.0 or later",
-      compatibility: "iPhone 6s and newer",
-      size: "45.2 MB"
-    },
-    android: {
-      version: "Android 7.0 (API level 24)",
-      compatibility: "Most Android devices",
-      size: "38.7 MB"
-    }
-  };
-
-  const screenshots = [
-    { title: "Dashboard", description: "Overview of all your accounts" },
-    { title: "Mobile Deposit", description: "Deposit checks in seconds" },
-    { title: "Transfer Money", description: "Quick and easy transfers" },
-    { title: "Account Alerts", description: "Stay informed with notifications" }
-  ];
-
-  const faqs = [
-    {
-      question: "Is mobile banking safe?",
-      answer: "Yes, our mobile app uses bank-level security including 256-bit encryption, biometric authentication, and multi-factor security to protect your information."
-    },
-    {
-      question: "Can I deposit checks using the app?",
-      answer: "Yes, you can deposit checks up to $5,000 per day using our mobile deposit feature. Simply take a photo of the front and back of your check."
-    },
-    {
-      question: "What if I lose my phone?",
-      answer: "Contact us immediately to temporarily disable mobile access. You can also remotely log out of all devices through our website."
-    },
-    {
-      question: "Are there fees for using the mobile app?",
-      answer: "The mobile app is free to download and use. Standard data charges from your carrier may apply."
+      icon: Users,
+      title: "Money transfers",
+      description: "Send money to friends and family instantly with Zelle"
     }
   ];
 
@@ -139,47 +45,40 @@ const MobileApp = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-green-700 to-green-800 text-white py-20">
+        <section className="bg-gradient-to-r from-blue-900 to-blue-800 text-white py-16 lg:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h1 className="text-5xl font-bold mb-6">Mobile Banking App</h1>
-                <p className="text-xl mb-8">
-                  Download our award-winning banking app for convenient, secure mobile banking anywhere, anytime
+                <div className="inline-flex items-center bg-blue-700 px-3 py-1 rounded-full text-sm font-medium mb-4">
+                  <Star className="h-4 w-4 mr-2" />
+                  #1 Rated Banking App
+                </div>
+                <h1 className="text-4xl lg:text-6xl font-bold mb-6">
+                  Banking in the Palm of Your Hand
+                </h1>
+                <p className="text-xl mb-8 text-blue-100">
+                  Experience next-generation mobile banking with our award-winning app. 
+                  Manage your finances securely and conveniently wherever you go.
                 </p>
-                <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                  <Button 
-                    size="lg" 
-                    className="bg-white text-green-700 hover:bg-gray-100"
-                    onClick={() => setSelectedPlatform('ios')}
-                  >
-                    <Download className="h-5 w-5 mr-2" />
-                    Download for iOS
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg">
+                    Download for iPhone
                   </Button>
-                  <Button 
-                    size="lg" 
-                    variant="outline" 
-                    className="border-white text-white hover:bg-white hover:text-green-700"
-                    onClick={() => setSelectedPlatform('android')}
-                  >
-                    <Download className="h-5 w-5 mr-2" />
+                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
                     Download for Android
                   </Button>
                 </div>
-                <div className="mt-6 flex items-center space-x-4">
-                  <Badge variant="secondary">★ 4.8 Rating</Badge>
-                  <Badge variant="secondary">500K+ Downloads</Badge>
-                  <Badge variant="secondary">Award Winner</Badge>
-                </div>
               </div>
-              <div className="flex justify-center">
-                <div className="w-64 h-96 bg-gray-900 rounded-3xl p-4 shadow-2xl">
-                  <div className="w-full h-full bg-white rounded-2xl flex items-center justify-center">
-                    <div className="text-center">
-                      <Smartphone className="h-24 w-24 text-green-600 mx-auto mb-4" />
-                      <p className="text-gray-600 font-medium">Banking App</p>
-                      <p className="text-sm text-gray-500">Demo Interface</p>
-                    </div>
+              <div className="relative">
+                <div className="bg-white rounded-2xl p-8 shadow-2xl">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6">App Features</h3>
+                  <div className="space-y-4">
+                    {benefits.map((benefit, index) => (
+                      <div key={index} className="flex items-center text-gray-700">
+                        <CheckCircle className="h-5 w-5 text-green-600 mr-3 flex-shrink-0" />
+                        <span>{benefit}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -187,26 +86,30 @@ const MobileApp = () => {
           </div>
         </section>
 
-        {/* App Features */}
-        <section className="py-16">
+        {/* Key Features Section */}
+        <section className="py-16 lg:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Powerful Features at Your Fingertips</h2>
-              <p className="text-gray-600">Everything you need for complete mobile banking</p>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                Everything you need in one app
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Our mobile app puts the power of full-service banking in your pocket 
+                with intuitive design and industry-leading security features.
+              </p>
             </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {appFeatures.map((feature, index) => (
-                <Card key={index} className="hover:shadow-lg transition-shadow">
-                  <CardHeader className="text-center">
-                    <feature.icon className="h-12 w-12 text-green-700 mx-auto mb-4" />
-                    <CardTitle className="text-lg">{feature.title}</CardTitle>
-                    <Badge variant="outline" className="w-fit mx-auto">
-                      {feature.category}
-                    </Badge>
+                <Card key={index} className="text-center border-none shadow-lg hover:shadow-xl transition-shadow">
+                  <CardHeader>
+                    <div className="mx-auto bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                      <feature.icon className="h-8 w-8 text-blue-600" />
+                    </div>
+                    <CardTitle className="text-xl">{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-sm text-gray-600 text-center">{feature.description}</p>
+                    <p className="text-gray-600">{feature.description}</p>
                   </CardContent>
                 </Card>
               ))}
@@ -214,168 +117,52 @@ const MobileApp = () => {
           </div>
         </section>
 
-        {/* Platform Details */}
-        <section className="py-16 bg-gray-50">
+        {/* Additional Features */}
+        <section className="py-16 lg:py-24 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Tabs value={selectedPlatform} onValueChange={setSelectedPlatform} className="max-w-4xl mx-auto">
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="ios">iOS App</TabsTrigger>
-                <TabsTrigger value="android">Android App</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="ios" className="mt-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <Smartphone className="h-6 w-6 mr-2" />
-                      iOS Requirements
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid md:grid-cols-3 gap-4">
-                      <div>
-                        <h4 className="font-semibold text-sm">Minimum Version</h4>
-                        <p className="text-gray-600">{requirements.ios.version}</p>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-sm">Compatibility</h4>
-                        <p className="text-gray-600">{requirements.ios.compatibility}</p>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-sm">Download Size</h4>
-                        <p className="text-gray-600">{requirements.ios.size}</p>
-                      </div>
-                    </div>
-                    <Button className="w-full">Download from App Store</Button>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-              
-              <TabsContent value="android" className="mt-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="flex items-center">
-                      <Smartphone className="h-6 w-6 mr-2" />
-                      Android Requirements
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="grid md:grid-cols-3 gap-4">
-                      <div>
-                        <h4 className="font-semibold text-sm">Minimum Version</h4>
-                        <p className="text-gray-600">{requirements.android.version}</p>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-sm">Compatibility</h4>
-                        <p className="text-gray-600">{requirements.android.compatibility}</p>
-                      </div>
-                      <div>
-                        <h4 className="font-semibold text-sm">Download Size</h4>
-                        <p className="text-gray-600">{requirements.android.size}</p>
-                      </div>
-                    </div>
-                    <Button className="w-full">Download from Google Play</Button>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
-          </div>
-        </section>
-
-        {/* Security Features */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Bank-Level Security</h2>
-              <p className="text-gray-600">Your security is our top priority</p>
-            </div>
+            <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+              More features to love
+            </h2>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-              {features.map((feature, index) => (
-                <div key={index} className="text-center p-6 rounded-lg hover:shadow-lg transition-shadow">
-                  <feature.icon className="h-12 w-12 text-green-700 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-gray-600">{feature.description}</p>
-                </div>
-              ))}
-            </div>
-
-            <Card className="max-w-4xl mx-auto">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Shield className="h-6 w-6 mr-2" />
-                  Advanced Security Measures
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-4">
-                  {securityFeatures.map((feature, index) => (
-                    <div key={index} className="flex items-center space-x-2">
-                      <Badge variant="outline" className="text-green-600 border-green-600">✓</Badge>
-                      <span className="text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* App Screenshots */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">See It in Action</h2>
-              <p className="text-gray-600">Get a preview of our intuitive interface</p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {screenshots.map((screenshot, index) => (
-                <Card key={index} className="overflow-hidden">
-                  <div className="h-48 bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
-                    <Smartphone className="h-16 w-16 text-green-600" />
-                  </div>
-                  <CardContent className="p-4">
-                    <h3 className="font-semibold mb-1">{screenshot.title}</h3>
-                    <p className="text-sm text-gray-600">{screenshot.description}</p>
-                  </CardContent>
-                </Card>
-              ))}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="bg-white rounded-xl p-8 shadow-lg">
+                <DollarSign className="h-12 w-12 text-green-600 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Spending Insights</h3>
+                <p className="text-gray-600">Track spending by category and get personalized insights to improve your budget.</p>
+              </div>
+              <div className="bg-white rounded-xl p-8 shadow-lg">
+                <Clock className="h-12 w-12 text-green-600 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Bill Pay & Alerts</h3>
+                <p className="text-gray-600">Schedule payments and get notifications for due dates and low balances.</p>
+              </div>
+              <div className="bg-white rounded-xl p-8 shadow-lg">
+                <Users className="h-12 w-12 text-green-600 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Customer Support</h3>
+                <p className="text-gray-600">Chat with customer service or schedule appointments directly through the app.</p>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* FAQ Section */}
-        <section className="py-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
-            <div className="space-y-4">
-              {faqs.map((faq, index) => (
-                <Card key={index}>
-                  <CardHeader>
-                    <CardTitle className="text-lg">{faq.question}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600">{faq.answer}</p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Download CTA */}
-        <section className="py-16 bg-green-50">
+        {/* CTA Section */}
+        <section className="py-16 lg:py-24 bg-blue-900 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to Bank on the Go?</h2>
-            <p className="text-gray-600 mb-8">Download our mobile app today and experience convenient banking at your fingertips</p>
-            <div className="flex justify-center space-x-4">
-              <Button size="lg">
-                <Download className="h-5 w-5 mr-2" />
-                Download Now
+            <h2 className="text-4xl font-bold mb-6">Download our app today</h2>
+            <p className="text-xl text-blue-100 mb-8">
+              Join millions of customers who trust our mobile app for secure, 
+              convenient banking on the go. Available for iOS and Android.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 px-8 py-4 text-lg">
+                App Store
               </Button>
-              <Button variant="outline" size="lg">Learn More</Button>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
+                Google Play
+              </Button>
             </div>
+            <p className="text-sm text-blue-200 mt-6">
+              Requires iOS 14.0+ or Android 8.0+. Message and data rates may apply.
+            </p>
           </div>
         </section>
       </main>

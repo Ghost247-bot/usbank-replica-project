@@ -2,29 +2,58 @@
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { TrendingUp, Target, PiggyBank, Calculator } from 'lucide-react';
+import { CheckCircle, Star, Shield, Smartphone, PiggyBank, Users, DollarSign, Clock } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const SavingsAccounts = () => {
   const benefits = [
-    {
-      icon: TrendingUp,
-      title: "Competitive Rates",
-      description: "Earn more with our high-yield savings accounts"
-    },
-    {
-      icon: Target,
-      title: "Goal Setting",
-      description: "Set and track your savings goals with our tools"
-    },
+    "No minimum balance requirement",
+    "High-yield interest rates",
+    "Free online and mobile banking",
+    "Automatic savings plans",
+    "Goal-based savings tools",
+    "FDIC insured up to $250,000"
+  ];
+
+  const savingsFeatures = [
     {
       icon: PiggyBank,
-      title: "Automatic Savings",
-      description: "Round up purchases and save the spare change"
+      title: "High interest rates",
+      description: "Earn competitive rates on your savings with our high-yield accounts"
     },
     {
-      icon: Calculator,
-      title: "Savings Calculator",
-      description: "Plan your financial future with our calculators"
+      icon: Shield,
+      title: "FDIC protection",
+      description: "Your deposits are protected up to $250,000 by FDIC insurance"
+    },
+    {
+      icon: Smartphone,
+      title: "Smart savings goals",
+      description: "Set and track savings goals with our intuitive mobile app"
+    },
+    {
+      icon: Users,
+      title: "Family savings",
+      description: "Open savings accounts for family members and track progress together"
+    }
+  ];
+
+  const additionalBenefits = [
+    {
+      icon: DollarSign,
+      title: "Automatic transfers",
+      description: "Set up automatic transfers from checking to build savings effortlessly"
+    },
+    {
+      icon: Clock,
+      title: "Round-up savings",
+      description: "Round up purchases and save the change automatically"
+    },
+    {
+      icon: Star,
+      title: "Bonus rewards",
+      description: "Earn bonus interest for meeting monthly savings goals"
     }
   ];
 
@@ -34,29 +63,92 @@ const SavingsAccounts = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-green-600 to-green-700 text-white py-20">
+        <section className="bg-gradient-to-r from-blue-900 to-blue-800 text-white py-16 lg:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h1 className="text-5xl font-bold mb-6">Savings Accounts</h1>
-              <p className="text-xl mb-8 max-w-2xl mx-auto">
-                Grow your money with competitive rates and flexible savings options
-              </p>
-              <button className="bg-white text-green-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                Start Saving Today
-              </button>
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <div className="inline-flex items-center bg-blue-700 px-3 py-1 rounded-full text-sm font-medium mb-4">
+                  <Star className="h-4 w-4 mr-2" />
+                  High-Yield Savings
+                </div>
+                <h1 className="text-4xl lg:text-6xl font-bold mb-6">
+                  Smart Savings™ Account
+                </h1>
+                <p className="text-xl mb-8 text-blue-100">
+                  Build your future with our high-yield savings account. 
+                  Earn competitive rates while keeping your money safe and accessible.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg">
+                    Open Savings Account
+                  </Button>
+                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
+                    Calculate Earnings
+                  </Button>
+                </div>
+              </div>
+              <div className="relative">
+                <div className="bg-white rounded-2xl p-8 shadow-2xl">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6">Account Benefits</h3>
+                  <div className="space-y-4">
+                    {benefits.map((benefit, index) => (
+                      <div key={index} className="flex items-center text-gray-700">
+                        <CheckCircle className="h-5 w-5 text-green-600 mr-3 flex-shrink-0" />
+                        <span>{benefit}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        {/* Benefits Section */}
-        <section className="py-16">
+        {/* Key Features Section */}
+        <section className="py-16 lg:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center mb-12">Smart Ways to Save</h2>
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                Savings that work for you
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Our Smart Savings account is designed to help you reach your financial goals 
+                with competitive rates and smart saving tools.
+              </p>
+            </div>
+            
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {benefits.map((benefit, index) => (
-                <div key={index} className="text-center p-6 rounded-lg hover:shadow-lg transition-shadow">
-                  <benefit.icon className="h-12 w-12 text-green-700 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">{benefit.title}</h3>
+              {savingsFeatures.map((feature, index) => (
+                <Card key={index} className="text-center border-none shadow-lg hover:shadow-xl transition-shadow">
+                  <CardHeader>
+                    <div className="mx-auto bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                      <feature.icon className="h-8 w-8 text-blue-600" />
+                    </div>
+                    <CardTitle className="text-xl">{feature.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Additional Benefits */}
+        <section className="py-16 lg:py-24 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+              More ways to save smart
+            </h2>
+            
+            <div className="grid lg:grid-cols-3 gap-8">
+              {additionalBenefits.map((benefit, index) => (
+                <div key={index} className="bg-white rounded-xl p-8 shadow-lg">
+                  <div className="bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mb-6">
+                    <benefit.icon className="h-6 w-6 text-green-600" />
+                  </div>
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">{benefit.title}</h3>
                   <p className="text-gray-600">{benefit.description}</p>
                 </div>
               ))}
@@ -64,56 +156,25 @@ const SavingsAccounts = () => {
           </div>
         </section>
 
-        {/* Savings Options */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center mb-12">Find Your Perfect Savings Account</h2>
-            <div className="grid md:grid-cols-2 gap-8">
-              <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h3 className="text-2xl font-bold mb-4 text-green-700">High-Yield Savings</h3>
-                <div className="text-3xl font-bold text-green-700 mb-4">2.50% APY*</div>
-                <p className="text-gray-600 mb-6">Maximize your earnings with our competitive interest rate</p>
-                <ul className="space-y-2 mb-6">
-                  <li>• No monthly maintenance fees</li>
-                  <li>• $100 minimum to open</li>
-                  <li>• Online and mobile access</li>
-                  <li>• FDIC insured up to $250,000</li>
-                </ul>
-                <button className="w-full bg-green-700 text-white py-3 rounded-lg hover:bg-green-800 transition-colors">
-                  Open Account
-                </button>
-              </div>
-              <div className="bg-white p-8 rounded-lg shadow-lg">
-                <h3 className="text-2xl font-bold mb-4 text-green-700">Certificate of Deposit</h3>
-                <div className="text-3xl font-bold text-green-700 mb-4">3.25% APY*</div>
-                <p className="text-gray-600 mb-6">Lock in a guaranteed rate for your long-term savings</p>
-                <ul className="space-y-2 mb-6">
-                  <li>• Terms from 6 months to 5 years</li>
-                  <li>• $1,000 minimum deposit</li>
-                  <li>• Guaranteed returns</li>
-                  <li>• Automatic renewal options</li>
-                </ul>
-                <button className="w-full bg-green-700 text-white py-3 rounded-lg hover:bg-green-800 transition-colors">
-                  View Rates
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Call to Action */}
-        <section className="py-16 bg-green-700 text-white">
+        {/* CTA Section */}
+        <section className="py-16 lg:py-24 bg-blue-900 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to Start Saving?</h2>
-            <p className="text-xl mb-8">Open your savings account today and watch your money grow</p>
+            <h2 className="text-4xl font-bold mb-6">Start saving smart today</h2>
+            <p className="text-xl text-blue-100 mb-8">
+              Open your Smart Savings account and start earning competitive rates 
+              on your deposits with no minimum balance required.
+            </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-green-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 px-8 py-4 text-lg">
                 Open Account Online
-              </button>
-              <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-700 transition-colors">
-                Visit a Branch
-              </button>
+              </Button>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
+                Find a Branch
+              </Button>
             </div>
+            <p className="text-sm text-blue-200 mt-6">
+              Account opening subject to approval. Terms and conditions apply.
+            </p>
           </div>
         </section>
       </main>

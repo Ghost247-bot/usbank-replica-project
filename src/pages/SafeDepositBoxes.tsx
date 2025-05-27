@@ -1,102 +1,41 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Lock, Shield, Key, Clock, CreditCard, MapPin, Users, FileText } from 'lucide-react';
+import { CheckCircle, Star, Shield, Smartphone, Lock, Users, DollarSign, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
 const SafeDepositBoxes = () => {
-  const [selectedSize, setSelectedSize] = useState('small');
+  const benefits = [
+    "Maximum security protection",
+    "Multiple size options",
+    "Convenient branch access",
+    "Affordable annual rates",
+    "Dual key security system",
+    "Climate-controlled environment"
+  ];
 
-  const features = [
+  const boxFeatures = [
     {
       icon: Lock,
-      title: "Secure Storage",
-      description: "Bank-grade security for your valuable items"
+      title: "Secure storage",
+      description: "State-of-the-art vault security with dual-key access protection"
     },
     {
       icon: Shield,
-      title: "Insurance Protection",
-      description: "Additional insurance options available"
+      title: "Insurance eligible",
+      description: "Store items that may be covered under your homeowner's insurance"
     },
     {
-      icon: Key,
-      title: "Private Access",
-      description: "Only you have access to your safe deposit box"
+      icon: Smartphone,
+      title: "Easy access",
+      description: "Convenient access during business hours at your local branch"
     },
     {
-      icon: Clock,
-      title: "Extended Hours",
-      description: "Access during extended banking hours"
-    }
-  ];
-
-  const boxSizes = [
-    {
-      size: "Small",
-      dimensions: "3\" x 5\" x 24\"",
-      price: "$35/year",
-      ideal: "Documents, jewelry, coins",
-      id: "small"
-    },
-    {
-      size: "Medium",
-      dimensions: "5\" x 5\" x 24\"",
-      price: "$55/year",
-      ideal: "Important papers, small valuables",
-      id: "medium"
-    },
-    {
-      size: "Large",
-      dimensions: "10\" x 10\" x 24\"",
-      price: "$85/year",
-      ideal: "Large documents, artwork, collectibles",
-      id: "large"
-    },
-    {
-      size: "Extra Large",
-      dimensions: "10\" x 15\" x 24\"",
-      price: "$125/year",
-      ideal: "Business records, large items",
-      id: "xlarge"
-    }
-  ];
-
-  const whatToStore = [
-    { category: "Documents", items: ["Birth certificates", "Passports", "Wills", "Property deeds", "Insurance policies"] },
-    { category: "Valuables", items: ["Jewelry", "Coins", "Stamps", "Small electronics", "USB drives"] },
-    { category: "Sentimental", items: ["Family photos", "Letters", "Heirlooms", "Military medals", "Awards"] },
-    { category: "Business", items: ["Contracts", "Stock certificates", "Business records", "Backup data", "Patents"] }
-  ];
-
-  const securityFeatures = [
-    "24/7 surveillance system",
-    "Dual key access required",
-    "Biometric access controls",
-    "Fire-resistant vault construction",
-    "Flood protection systems",
-    "Armed security personnel"
-  ];
-
-  const faqs = [
-    {
-      question: "Who can access my safe deposit box?",
-      answer: "Only you and any authorized signers can access your box. We require valid ID and signature verification for every visit."
-    },
-    {
-      question: "What happens if I lose my key?",
-      answer: "If you lose your key, we can drill the box open, but you'll be charged for the drilling and lock replacement costs."
-    },
-    {
-      question: "Can I store cash in my safe deposit box?",
-      answer: "While allowed, we don't recommend storing large amounts of cash as it's not FDIC insured and doesn't earn interest."
-    },
-    {
-      question: "What are the access hours?",
-      answer: "Access is available during all branch hours, Monday-Friday 9am-5pm, Saturday 9am-1pm. Holiday hours may vary."
+      icon: Users,
+      title: "Shared access",
+      description: "Add authorized users for shared access to your safe deposit box"
     }
   ];
 
@@ -106,266 +45,187 @@ const SafeDepositBoxes = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-green-700 to-green-800 text-white py-20">
+        <section className="bg-gradient-to-r from-blue-900 to-blue-800 text-white py-16 lg:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <h1 className="text-5xl font-bold mb-6">Safe Deposit Boxes</h1>
-              <p className="text-xl mb-8 max-w-2xl mx-auto">
-                Secure storage solutions for your most valuable items with multiple size options and competitive rates
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <div className="inline-flex items-center bg-blue-700 px-3 py-1 rounded-full text-sm font-medium mb-4">
+                  <Star className="h-4 w-4 mr-2" />
+                  Maximum Security
+                </div>
+                <h1 className="text-4xl lg:text-6xl font-bold mb-6">
+                  Safe Deposit Boxes
+                </h1>
+                <p className="text-xl mb-8 text-blue-100">
+                  Protect your most valuable possessions and important documents with our 
+                  secure safe deposit boxes. Maximum security for your peace of mind.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4">
+                  <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg">
+                    Rent a Box
+                  </Button>
+                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
+                    View Sizes & Rates
+                  </Button>
+                </div>
+              </div>
+              <div className="relative">
+                <div className="bg-white rounded-2xl p-8 shadow-2xl">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-6">Security Features</h3>
+                  <div className="space-y-4">
+                    {benefits.map((benefit, index) => (
+                      <div key={index} className="flex items-center text-gray-700">
+                        <CheckCircle className="h-5 w-5 text-green-600 mr-3 flex-shrink-0" />
+                        <span>{benefit}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Key Features Section */}
+        <section className="py-16 lg:py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+                Ultimate protection for valuables
+              </h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Our safe deposit boxes provide the highest level of security for your 
+                important documents, jewelry, collectibles, and other valuables.
               </p>
-              <div className="flex justify-center space-x-4">
-                <Button className="bg-white text-green-700 hover:bg-gray-100">
-                  Rent a Box Today
+            </div>
+            
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {boxFeatures.map((feature, index) => (
+                <Card key={index} className="text-center border-none shadow-lg hover:shadow-xl transition-shadow">
+                  <CardHeader>
+                    <div className="mx-auto bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+                      <feature.icon className="h-8 w-8 text-blue-600" />
+                    </div>
+                    <CardTitle className="text-xl">{feature.title}</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600">{feature.description}</p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Box Sizes & Pricing */}
+        <section className="py-16 lg:py-24 bg-gray-50">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
+              Box sizes and annual rates
+            </h2>
+            <p className="text-xl text-gray-600 text-center mb-12">
+              Choose the size that fits your storage needs
+            </p>
+            
+            <div className="grid lg:grid-cols-3 gap-8">
+              <div className="bg-white rounded-xl p-8 shadow-lg border">
+                <h3 className="text-2xl font-bold mb-4">Small Box</h3>
+                <div className="text-3xl font-bold text-green-700 mb-4">$45/year</div>
+                <p className="text-gray-600 mb-6">3" x 5" x 24" - Perfect for documents</p>
+                <ul className="space-y-2 mb-6">
+                  <li>• Important documents</li>
+                  <li>• Small jewelry items</li>
+                  <li>• Coins and collectibles</li>
+                  <li>• USB drives and media</li>
+                  <li>• Birth certificates</li>
+                </ul>
+                <Button className="w-full bg-green-700 hover:bg-green-800 text-white py-3">
+                  Rent Small Box
                 </Button>
-                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-green-700">
-                  Find a Location
+              </div>
+              <div className="bg-white rounded-xl p-8 shadow-lg border-2 border-green-700">
+                <div className="text-center mb-4">
+                  <span className="bg-green-700 text-white px-3 py-1 rounded-full text-sm">Most Popular</span>
+                </div>
+                <h3 className="text-2xl font-bold mb-4">Medium Box</h3>
+                <div className="text-3xl font-bold text-green-700 mb-4">$75/year</div>
+                <p className="text-gray-600 mb-6">5" x 5" x 24" - Great for most needs</p>
+                <ul className="space-y-2 mb-6">
+                  <li>• Legal documents</li>
+                  <li>• Jewelry and watches</li>
+                  <li>• Small heirlooms</li>
+                  <li>• Investment certificates</li>
+                  <li>• Backup hard drives</li>
+                </ul>
+                <Button className="w-full bg-green-700 hover:bg-green-800 text-white py-3">
+                  Rent Medium Box
+                </Button>
+              </div>
+              <div className="bg-white rounded-xl p-8 shadow-lg border">
+                <h3 className="text-2xl font-bold mb-4">Large Box</h3>
+                <div className="text-3xl font-bold text-green-700 mb-4">$125/year</div>
+                <p className="text-gray-600 mb-6">10" x 10" x 24" - Maximum storage</p>
+                <ul className="space-y-2 mb-6">
+                  <li>• Large documents</li>
+                  <li>• Valuable collections</li>
+                  <li>• Family heirlooms</li>
+                  <li>• Business records</li>
+                  <li>• Artwork and photos</li>
+                </ul>
+                <Button className="w-full bg-green-700 hover:bg-green-800 text-white py-3">
+                  Rent Large Box
                 </Button>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Box Sizes and Pricing */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">Choose Your Box Size</h2>
-              <p className="text-gray-600">Find the perfect size for your storage needs</p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {boxSizes.map((box, index) => (
-                <Card 
-                  key={index} 
-                  className={`cursor-pointer transition-all hover:shadow-lg ${
-                    selectedSize === box.id ? 'ring-2 ring-green-500' : ''
-                  }`}
-                  onClick={() => setSelectedSize(box.id)}
-                >
-                  <CardHeader className="text-center">
-                    <CardTitle className="text-xl">{box.size}</CardTitle>
-                    <CardDescription>{box.dimensions}</CardDescription>
-                    <div className="text-2xl font-bold text-green-600">{box.price}</div>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-sm text-gray-600 text-center mb-4">Ideal for:</p>
-                    <p className="text-sm font-medium text-center">{box.ideal}</p>
-                    <Button 
-                      className="w-full mt-4" 
-                      variant={selectedSize === box.id ? "default" : "outline"}
-                    >
-                      {selectedSize === box.id ? "Selected" : "Select"}
-                    </Button>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* What to Store */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 lg:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold mb-4">What Can You Store?</h2>
-              <p className="text-gray-600">Common items our customers safely store</p>
-            </div>
+            <h2 className="text-4xl font-bold text-center text-gray-900 mb-16">
+              What to store in your safe deposit box
+            </h2>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {whatToStore.map((category, index) => (
-                <Card key={index} className="h-full">
-                  <CardHeader>
-                    <CardTitle className="text-lg flex items-center">
-                      <FileText className="h-5 w-5 mr-2 text-green-600" />
-                      {category.category}
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <ul className="space-y-2">
-                      {category.items.map((item, itemIndex) => (
-                        <li key={itemIndex} className="text-sm text-gray-600 flex items-center">
-                          <span className="w-1.5 h-1.5 bg-green-500 rounded-full mr-2"></span>
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Features */}
-        <section className="py-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center mb-12">Security Features</h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-              {features.map((feature, index) => (
-                <div key={index} className="text-center p-6 rounded-lg hover:shadow-lg transition-shadow">
-                  <feature.icon className="h-12 w-12 text-green-700 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                  <p className="text-gray-600">{feature.description}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Security Details */}
-            <Card className="max-w-4xl mx-auto">
-              <CardHeader>
-                <CardTitle className="flex items-center">
-                  <Shield className="h-6 w-6 mr-2" />
-                  Advanced Security Measures
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid md:grid-cols-2 gap-4">
-                  {securityFeatures.map((feature, index) => (
-                    <div key={index} className="flex items-center space-x-2">
-                      <Badge variant="outline" className="text-green-600 border-green-600">✓</Badge>
-                      <span className="text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </section>
-
-        {/* Process and Requirements */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <Tabs defaultValue="process" className="max-w-4xl mx-auto">
-              <TabsList className="grid w-full grid-cols-3">
-                <TabsTrigger value="process">Rental Process</TabsTrigger>
-                <TabsTrigger value="requirements">Requirements</TabsTrigger>
-                <TabsTrigger value="access">Access Rules</TabsTrigger>
-              </TabsList>
-              
-              <TabsContent value="process" className="mt-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>How to Rent a Safe Deposit Box</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-start space-x-3">
-                      <div className="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold">1</div>
-                      <div>
-                        <h4 className="font-semibold">Visit a Branch</h4>
-                        <p className="text-sm text-gray-600">Come to any of our locations with valid ID</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <div className="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold">2</div>
-                      <div>
-                        <h4 className="font-semibold">Complete Application</h4>
-                        <p className="text-sm text-gray-600">Fill out the rental agreement and choose your box size</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <div className="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold">3</div>
-                      <div>
-                        <h4 className="font-semibold">Pay Annual Fee</h4>
-                        <p className="text-sm text-gray-600">Pay the first year's rental fee</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start space-x-3">
-                      <div className="w-6 h-6 bg-green-600 text-white rounded-full flex items-center justify-center text-sm font-bold">4</div>
-                      <div>
-                        <h4 className="font-semibold">Receive Your Key</h4>
-                        <p className="text-sm text-gray-600">Get your personal key and box number</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-              
-              <TabsContent value="requirements" className="mt-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>What You'll Need</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <h4 className="font-semibold mb-2">Required Documents:</h4>
-                      <ul className="list-disc list-inside space-y-1 text-sm">
-                        <li>Valid government-issued photo ID</li>
-                        <li>Social Security number</li>
-                        <li>Proof of address</li>
-                        <li>Initial rental payment</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">Eligibility:</h4>
-                      <ul className="list-disc list-inside space-y-1 text-sm">
-                        <li>Must be 18 years or older</li>
-                        <li>Bank account holder (preferred but not required)</li>
-                        <li>Pass identity verification</li>
-                      </ul>
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-              
-              <TabsContent value="access" className="mt-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Access Rules & Guidelines</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div>
-                      <h4 className="font-semibold mb-2">Access Requirements:</h4>
-                      <ul className="list-disc list-inside space-y-1 text-sm">
-                        <li>Valid ID and signature verification required</li>
-                        <li>Both customer key and bank key needed</li>
-                        <li>Authorized signers only</li>
-                        <li>Accompanied access for joint renters</li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold mb-2">Prohibited Items:</h4>
-                      <ul className="list-disc list-inside space-y-1 text-sm">
-                        <li>Firearms or ammunition</li>
-                        <li>Explosives or hazardous materials</li>
-                        <li>Illegal substances</li>
-                        <li>Perishable items</li>
-                      </ul>
-                    </div>
-                  </CardContent>
-                </Card>
-              </TabsContent>
-            </Tabs>
-          </div>
-        </section>
-
-        {/* FAQ Section */}
-        <section className="py-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center mb-12">Frequently Asked Questions</h2>
-            <div className="space-y-4">
-              {faqs.map((faq, index) => (
-                <Card key={index}>
-                  <CardHeader>
-                    <CardTitle className="text-lg">{faq.question}</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600">{faq.answer}</p>
-                  </CardContent>
-                </Card>
-              ))}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <div className="bg-white rounded-xl p-8 shadow-lg border">
+                <DollarSign className="h-12 w-12 text-green-600 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Important Documents</h3>
+                <p className="text-gray-600">Birth certificates, passports, wills, property deeds, and insurance policies.</p>
+              </div>
+              <div className="bg-white rounded-xl p-8 shadow-lg border">
+                <Clock className="h-12 w-12 text-green-600 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Valuable Items</h3>
+                <p className="text-gray-600">Jewelry, watches, precious metals, coins, and family heirlooms.</p>
+              </div>
+              <div className="bg-white rounded-xl p-8 shadow-lg border">
+                <Users className="h-12 w-12 text-green-600 mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 mb-4">Digital Media</h3>
+                <p className="text-gray-600">USB drives, external hard drives, backup files, and important digital records.</p>
+              </div>
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 bg-green-50">
+        <section className="py-16 lg:py-24 bg-blue-900 text-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold mb-4">Ready to Secure Your Valuables?</h2>
-            <p className="text-gray-600 mb-8">Visit any of our branch locations to rent your safe deposit box today</p>
-            <div className="flex justify-center space-x-4">
-              <Button size="lg">Find a Branch</Button>
-              <Button variant="outline" size="lg">Call Us</Button>
+            <h2 className="text-4xl font-bold mb-6">Protect what matters most</h2>
+            <p className="text-xl text-blue-100 mb-8">
+              Don't leave your valuables to chance. Rent a safe deposit box today and 
+              enjoy the peace of mind that comes with maximum security protection.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button size="lg" className="bg-green-600 hover:bg-green-700 px-8 py-4 text-lg">
+                Rent a Box Today
+              </Button>
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
+                Visit a Branch
+              </Button>
             </div>
+            <p className="text-sm text-blue-200 mt-6">
+              Available at select branch locations. Annual fee due at rental.
+            </p>
           </div>
         </section>
       </main>
