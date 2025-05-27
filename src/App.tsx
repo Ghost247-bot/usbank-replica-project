@@ -47,6 +47,7 @@ import TaxPlanning from "./pages/wealth/TaxPlanning";
 import InsuranceSolutions from "./pages/wealth/InsuranceSolutions";
 import PortfolioAnalysis from "./pages/wealth/PortfolioAnalysis";
 import AlternativeInvestments from "./pages/wealth/AlternativeInvestments";
+import PortfolioOptions from "./pages/wealth/PortfolioOptions";
 
 // Services Pages
 import FinancialEducation from "./pages/FinancialEducation";
@@ -135,6 +136,7 @@ const App = () => (
           <Route path="/wealth/insurance-solutions" element={<InsuranceSolutions />} />
           <Route path="/wealth/portfolio-analysis" element={<PortfolioAnalysis />} />
           <Route path="/wealth/alternative-investments" element={<AlternativeInvestments />} />
+          <Route path="/wealth/portfolio-options" element={<PortfolioOptions />} />
 
           {/* Services Routes */}
           <Route path="/financial-education" element={<FinancialEducation />} />
