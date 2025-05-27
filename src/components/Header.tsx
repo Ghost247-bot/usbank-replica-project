@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Search, User, Menu, X, ChevronDown, MapPin, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -71,8 +70,8 @@ const Header = () => {
             {/* Logo */}
             <div className="flex items-center">
               <div className="flex-shrink-0">
-                <div className="text-3xl font-bold text-red-600 transform transition-all duration-300 hover:scale-110 cursor-pointer flex items-center">
-                  <div className="w-10 h-10 bg-red-600 rounded-full mr-3 flex items-center justify-center">
+                <div className="text-3xl font-bold text-green-700 transform transition-all duration-300 hover:scale-110 cursor-pointer flex items-center">
+                  <div className="w-10 h-10 bg-green-700 rounded-full mr-3 flex items-center justify-center">
                     <span className="text-white font-bold text-lg">U</span>
                   </div>
                   US Bank
@@ -85,7 +84,7 @@ const Header = () => {
               <NavigationMenu>
                 <NavigationMenuList className="space-x-2">
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="text-gray-700 hover:text-red-600 px-4 py-2 text-sm font-medium transition-all duration-300 bg-transparent hover:bg-red-50">
+                    <NavigationMenuTrigger className="text-gray-700 hover:text-green-700 px-4 py-2 text-sm font-medium transition-all duration-300 bg-transparent hover:bg-green-50">
                       Personal Banking
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
@@ -94,9 +93,9 @@ const Header = () => {
                           <a
                             key={item.title}
                             href={item.href}
-                            className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-red-50 hover:text-red-600"
+                            className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-green-50 hover:text-green-700"
                           >
-                            <div className="text-sm font-medium leading-none group-hover:text-red-600">
+                            <div className="text-sm font-medium leading-none group-hover:text-green-700">
                               {item.title}
                             </div>
                             <p className="line-clamp-2 text-sm leading-snug text-gray-600">
@@ -109,7 +108,7 @@ const Header = () => {
                   </NavigationMenuItem>
 
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="text-gray-700 hover:text-red-600 px-4 py-2 text-sm font-medium transition-all duration-300 bg-transparent hover:bg-red-50">
+                    <NavigationMenuTrigger className="text-gray-700 hover:text-green-700 px-4 py-2 text-sm font-medium transition-all duration-300 bg-transparent hover:bg-green-50">
                       Business Banking
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
@@ -118,9 +117,9 @@ const Header = () => {
                           <a
                             key={item.title}
                             href={item.href}
-                            className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-red-50 hover:text-red-600"
+                            className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-green-50 hover:text-green-700"
                           >
-                            <div className="text-sm font-medium leading-none group-hover:text-red-600">
+                            <div className="text-sm font-medium leading-none group-hover:text-green-700">
                               {item.title}
                             </div>
                             <p className="line-clamp-2 text-sm leading-snug text-gray-600">
@@ -133,7 +132,7 @@ const Header = () => {
                   </NavigationMenuItem>
 
                   <NavigationMenuItem>
-                    <NavigationMenuTrigger className="text-gray-700 hover:text-red-600 px-4 py-2 text-sm font-medium transition-all duration-300 bg-transparent hover:bg-red-50">
+                    <NavigationMenuTrigger className="text-gray-700 hover:text-green-700 px-4 py-2 text-sm font-medium transition-all duration-300 bg-transparent hover:bg-green-50">
                       Wealth Management
                     </NavigationMenuTrigger>
                     <NavigationMenuContent>
@@ -142,9 +141,9 @@ const Header = () => {
                           <a
                             key={item.title}
                             href={item.href}
-                            className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-red-50 hover:text-red-600"
+                            className="group block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-green-50 hover:text-green-700"
                           >
-                            <div className="text-sm font-medium leading-none group-hover:text-red-600">
+                            <div className="text-sm font-medium leading-none group-hover:text-green-700">
                               {item.title}
                             </div>
                             <p className="line-clamp-2 text-sm leading-snug text-gray-600">
@@ -157,7 +156,7 @@ const Header = () => {
                   </NavigationMenuItem>
 
                   <NavigationMenuItem>
-                    <button className="text-gray-700 hover:text-red-600 px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-red-50 rounded-md">
+                    <button className="text-gray-700 hover:text-green-700 px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-green-50 rounded-md">
                       About Us
                     </button>
                   </NavigationMenuItem>
@@ -186,20 +185,20 @@ const Header = () => {
                       onClick={() => setIsSearchVisible(true)}
                       className="p-2 hover:bg-gray-100 rounded-full transition-colors duration-300"
                     >
-                      <Search className="h-5 w-5 text-gray-500 hover:text-red-600" />
+                      <Search className="h-5 w-5 text-gray-500 hover:text-green-700" />
                     </button>
                   )}
                 </div>
               </div>
 
               {/* Sign In Button */}
-              <Button variant="outline" size="sm" className="hidden md:flex items-center space-x-2 border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white transition-all duration-300 hover:scale-105">
+              <Button variant="outline" size="sm" className="hidden md:flex items-center space-x-2 border-2 border-green-700 text-green-700 hover:bg-green-700 hover:text-white transition-all duration-300 hover:scale-105">
                 <User className="h-4 w-4" />
                 <span>Sign In</span>
               </Button>
 
               {/* Open Account Button */}
-              <Button size="sm" className="bg-red-600 hover:bg-red-700 text-white transition-all duration-300 hover:scale-105 hover:shadow-lg px-6">
+              <Button size="sm" className="bg-green-700 hover:bg-green-800 text-white transition-all duration-300 hover:scale-105 hover:shadow-lg px-6">
                 Open Account
               </Button>
 
@@ -235,25 +234,25 @@ const Header = () => {
               {/* Mobile Menu Items */}
               <div className="space-y-2">
                 <div className="border-b pb-2">
-                  <button className="w-full text-left flex items-center justify-between py-3 text-gray-700 hover:text-red-600 font-medium">
+                  <button className="w-full text-left flex items-center justify-between py-3 text-gray-700 hover:text-green-700 font-medium">
                     Personal Banking
                     <ChevronDown className="h-4 w-4" />
                   </button>
                 </div>
                 <div className="border-b pb-2">
-                  <button className="w-full text-left flex items-center justify-between py-3 text-gray-700 hover:text-red-600 font-medium">
+                  <button className="w-full text-left flex items-center justify-between py-3 text-gray-700 hover:text-green-700 font-medium">
                     Business Banking
                     <ChevronDown className="h-4 w-4" />
                   </button>
                 </div>
                 <div className="border-b pb-2">
-                  <button className="w-full text-left flex items-center justify-between py-3 text-gray-700 hover:text-red-600 font-medium">
+                  <button className="w-full text-left flex items-center justify-between py-3 text-gray-700 hover:text-green-700 font-medium">
                     Wealth Management
                     <ChevronDown className="h-4 w-4" />
                   </button>
                 </div>
                 <div className="border-b pb-2">
-                  <button className="w-full text-left py-3 text-gray-700 hover:text-red-600 font-medium">
+                  <button className="w-full text-left py-3 text-gray-700 hover:text-green-700 font-medium">
                     About Us
                   </button>
                 </div>
@@ -261,11 +260,11 @@ const Header = () => {
 
               {/* Mobile Action Buttons */}
               <div className="space-y-3 pt-4">
-                <Button variant="outline" className="w-full border-2 border-red-600 text-red-600 hover:bg-red-600 hover:text-white">
+                <Button variant="outline" className="w-full border-2 border-green-700 text-green-700 hover:bg-green-700 hover:text-white">
                   <User className="h-4 w-4 mr-2" />
                   Sign In
                 </Button>
-                <Button className="w-full bg-red-600 hover:bg-red-700">
+                <Button className="w-full bg-green-700 hover:bg-green-800">
                   Open Account
                 </Button>
               </div>
