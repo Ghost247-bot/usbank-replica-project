@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { CreditCard, DollarSign, TrendingUp, Bell, Download, ArrowUpRight, ArrowDownRight, PieChart, Target, Gift, Settings, Calendar, AlertCircle } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { PieChart as RechartsPieChart, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts';
+import { PieChart as RechartsPieChart, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Pie } from 'recharts';
 
 const UserDashboard = () => {
   // Sample data for charts
