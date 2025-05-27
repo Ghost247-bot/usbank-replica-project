@@ -16,11 +16,11 @@ const DesktopNavigation = () => {
       <NavigationMenu>
         <NavigationMenuList className="space-x-2">
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="text-gray-700 hover:text-green-700 px-4 py-2 text-sm font-medium transition-all duration-300 bg-transparent hover:bg-green-50">
+            <NavigationMenuTrigger className="text-gray-700 hover:text-green-700 px-4 py-2 text-sm font-medium transition-all duration-300 bg-transparent hover:bg-green-50 data-[state=open]:bg-green-50 data-[state=open]:text-green-700">
               Personal Banking
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <div className="grid gap-3 p-6 w-[600px] lg:grid-cols-2">
+              <div className="grid gap-3 p-6 w-[600px] lg:grid-cols-2 bg-white border border-gray-200 shadow-lg rounded-md">
                 {personalBankingItems.map((item) => (
                   <Link
                     key={item.title}
@@ -40,11 +40,11 @@ const DesktopNavigation = () => {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="text-gray-700 hover:text-green-700 px-4 py-2 text-sm font-medium transition-all duration-300 bg-transparent hover:bg-green-50">
+            <NavigationMenuTrigger className="text-gray-700 hover:text-green-700 px-4 py-2 text-sm font-medium transition-all duration-300 bg-transparent hover:bg-green-50 data-[state=open]:bg-green-50 data-[state=open]:text-green-700">
               Business Banking
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <div className="grid gap-3 p-6 w-[600px] lg:grid-cols-2">
+              <div className="grid gap-3 p-6 w-[600px] lg:grid-cols-2 bg-white border border-gray-200 shadow-lg rounded-md">
                 {businessBankingItems.map((item) => (
                   <Link
                     key={item.title}
@@ -64,11 +64,11 @@ const DesktopNavigation = () => {
           </NavigationMenuItem>
 
           <NavigationMenuItem>
-            <NavigationMenuTrigger className="text-gray-700 hover:text-green-700 px-4 py-2 text-sm font-medium transition-all duration-300 bg-transparent hover:bg-green-50">
+            <NavigationMenuTrigger className="text-gray-700 hover:text-green-700 px-4 py-2 text-sm font-medium transition-all duration-300 bg-transparent hover:bg-green-50 data-[state=open]:bg-green-50 data-[state=open]:text-green-700">
               Wealth Management
             </NavigationMenuTrigger>
             <NavigationMenuContent>
-              <div className="grid gap-3 p-6 w-[500px]">
+              <div className="grid gap-3 p-6 w-[500px] bg-white border border-gray-200 shadow-lg rounded-md">
                 {wealthItems.map((item) => (
                   <Link
                     key={item.title}
@@ -90,7 +90,7 @@ const DesktopNavigation = () => {
           <NavigationMenuItem>
             <Link 
               to="/about-us"
-              className="text-gray-700 hover:text-green-700 px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-green-50 rounded-md"
+              className="text-gray-700 hover:text-green-700 px-4 py-2 text-sm font-medium transition-all duration-300 hover:bg-green-50 rounded-md inline-flex items-center justify-center"
             >
               About Us
             </Link>
