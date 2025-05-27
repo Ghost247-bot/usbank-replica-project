@@ -1,7 +1,6 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { X, ChevronDown, TrendingUp, PiggyBank, Shield, Users, Crown, FileText, Calculator, BarChart, Coins, CreditCard, Home, Car, GraduationCap, Smartphone, Globe, Building, DollarSign, Briefcase } from 'lucide-react';
+import { X, ChevronDown, TrendingUp, PiggyBank, Shield, Users, Crown, FileText, Calculator, BarChart, Coins, CreditCard, Home, Car, GraduationCap, Smartphone, Globe, Building, DollarSign, Briefcase, Search } from 'lucide-react';
 import { personalBankingItems, businessBankingItems } from './navigationData';
 
 interface MobileMenuProps {
@@ -11,6 +10,28 @@ interface MobileMenuProps {
 
 const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
   const [expandedSection, setExpandedSection] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  // Close menu on escape key
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen, onClose]);
 
   const wealthServices = [
     {
@@ -126,24 +147,43 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
 
   return (
     <div className="fixed inset-0 z-50 lg:hidden">
-      <div className="fixed inset-0 bg-black bg-opacity-25" onClick={onClose} />
-      <div className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white shadow-xl">
-        <div className="flex items-center justify-between p-4 border-b">
-          <h2 className="text-lg font-semibold">Menu</h2>
+      <div className="fixed inset-0 bg-black bg-opacity-50" onClick={onClose} />
+      <div 
+        className="fixed top-0 right-0 bottom-0 w-full max-w-sm bg-white shadow-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center justify-between p-4 border-b bg-green-50">
+          <h2 className="text-lg font-semibold text-green-800">Menu</h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+            className="p-2 hover:bg-green-100 rounded-lg transition-colors"
+            aria-label="Close menu"
           >
-            <X className="h-6 w-6" />
+            <X className="h-6 w-6 text-green-700" />
           </button>
         </div>
+
+        {/* Mobile Search */}
+        <div className="p-4 border-b md:hidden">
+          <div className="flex items-center bg-gray-100 rounded-full px-4 py-2">
+            <Search className="h-4 w-4 text-gray-500 mr-2" />
+            <input 
+              type="text" 
+              placeholder="Search products, services..." 
+              className="flex-1 bg-transparent outline-none text-sm"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+        </div>
         
-        <div className="py-4 overflow-y-auto">
+        <div className="py-4 overflow-y-auto h-full pb-20">
           <div className="space-y-1 px-4">
+            {/* Personal Banking Section */}
             <div>
               <button
                 onClick={() => toggleSection('personal')}
-                className="flex items-center justify-between w-full px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+                className="flex items-center justify-between w-full px-3 py-3 text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
               >
                 <span>Personal Banking</span>
                 <ChevronDown
@@ -161,10 +201,10 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
                       <Link
                         key={item.href}
                         to={item.href}
-                        className="flex items-center space-x-3 px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+                        className="flex items-center space-x-3 px-3 py-2 text-sm text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
                         onClick={onClose}
                       >
-                        <IconComponent className="h-4 w-4" />
+                        <IconComponent className="h-4 w-4 text-green-600" />
                         <span>{item.title}</span>
                       </Link>
                     );
@@ -173,10 +213,11 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
               )}
             </div>
             
+            {/* Business Banking Section */}
             <div>
               <button
                 onClick={() => toggleSection('business')}
-                className="flex items-center justify-between w-full px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+                className="flex items-center justify-between w-full px-3 py-3 text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
               >
                 <span>Business Banking</span>
                 <ChevronDown
@@ -194,10 +235,10 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
                       <Link
                         key={item.href}
                         to={item.href}
-                        className="flex items-center space-x-3 px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+                        className="flex items-center space-x-3 px-3 py-2 text-sm text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
                         onClick={onClose}
                       >
-                        <IconComponent className="h-4 w-4" />
+                        <IconComponent className="h-4 w-4 text-green-600" />
                         <span>{item.title}</span>
                       </Link>
                     );
@@ -206,10 +247,11 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
               )}
             </div>
             
+            {/* Wealth Management Section */}
             <div>
               <button
                 onClick={() => toggleSection('wealth')}
-                className="flex items-center justify-between w-full px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+                className="flex items-center justify-between w-full px-3 py-3 text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
               >
                 <span>Wealth Management</span>
                 <ChevronDown
@@ -225,10 +267,10 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
                     <Link
                       key={service.href}
                       to={service.href}
-                      className="flex items-center space-x-3 px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+                      className="flex items-center space-x-3 px-3 py-2 text-sm text-gray-600 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
                       onClick={onClose}
                     >
-                      <service.icon className="h-4 w-4" />
+                      <service.icon className="h-4 w-4 text-green-600" />
                       <span>{service.title}</span>
                     </Link>
                   ))}
@@ -236,9 +278,10 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
               )}
             </div>
             
+            {/* About Us and Support */}
             <Link
               to="/about-us"
-              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+              className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
               onClick={onClose}
             >
               About Us
@@ -246,7 +289,7 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
             
             <Link
               to="/customer-service"
-              className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-colors"
+              className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
               onClick={onClose}
             >
               Support
