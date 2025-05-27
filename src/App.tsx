@@ -49,6 +49,14 @@ import PortfolioAnalysis from "./pages/wealth/PortfolioAnalysis";
 import AlternativeInvestments from "./pages/wealth/AlternativeInvestments";
 import PortfolioOptions from "./pages/wealth/PortfolioOptions";
 
+// Portfolio Pages
+import ConservativeGrowthPortfolio from "./pages/wealth/ConservativeGrowthPortfolio";
+import ModerateGrowthPortfolio from "./pages/wealth/ModerateGrowthPortfolio";
+import AggressiveGrowthPortfolio from "./pages/wealth/AggressiveGrowthPortfolio";
+import GrowthPortfolios from "./pages/wealth/GrowthPortfolios";
+import IncomePortfolios from "./pages/wealth/IncomePortfolios";
+import BalancedPortfolios from "./pages/wealth/BalancedPortfolios";
+
 // Services Pages
 import FinancialEducation from "./pages/FinancialEducation";
 import MobileApp from "./pages/MobileApp";
@@ -72,7 +80,7 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Accessibility from "./pages/Accessibility";
 import SiteMap from "./pages/SiteMap";
 
-// New Pages from Hero/Body Links
+// Action Pages
 import GetStarted from "./pages/GetStarted";
 import LearnMore from "./pages/LearnMore";
 import GetApproved from "./pages/GetApproved";
@@ -85,14 +93,6 @@ import AdminLogin from "./pages/AdminLogin";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 
-// Import new portfolio pages
-import ConservativeGrowthPortfolio from "./pages/wealth/ConservativeGrowthPortfolio";
-import ModerateGrowthPortfolio from "./pages/wealth/ModerateGrowthPortfolio";
-import AggressiveGrowthPortfolio from "./pages/wealth/AggressiveGrowthPortfolio";
-import GrowthPortfolios from "./pages/wealth/GrowthPortfolios";
-import IncomePortfolios from "./pages/wealth/IncomePortfolios";
-import BalancedPortfolios from "./pages/wealth/BalancedPortfolios";
-
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -102,9 +102,10 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          {/* Home Route */}
           <Route path="/" element={<Index />} />
           
-          {/* Hero/Body Section Routes */}
+          {/* Action Pages */}
           <Route path="/get-started" element={<GetStarted />} />
           <Route path="/learn-more" element={<LearnMore />} />
           <Route path="/get-approved" element={<GetApproved />} />
@@ -154,7 +155,7 @@ const App = () => (
           <Route path="/wealth/alternative-investments" element={<AlternativeInvestments />} />
           <Route path="/wealth/portfolio-options" element={<PortfolioOptions />} />
 
-          {/* New Portfolio Routes */}
+          {/* Portfolio Routes */}
           <Route path="/wealth/conservative-growth-portfolio" element={<ConservativeGrowthPortfolio />} />
           <Route path="/wealth/moderate-growth-portfolio" element={<ModerateGrowthPortfolio />} />
           <Route path="/wealth/aggressive-growth-portfolio" element={<AggressiveGrowthPortfolio />} />
@@ -169,7 +170,7 @@ const App = () => (
           <Route path="/safe-deposit-boxes" element={<SafeDepositBoxes />} />
           <Route path="/notary-services" element={<NotaryServices />} />
 
-          {/* Other Routes */}
+          {/* Information Pages */}
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/customer-service" element={<CustomerService />} />
           <Route path="/find-locations" element={<FindLocations />} />
@@ -178,7 +179,7 @@ const App = () => (
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
 
-          {/* Authentication and Additional Routes */}
+          {/* Authentication Routes */}
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/create-account" element={<CreateAccount />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -190,7 +191,7 @@ const App = () => (
           <Route path="/user-dashboard" element={<UserDashboard />} />
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
 
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          {/* Catch-all route for 404 - MUST BE LAST */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

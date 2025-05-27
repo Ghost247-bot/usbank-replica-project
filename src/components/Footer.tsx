@@ -20,7 +20,7 @@ const Footer = () => {
       title: "Business Banking",
       links: [
         { name: "Business Checking", href: "/business/business-checking" },
-        { name: "Business Savings", href: "/business/business-checking" },
+        { name: "Business Savings", href: "/business/business-savings" },
         { name: "Business Loans", href: "/business/business-loans" },
         { name: "Merchant Services", href: "/business/merchant-services" },
         { name: "Cash Management", href: "/business/treasury-management" },
@@ -32,10 +32,10 @@ const Footer = () => {
       links: [
         { name: "Investment Services", href: "/wealth/investment-management" },
         { name: "Retirement Planning", href: "/wealth/retirement-planning" },
-        { name: "Financial Planning", href: "/wealth/investment-management" },
+        { name: "Financial Planning", href: "/wealth/financial-planning" },
         { name: "Private Banking", href: "/wealth/private-banking" },
         { name: "Trust Services", href: "/wealth/trust-services" },
-        { name: "Estate Planning", href: "/wealth/trust-services" }
+        { name: "Estate Planning", href: "/wealth/estate-planning" }
       ]
     },
     {
@@ -96,8 +96,8 @@ const Footer = () => {
             <div className="flex space-x-6 text-sm">
               <Link to="/privacy-policy" className="text-gray-400 hover:text-green-500 transition-colors">Privacy</Link>
               <Link to="/terms-of-service" className="text-gray-400 hover:text-green-500 transition-colors">Terms</Link>
-              <a href="#" className="text-gray-400 hover:text-green-500 transition-colors">Accessibility</a>
-              <a href="#" className="text-gray-400 hover:text-green-500 transition-colors">Site Map</a>
+              <Link to="/accessibility" className="text-gray-400 hover:text-green-500 transition-colors">Accessibility</Link>
+              <Link to="/site-map" className="text-gray-400 hover:text-green-500 transition-colors">Site Map</Link>
             </div>
           </div>
         </div>
