@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -30,12 +29,29 @@ import TreasuryManagement from "./pages/business/TreasuryManagement";
 import BusinessLinesOfCredit from "./pages/business/BusinessLinesOfCredit";
 import EquipmentFinancing from "./pages/business/EquipmentFinancing";
 import CommercialRealEstate from "./pages/business/CommercialRealEstate";
+import SbaLoans from "./pages/business/SbaLoans";
+import PayrollServices from "./pages/business/PayrollServices";
+import BusinessInsurance from "./pages/business/BusinessInsurance";
+import InternationalBanking from "./pages/business/InternationalBanking";
 
 // Wealth Management Pages
 import InvestmentManagement from "./pages/wealth/InvestmentManagement";
 import RetirementPlanning from "./pages/wealth/RetirementPlanning";
 import TrustServices from "./pages/wealth/TrustServices";
 import PrivateBanking from "./pages/wealth/PrivateBanking";
+import FinancialPlanning from "./pages/wealth/FinancialPlanning";
+import EstatePlanning from "./pages/wealth/EstatePlanning";
+import TaxPlanning from "./pages/wealth/TaxPlanning";
+import InsuranceSolutions from "./pages/wealth/InsuranceSolutions";
+import PortfolioAnalysis from "./pages/wealth/PortfolioAnalysis";
+import AlternativeInvestments from "./pages/wealth/AlternativeInvestments";
+
+// Services Pages
+import FinancialEducation from "./pages/FinancialEducation";
+import MobileApp from "./pages/MobileApp";
+import WireTransfers from "./pages/WireTransfers";
+import SafeDepositBoxes from "./pages/SafeDepositBoxes";
+import NotaryServices from "./pages/NotaryServices";
 
 // Other Pages
 import AboutUs from "./pages/AboutUs";
@@ -80,12 +96,29 @@ const App = () => (
           <Route path="/business/business-lines-of-credit" element={<BusinessLinesOfCredit />} />
           <Route path="/business/equipment-financing" element={<EquipmentFinancing />} />
           <Route path="/business/commercial-real-estate" element={<CommercialRealEstate />} />
+          <Route path="/business/sba-loans" element={<SbaLoans />} />
+          <Route path="/business/payroll-services" element={<PayrollServices />} />
+          <Route path="/business/business-insurance" element={<BusinessInsurance />} />
+          <Route path="/business/international-banking" element={<InternationalBanking />} />
 
           {/* Wealth Management Routes */}
           <Route path="/wealth/investment-management" element={<InvestmentManagement />} />
           <Route path="/wealth/retirement-planning" element={<RetirementPlanning />} />
           <Route path="/wealth/trust-services" element={<TrustServices />} />
           <Route path="/wealth/private-banking" element={<PrivateBanking />} />
+          <Route path="/wealth/financial-planning" element={<FinancialPlanning />} />
+          <Route path="/wealth/estate-planning" element={<EstatePlanning />} />
+          <Route path="/wealth/tax-planning" element={<TaxPlanning />} />
+          <Route path="/wealth/insurance-solutions" element={<InsuranceSolutions />} />
+          <Route path="/wealth/portfolio-analysis" element={<PortfolioAnalysis />} />
+          <Route path="/wealth/alternative-investments" element={<AlternativeInvestments />} />
+
+          {/* Services Routes */}
+          <Route path="/financial-education" element={<FinancialEducation />} />
+          <Route path="/mobile-app" element={<MobileApp />} />
+          <Route path="/wire-transfers" element={<WireTransfers />} />
+          <Route path="/safe-deposit-boxes" element={<SafeDepositBoxes />} />
+          <Route path="/notary-services" element={<NotaryServices />} />
 
           {/* Other Routes */}
           <Route path="/about-us" element={<AboutUs />} />
