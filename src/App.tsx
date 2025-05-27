@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -81,6 +80,14 @@ import AdminLogin from "./pages/AdminLogin";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 
+// Import new portfolio pages
+import ConservativeGrowthPortfolio from "./pages/wealth/ConservativeGrowthPortfolio";
+import ModerateGrowthPortfolio from "./pages/wealth/ModerateGrowthPortfolio";
+import AggressiveGrowthPortfolio from "./pages/wealth/AggressiveGrowthPortfolio";
+import GrowthPortfolios from "./pages/wealth/GrowthPortfolios";
+import IncomePortfolios from "./pages/wealth/IncomePortfolios";
+import BalancedPortfolios from "./pages/wealth/BalancedPortfolios";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -137,6 +144,14 @@ const App = () => (
           <Route path="/wealth/portfolio-analysis" element={<PortfolioAnalysis />} />
           <Route path="/wealth/alternative-investments" element={<AlternativeInvestments />} />
           <Route path="/wealth/portfolio-options" element={<PortfolioOptions />} />
+
+          {/* New Portfolio Routes */}
+          <Route path="/wealth/conservative-growth-portfolio" element={<ConservativeGrowthPortfolio />} />
+          <Route path="/wealth/moderate-growth-portfolio" element={<ModerateGrowthPortfolio />} />
+          <Route path="/wealth/aggressive-growth-portfolio" element={<AggressiveGrowthPortfolio />} />
+          <Route path="/wealth/growth-portfolios" element={<GrowthPortfolios />} />
+          <Route path="/wealth/income-portfolios" element={<IncomePortfolios />} />
+          <Route path="/wealth/balanced-portfolios" element={<BalancedPortfolios />} />
 
           {/* Services Routes */}
           <Route path="/financial-education" element={<FinancialEducation />} />

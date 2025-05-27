@@ -2,23 +2,28 @@
 import React from 'react';
 import { CheckCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 
 const InvestmentOptions = () => {
   const investmentOptions = [
     {
       title: "Growth Portfolios",
       description: "Designed for long-term capital appreciation with higher growth potential",
-      features: ["Equity-focused allocations", "International diversification", "Growth-oriented strategies"]
+      features: ["Equity-focused allocations", "International diversification", "Growth-oriented strategies"],
+      route: "/wealth/growth-portfolios"
     },
     {
       title: "Income Portfolios", 
       description: "Focus on generating steady income while preserving capital",
-      features: ["Dividend-paying stocks", "Fixed-income securities", "REIT investments"]
+      features: ["Dividend-paying stocks", "Fixed-income securities", "REIT investments"],
+      route: "/wealth/income-portfolios"
     },
     {
       title: "Balanced Portfolios",
       description: "Combination of growth and income strategies for moderate risk tolerance",
-      features: ["Diversified asset allocation", "Risk-adjusted returns", "Flexible rebalancing"]
+      features: ["Diversified asset allocation", "Risk-adjusted returns", "Flexible rebalancing"],
+      route: "/wealth/balanced-portfolios"
     }
   ];
 
@@ -48,9 +53,11 @@ const InvestmentOptions = () => {
                     </li>
                   ))}
                 </ul>
-                <button className="w-full mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
-                  Learn More
-                </button>
+                <Link to={option.route}>
+                  <Button className="w-full mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                    Learn More
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
           ))}

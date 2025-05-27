@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -26,7 +25,8 @@ const PortfolioOptions = () => {
         "Regular rebalancing"
       ],
       icon: Shield,
-      color: "green"
+      color: "green",
+      route: "/wealth/conservative-growth-portfolio"
     },
     {
       title: "Moderate Growth Portfolio", 
@@ -45,7 +45,8 @@ const PortfolioOptions = () => {
         "International exposure"
       ],
       icon: Target,
-      color: "blue"
+      color: "blue",
+      route: "/wealth/moderate-growth-portfolio"
     },
     {
       title: "Aggressive Growth Portfolio",
@@ -64,7 +65,8 @@ const PortfolioOptions = () => {
         "Technology sector focus"
       ],
       icon: TrendingUp,
-      color: "purple"
+      color: "purple",
+      route: "/wealth/aggressive-growth-portfolio"
     }
   ];
 
@@ -173,9 +175,11 @@ const PortfolioOptions = () => {
                       </ul>
                     </div>
 
-                    <Button className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors">
-                      Select This Portfolio
-                    </Button>
+                    <Link to={portfolio.route}>
+                      <Button className="w-full bg-blue-600 text-white hover:bg-blue-700 transition-colors">
+                        Select This Portfolio
+                      </Button>
+                    </Link>
                   </CardContent>
                 </Card>
               ))}
