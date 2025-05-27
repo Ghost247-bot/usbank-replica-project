@@ -50,7 +50,7 @@ const Header = () => {
           </div>
         </div>
 
-        <MobileMenu isOpen={isMobileMenuOpen} />
+        <MobileMenu isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
       </header>
     </>
   );
