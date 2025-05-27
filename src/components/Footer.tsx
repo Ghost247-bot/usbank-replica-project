@@ -57,7 +57,7 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Logo and Description */}
           <div className="lg:col-span-1">
-            <div className="text-2xl font-bold text-green-500 mb-4">US Bank</div>
+            <div className="text-2xl font-bold text-green-500 mb-4">Moonstone Holdings</div>
             <p className="text-gray-400 text-sm mb-4">
               Your trusted financial partner, providing innovative banking solutions 
               to help you achieve your financial goals.
@@ -91,7 +91,7 @@ const Footer = () => {
         <div className="border-t border-gray-800 mt-12 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-gray-400 text-sm mb-4 md:mb-0">
-              © 2024 US Bank. All rights reserved. Member FDIC. Equal Housing Lender.
+              © 2024 Moonstone Holdings. All rights reserved. Member FDIC. Equal Housing Lender.
             </div>
             <div className="flex space-x-6 text-sm">
               <Link to="/privacy-policy" className="text-gray-400 hover:text-green-500 transition-colors">Privacy</Link>
