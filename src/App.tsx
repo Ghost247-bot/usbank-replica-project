@@ -93,6 +93,12 @@ import AdminLogin from "./pages/AdminLogin";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 
+// New Action Pages
+import ScheduleConsultation from "./pages/ScheduleConsultation";
+import CompareAccountOptions from "./pages/CompareAccountOptions";
+import CompareRates from "./pages/CompareRates";
+import GetQuote from "./pages/GetQuote";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -112,6 +118,10 @@ const App = () => (
           <Route path="/start-investing" element={<StartInvesting />} />
           <Route path="/download-app" element={<DownloadApp />} />
           <Route path="/get-started-today" element={<GetStartedToday />} />
+          <Route path="/schedule-consultation" element={<ScheduleConsultation />} />
+          <Route path="/compare-account-options" element={<CompareAccountOptions />} />
+          <Route path="/compare-rates" element={<CompareRates />} />
+          <Route path="/get-quote" element={<GetQuote />} />
 
           {/* Personal Banking Routes */}
           <Route path="/personal/checking-accounts" element={<CheckingAccounts />} />

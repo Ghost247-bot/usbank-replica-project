@@ -14,7 +14,7 @@ const PortfolioHero = () => {
           <p className="text-xl mb-8 text-blue-100 leading-relaxed max-w-3xl mx-auto">
             Explore our range of professionally managed investment portfolios designed to meet different risk tolerances and financial objectives.
           </p>
-          <Link to="/contact-us">
+          <Link to="/schedule-consultation">
             <Button className="bg-white text-blue-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-lg">
               Schedule Consultation
             </Button>

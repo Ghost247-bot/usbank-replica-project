@@ -12,7 +12,7 @@ const PortfolioCTA = () => {
           Our investment professionals are here to help you choose the right portfolio for your financial goals and risk tolerance.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <Link to="/contact-us">
+          <Link to="/schedule-consultation">
             <Button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-lg">
               Schedule Consultation
             </Button>

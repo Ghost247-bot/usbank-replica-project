@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const BusinessSavingsCTA = () => {
   return (
@@ -10,12 +11,16 @@ const BusinessSavingsCTA = () => {
           Open a business savings account today and start earning competitive interest on your business funds.
         </p>
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-          <button className="bg-green-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors text-lg">
-            Open Account Now
-          </button>
-          <button className="border-2 border-green-600 text-green-600 px-8 py-4 rounded-lg font-semibold hover:bg-green-600 hover:text-white transition-colors text-lg">
-            Compare Account Options
-          </button>
+          <Link to="/create-account">
+            <button className="bg-green-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-green-700 transition-colors text-lg">
+              Open Account Now
+            </button>
+          </Link>
+          <Link to="/compare-account-options">
+            <button className="border-2 border-green-600 text-green-600 px-8 py-4 rounded-lg font-semibold hover:bg-green-600 hover:text-white transition-colors text-lg">
+              Compare Account Options
+            </button>
+          </Link>
         </div>
       </div>
     </section>
