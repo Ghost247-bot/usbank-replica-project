@@ -28,22 +28,22 @@ const App = () => (
           <Route path="/" element={<Index />} />
           
           {/* Action Pages */}
-          <ActionRoutes />
+          {ActionRoutes()}
 
           {/* Personal Banking Routes */}
-          <PersonalBankingRoutes />
+          {PersonalBankingRoutes()}
 
           {/* Business Banking Routes */}
-          <BusinessBankingRoutes />
+          {BusinessBankingRoutes()}
 
           {/* Wealth Management Routes */}
-          <WealthManagementRoutes />
+          {WealthManagementRoutes()}
 
           {/* Services Routes */}
-          <ServicesRoutes />
+          {ServicesRoutes()}
 
           {/* Authentication and Dashboard Routes */}
-          <AuthDashboardRoutes />
+          {AuthDashboardRoutes()}
 
           {/* Catch-all route for 404 - MUST BE LAST */}
           <Route path="*" element={<NotFound />} />
