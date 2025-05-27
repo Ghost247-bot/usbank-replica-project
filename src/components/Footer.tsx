@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 const Footer = () => {
@@ -7,45 +8,45 @@ const Footer = () => {
     {
       title: "Personal Banking",
       links: [
-        "Checking Accounts",
-        "Savings Accounts",
-        "Credit Cards",
-        "Personal Loans",
-        "Mortgages",
-        "Auto Loans"
+        { name: "Checking Accounts", href: "/personal/checking-accounts" },
+        { name: "Savings Accounts", href: "/personal/savings-accounts" },
+        { name: "Credit Cards", href: "/personal/credit-cards" },
+        { name: "Personal Loans", href: "/personal/personal-loans" },
+        { name: "Mortgages", href: "/personal/mortgages" },
+        { name: "Auto Loans", href: "/personal/auto-loans" }
       ]
     },
     {
       title: "Business Banking",
       links: [
-        "Business Checking",
-        "Business Savings",
-        "Business Loans",
-        "Merchant Services",
-        "Cash Management",
-        "Business Credit Cards"
+        { name: "Business Checking", href: "/business/business-checking" },
+        { name: "Business Savings", href: "/business/business-checking" },
+        { name: "Business Loans", href: "/business/business-loans" },
+        { name: "Merchant Services", href: "/business/merchant-services" },
+        { name: "Cash Management", href: "/business/treasury-management" },
+        { name: "Business Credit Cards", href: "/business/business-credit-cards" }
       ]
     },
     {
       title: "Wealth Management",
       links: [
-        "Investment Services",
-        "Retirement Planning",
-        "Financial Planning",
-        "Private Banking",
-        "Trust Services",
-        "Estate Planning"
+        { name: "Investment Services", href: "/wealth/investment-management" },
+        { name: "Retirement Planning", href: "/wealth/retirement-planning" },
+        { name: "Financial Planning", href: "/wealth/investment-management" },
+        { name: "Private Banking", href: "/wealth/private-banking" },
+        { name: "Trust Services", href: "/wealth/trust-services" },
+        { name: "Estate Planning", href: "/wealth/trust-services" }
       ]
     },
     {
       title: "Support",
       links: [
-        "Customer Service",
-        "Find Locations",
-        "Contact Us",
-        "Security Center",
-        "Privacy Policy",
-        "Terms of Service"
+        { name: "Customer Service", href: "/customer-service" },
+        { name: "Find Locations", href: "/find-locations" },
+        { name: "Contact Us", href: "/contact-us" },
+        { name: "Security Center", href: "/security-center" },
+        { name: "Privacy Policy", href: "/privacy-policy" },
+        { name: "Terms of Service", href: "/terms-of-service" }
       ]
     }
   ];
@@ -76,9 +77,9 @@ const Footer = () => {
               <ul className="space-y-2">
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
-                    <a href="#" className="text-gray-400 hover:text-green-500 text-sm transition-colors">
-                      {link}
-                    </a>
+                    <Link to={link.href} className="text-gray-400 hover:text-green-500 text-sm transition-colors">
+                      {link.name}
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -93,8 +94,8 @@ const Footer = () => {
               © 2024 US Bank. All rights reserved. Member FDIC. Equal Housing Lender.
             </div>
             <div className="flex space-x-6 text-sm">
-              <a href="#" className="text-gray-400 hover:text-green-500 transition-colors">Privacy</a>
-              <a href="#" className="text-gray-400 hover:text-green-500 transition-colors">Terms</a>
+              <Link to="/privacy-policy" className="text-gray-400 hover:text-green-500 transition-colors">Privacy</Link>
+              <Link to="/terms-of-service" className="text-gray-400 hover:text-green-500 transition-colors">Terms</Link>
               <a href="#" className="text-gray-400 hover:text-green-500 transition-colors">Accessibility</a>
               <a href="#" className="text-gray-400 hover:text-green-500 transition-colors">Site Map</a>
             </div>

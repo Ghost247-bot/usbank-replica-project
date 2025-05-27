@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -30,6 +31,12 @@ import PrivateBanking from "./pages/wealth/PrivateBanking";
 
 // Other Pages
 import AboutUs from "./pages/AboutUs";
+import CustomerService from "./pages/CustomerService";
+import FindLocations from "./pages/FindLocations";
+import ContactUs from "./pages/ContactUs";
+import SecurityCenter from "./pages/SecurityCenter";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermsOfService from "./pages/TermsOfService";
 
 const queryClient = new QueryClient();
 
@@ -66,6 +73,12 @@ const App = () => (
 
           {/* Other Routes */}
           <Route path="/about-us" element={<AboutUs />} />
+          <Route path="/customer-service" element={<CustomerService />} />
+          <Route path="/find-locations" element={<FindLocations />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/security-center" element={<SecurityCenter />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-of-service" element={<TermsOfService />} />
 
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
