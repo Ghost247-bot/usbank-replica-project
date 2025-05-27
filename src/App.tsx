@@ -6,6 +6,31 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 
+// Personal Banking Pages
+import CheckingAccounts from "./pages/personal/CheckingAccounts";
+import SavingsAccounts from "./pages/personal/SavingsAccounts";
+import CreditCards from "./pages/personal/CreditCards";
+import Mortgages from "./pages/personal/Mortgages";
+import PersonalLoans from "./pages/personal/PersonalLoans";
+import AutoLoans from "./pages/personal/AutoLoans";
+
+// Business Banking Pages
+import BusinessChecking from "./pages/business/BusinessChecking";
+import BusinessCreditCards from "./pages/business/BusinessCreditCards";
+import BusinessLoans from "./pages/business/BusinessLoans";
+import MerchantServices from "./pages/business/MerchantServices";
+import TreasuryManagement from "./pages/business/TreasuryManagement";
+import BusinessLinesOfCredit from "./pages/business/BusinessLinesOfCredit";
+
+// Wealth Management Pages
+import InvestmentManagement from "./pages/wealth/InvestmentManagement";
+import RetirementPlanning from "./pages/wealth/RetirementPlanning";
+import TrustServices from "./pages/wealth/TrustServices";
+import PrivateBanking from "./pages/wealth/PrivateBanking";
+
+// Other Pages
+import AboutUs from "./pages/AboutUs";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -16,6 +41,32 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          
+          {/* Personal Banking Routes */}
+          <Route path="/personal/checking-accounts" element={<CheckingAccounts />} />
+          <Route path="/personal/savings-accounts" element={<SavingsAccounts />} />
+          <Route path="/personal/credit-cards" element={<CreditCards />} />
+          <Route path="/personal/mortgages" element={<Mortgages />} />
+          <Route path="/personal/personal-loans" element={<PersonalLoans />} />
+          <Route path="/personal/auto-loans" element={<AutoLoans />} />
+
+          {/* Business Banking Routes */}
+          <Route path="/business/business-checking" element={<BusinessChecking />} />
+          <Route path="/business/business-credit-cards" element={<BusinessCreditCards />} />
+          <Route path="/business/business-loans" element={<BusinessLoans />} />
+          <Route path="/business/merchant-services" element={<MerchantServices />} />
+          <Route path="/business/treasury-management" element={<TreasuryManagement />} />
+          <Route path="/business/business-lines-of-credit" element={<BusinessLinesOfCredit />} />
+
+          {/* Wealth Management Routes */}
+          <Route path="/wealth/investment-management" element={<InvestmentManagement />} />
+          <Route path="/wealth/retirement-planning" element={<RetirementPlanning />} />
+          <Route path="/wealth/trust-services" element={<TrustServices />} />
+          <Route path="/wealth/private-banking" element={<PrivateBanking />} />
+
+          {/* Other Routes */}
+          <Route path="/about-us" element={<AboutUs />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
