@@ -3,6 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CreditCard, Home, Briefcase, PiggyBank, TrendingUp, Shield, ArrowRight, CheckCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const ServiceCards = () => {
   const services = [
@@ -12,6 +13,7 @@ const ServiceCards = () => {
       description: "Start your financial journey with our award-winning accounts designed for everyday banking.",
       features: ["No monthly maintenance fees", "Mobile banking with instant alerts", "Free ATM access nationwide", "Overdraft protection"],
       cta: "Open Account",
+      link: "/personal/checking-accounts",
       color: "text-blue-600",
       bgColor: "bg-blue-50",
       highlight: "Most Popular"
@@ -22,6 +24,7 @@ const ServiceCards = () => {
       description: "Turn your homeownership dreams into reality with our competitive mortgage solutions.",
       features: ["Rates as low as 3.2% APR", "Fast 15-day approval process", "Expert loan officers", "First-time buyer programs"],
       cta: "Get Pre-approved",
+      link: "/get-approved",
       color: "text-green-600",
       bgColor: "bg-green-50"
     },
@@ -31,6 +34,7 @@ const ServiceCards = () => {
       description: "Comprehensive banking solutions tailored for businesses of every size and industry.",
       features: ["Business checking accounts", "Commercial lending solutions", "Advanced cash management", "Merchant payment services"],
       cta: "Learn More",
+      link: "/business/business-checking",
       color: "text-purple-600",
       bgColor: "bg-purple-50"
     },
@@ -40,6 +44,7 @@ const ServiceCards = () => {
       description: "Access flexible funding options for life's important moments and unexpected expenses.",
       features: ["Fixed rates from 5.99% APR", "Flexible 24-84 month terms", "Same-day decisions", "No prepayment penalties"],
       cta: "Apply Now",
+      link: "/get-approved",
       color: "text-orange-600",
       bgColor: "bg-orange-50"
     },
@@ -49,6 +54,7 @@ const ServiceCards = () => {
       description: "Build long-term wealth with our comprehensive investment and retirement planning services.",
       features: ["Professional portfolio management", "401(k) and IRA options", "Financial planning consultations", "Low-cost investment options"],
       cta: "Start Investing",
+      link: "/wealth/investment-management",
       color: "text-green-800",
       bgColor: "bg-green-50"
     },
@@ -58,6 +64,7 @@ const ServiceCards = () => {
       description: "Protect what matters most with comprehensive coverage options for every stage of life.",
       features: ["Life and disability insurance", "Auto and home coverage", "Competitive rates", "Bundle and save discounts"],
       cta: "Get Quote",
+      link: "/wealth/insurance-solutions",
       color: "text-indigo-600",
       bgColor: "bg-indigo-50"
     }
@@ -120,10 +127,12 @@ const ServiceCards = () => {
                     ))}
                   </div>
                   
-                  <Button className="w-full bg-gray-900 hover:bg-gray-800 text-white border-0 transition-all duration-300 hover:shadow-lg font-medium py-3 group">
-                    <span className="mr-2">{service.cta}</span>
-                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-                  </Button>
+                  <Link to={service.link}>
+                    <Button className="w-full bg-gray-900 hover:bg-gray-800 text-white border-0 transition-all duration-300 hover:shadow-lg font-medium py-3 group">
+                      <span className="mr-2">{service.cta}</span>
+                      <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
             );
@@ -139,12 +148,16 @@ const ServiceCards = () => {
             Join millions of satisfied customers who trust us with their financial future. Open an account today and experience banking done right.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <Button size="lg" className="bg-green-800 hover:bg-green-900 text-white font-medium px-10 py-4 text-lg transition-all duration-300 hover:shadow-lg">
-              Open Account Today
-            </Button>
-            <Button variant="outline" size="lg" className="border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-medium px-10 py-4 text-lg transition-all duration-300">
-              Schedule Consultation
-            </Button>
+            <Link to="/personal/checking-accounts">
+              <Button size="lg" className="bg-green-800 hover:bg-green-900 text-white font-medium px-10 py-4 text-lg transition-all duration-300 hover:shadow-lg">
+                Open Account Today
+              </Button>
+            </Link>
+            <Link to="/contact-us">
+              <Button variant="outline" size="lg" className="border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-medium px-10 py-4 text-lg transition-all duration-300">
+                Schedule Consultation
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

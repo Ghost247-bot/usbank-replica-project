@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -74,6 +75,7 @@ import SiteMap from "./pages/SiteMap";
 // New Pages from Hero/Body Links
 import GetStarted from "./pages/GetStarted";
 import LearnMore from "./pages/LearnMore";
+import GetApproved from "./pages/GetApproved";
 
 // Dashboard Pages
 import AdminLogin from "./pages/AdminLogin";
@@ -102,6 +104,7 @@ const App = () => (
           {/* Hero/Body Section Routes */}
           <Route path="/get-started" element={<GetStarted />} />
           <Route path="/learn-more" element={<LearnMore />} />
+          <Route path="/get-approved" element={<GetApproved />} />
 
           {/* Personal Banking Routes */}
           <Route path="/personal/checking-accounts" element={<CheckingAccounts />} />
