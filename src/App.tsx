@@ -63,9 +63,10 @@ import SecurityCenter from "./pages/SecurityCenter";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 
-// New Pages
+// Authentication and Additional Pages
 import SignIn from "./pages/SignIn";
 import CreateAccount from "./pages/CreateAccount";
+import ForgotPassword from "./pages/ForgotPassword";
 import Accessibility from "./pages/Accessibility";
 import SiteMap from "./pages/SiteMap";
 
@@ -136,9 +137,10 @@ const App = () => (
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-of-service" element={<TermsOfService />} />
 
-          {/* New Routes */}
+          {/* Authentication and Additional Routes */}
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/create-account" element={<CreateAccount />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/accessibility" element={<Accessibility />} />
           <Route path="/site-map" element={<SiteMap />} />
 
