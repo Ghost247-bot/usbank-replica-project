@@ -1,17 +1,25 @@
 
-import React from 'react';
-import { Search, User, ChevronDown, MapPin, Phone } from 'lucide-react';
+import React, { useState } from 'react';
+import { Search, User, ChevronDown, ChevronUp, MapPin, Phone } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { personalBankingItems, businessBankingItems, wealthItems, additionalServicesItems } from './navigationData';
 
 interface MobileMenuProps {
   isOpen: boolean;
 }
 
 const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen }) => {
+  const [expandedSection, setExpandedSection] = useState<string | null>(null);
+
   if (!isOpen) return null;
 
+  const toggleSection = (section: string) => {
+    setExpandedSection(expandedSection === section ? null : section);
+  };
+
   return (
-    <div className="lg:hidden bg-white border-t animate-fade-in">
+    <div className="lg:hidden bg-white border-t animate-fade-in max-h-screen overflow-y-auto">
       <div className="px-4 py-6 space-y-4">
         {/* Mobile Search */}
         <div className="flex items-center bg-gray-100 rounded-lg px-4 py-3">
@@ -25,28 +33,126 @@ const MobileMenu: React.FC<MobileMenuProps> = ({ isOpen }) => {
 
         {/* Mobile Menu Items */}
         <div className="space-y-2">
+          {/* Personal Banking */}
           <div className="border-b pb-2">
-            <button className="w-full text-left flex items-center justify-between py-3 text-gray-700 hover:text-green-700 font-medium">
+            <button 
+              className="w-full text-left flex items-center justify-between py-3 text-gray-700 hover:text-green-700 font-medium"
+              onClick={() => toggleSection('personal')}
+            >
               Personal Banking
-              <ChevronDown className="h-4 w-4" />
+              {expandedSection === 'personal' ? (
+                <ChevronUp className="h-4 w-4" />
+              ) : (
+                <ChevronDown className="h-4 w-4" />
+              )}
             </button>
+            {expandedSection === 'personal' && (
+              <div className="pl-4 space-y-2 mt-2">
+                {personalBankingItems.map((item) => (
+                  <Link
+                    key={item.title}
+                    to={item.href}
+                    className="block py-2 text-sm text-gray-600 hover:text-green-700 hover:bg-green-50 rounded px-2"
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
+
+          {/* Business Banking */}
           <div className="border-b pb-2">
-            <button className="w-full text-left flex items-center justify-between py-3 text-gray-700 hover:text-green-700 font-medium">
+            <button 
+              className="w-full text-left flex items-center justify-between py-3 text-gray-700 hover:text-green-700 font-medium"
+              onClick={() => toggleSection('business')}
+            >
               Business Banking
-              <ChevronDown className="h-4 w-4" />
+              {expandedSection === 'business' ? (
+                <ChevronUp className="h-4 w-4" />
+              ) : (
+                <ChevronDown className="h-4 w-4" />
+              )}
             </button>
+            {expandedSection === 'business' && (
+              <div className="pl-4 space-y-2 mt-2">
+                {businessBankingItems.map((item) => (
+                  <Link
+                    key={item.title}
+                    to={item.href}
+                    className="block py-2 text-sm text-gray-600 hover:text-green-700 hover:bg-green-50 rounded px-2"
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
+
+          {/* Wealth Management */}
           <div className="border-b pb-2">
-            <button className="w-full text-left flex items-center justify-between py-3 text-gray-700 hover:text-green-700 font-medium">
+            <button 
+              className="w-full text-left flex items-center justify-between py-3 text-gray-700 hover:text-green-700 font-medium"
+              onClick={() => toggleSection('wealth')}
+            >
               Wealth Management
-              <ChevronDown className="h-4 w-4" />
+              {expandedSection === 'wealth' ? (
+                <ChevronUp className="h-4 w-4" />
+              ) : (
+                <ChevronDown className="h-4 w-4" />
+              )}
             </button>
+            {expandedSection === 'wealth' && (
+              <div className="pl-4 space-y-2 mt-2">
+                {wealthItems.map((item) => (
+                  <Link
+                    key={item.title}
+                    to={item.href}
+                    className="block py-2 text-sm text-gray-600 hover:text-green-700 hover:bg-green-50 rounded px-2"
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+            )}
           </div>
+
+          {/* Services */}
           <div className="border-b pb-2">
-            <button className="w-full text-left py-3 text-gray-700 hover:text-green-700 font-medium">
-              About Us
+            <button 
+              className="w-full text-left flex items-center justify-between py-3 text-gray-700 hover:text-green-700 font-medium"
+              onClick={() => toggleSection('services')}
+            >
+              Services
+              {expandedSection === 'services' ? (
+                <ChevronUp className="h-4 w-4" />
+              ) : (
+                <ChevronDown className="h-4 w-4" />
+              )}
             </button>
+            {expandedSection === 'services' && (
+              <div className="pl-4 space-y-2 mt-2">
+                {additionalServicesItems.map((item) => (
+                  <Link
+                    key={item.title}
+                    to={item.href}
+                    className="block py-2 text-sm text-gray-600 hover:text-green-700 hover:bg-green-50 rounded px-2"
+                  >
+                    {item.title}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* About Us */}
+          <div className="border-b pb-2">
+            <Link 
+              to="/about-us"
+              className="w-full text-left block py-3 text-gray-700 hover:text-green-700 font-medium"
+            >
+              About Us
+            </Link>
           </div>
         </div>
 
