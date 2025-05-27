@@ -49,8 +49,8 @@ const ServiceCards = () => {
       description: "Build long-term wealth with our comprehensive investment and retirement planning services.",
       features: ["Professional portfolio management", "401(k) and IRA options", "Financial planning consultations", "Low-cost investment options"],
       cta: "Start Investing",
-      color: "text-red-600",
-      bgColor: "bg-red-50"
+      color: "text-green-800",
+      bgColor: "bg-green-50"
     },
     {
       icon: Shield,
@@ -69,14 +69,14 @@ const ServiceCards = () => {
         {/* Header Section */}
         <div className="text-center mb-20">
           <div className="inline-flex items-center px-6 py-2 bg-white border border-gray-200 rounded-full text-sm font-medium text-gray-600 mb-8 shadow-sm">
-            <span className="w-2 h-2 bg-red-500 rounded-full mr-3"></span>
+            <span className="w-2 h-2 bg-green-800 rounded-full mr-3"></span>
             Trusted by over 2 million customers
           </div>
           <h2 className="text-5xl lg:text-6xl font-serif font-bold text-gray-900 mb-6 leading-tight">
             Complete Banking
-            <span className="block text-red-600 italic">Solutions</span>
+            <span className="block text-green-800 italic">Solutions</span>
           </h2>
-          <div className="w-24 h-1 bg-red-600 mx-auto mb-8"></div>
+          <div className="w-24 h-1 bg-green-800 mx-auto mb-8"></div>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed font-light">
             Discover our comprehensive suite of financial products and services, designed to support your goals at every stage of life
           </p>
@@ -93,7 +93,7 @@ const ServiceCards = () => {
               >
                 {/* Highlight Badge */}
                 {service.highlight && (
-                  <div className="absolute -top-3 -right-3 bg-red-600 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg z-10">
+                  <div className="absolute -top-3 -right-3 bg-green-800 text-white text-xs font-bold px-4 py-2 rounded-full shadow-lg z-10">
                     {service.highlight}
                   </div>
                 )}
@@ -139,7 +139,7 @@ const ServiceCards = () => {
             Join millions of satisfied customers who trust us with their financial future. Open an account today and experience banking done right.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <Button size="lg" className="bg-red-600 hover:bg-red-700 text-white font-medium px-10 py-4 text-lg transition-all duration-300 hover:shadow-lg">
+            <Button size="lg" className="bg-green-800 hover:bg-green-900 text-white font-medium px-10 py-4 text-lg transition-all duration-300 hover:shadow-lg">
               Open Account Today
             </Button>
             <Button variant="outline" size="lg" className="border-2 border-gray-900 text-gray-900 hover:bg-gray-900 hover:text-white font-medium px-10 py-4 text-lg transition-all duration-300">
