@@ -2,40 +2,57 @@
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { CheckCircle, Star, Shield, Smartphone, Heart, Users, DollarSign, Clock } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Shield, Heart, Car, Home, CheckCircle, DollarSign, Umbrella, Award } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 const InsuranceSolutions = () => {
+  const keyFeatures = [
+    {
+      icon: Shield,
+      title: "Life Insurance",
+      description: "Protect your family's financial future with comprehensive life insurance coverage options."
+    },
+    {
+      icon: Heart,
+      title: "Health Insurance",
+      description: "Quality healthcare coverage to protect you and your family from medical expenses."
+    },
+    {
+      icon: Home,
+      title: "Property Insurance",
+      description: "Comprehensive coverage for your home, belongings, and other valuable property."
+    },
+    {
+      icon: Umbrella,
+      title: "Liability Protection",
+      description: "Additional liability coverage to protect your assets from potential lawsuits."
+    }
+  ];
+
   const benefits = [
     "Comprehensive coverage options",
     "Competitive premium rates",
     "Expert insurance guidance",
     "Claims support services",
-    "Bundled policy discounts",
-    "24/7 customer service"
+    "Policy review and updates",
+    "Multi-policy discounts"
   ];
 
-  const insuranceFeatures = [
+  const insuranceTypes = [
     {
-      icon: Heart,
-      title: "Life insurance",
-      description: "Protect your family's financial future with term and permanent life insurance"
+      title: "Life Insurance",
+      description: "Term and permanent life insurance to protect your loved ones",
+      features: ["Term life coverage", "Whole life policies", "Universal life options"]
     },
     {
-      icon: Shield,
-      title: "Disability insurance",
-      description: "Safeguard your income with short-term and long-term disability coverage"
+      title: "Disability Insurance", 
+      description: "Income protection if you're unable to work due to illness or injury",
+      features: ["Short-term disability", "Long-term disability", "Income replacement"]
     },
     {
-      icon: Smartphone,
-      title: "Digital management",
-      description: "Manage policies, file claims, and track coverage through our online platform"
-    },
-    {
-      icon: Users,
-      title: "Family protection",
-      description: "Comprehensive insurance solutions for all your family's needs"
+      title: "Long-Term Care",
+      description: "Coverage for long-term care expenses in your later years",
+      features: ["Nursing home care", "Home healthcare", "Adult day services"]
     }
   ];
 
@@ -45,41 +62,46 @@ const InsuranceSolutions = () => {
       
       <main>
         {/* Hero Section */}
-        <section className="bg-gradient-to-r from-blue-900 to-blue-800 text-white py-16 lg:py-24">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="bg-gradient-to-r from-blue-900 to-blue-800 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <div className="inline-flex items-center bg-blue-700 px-3 py-1 rounded-full text-sm font-medium mb-4">
-                  <Star className="h-4 w-4 mr-2" />
-                  Protection Solutions
-                </div>
-                <h1 className="text-4xl lg:text-6xl font-bold mb-6">
-                  Insurance Solutions for Life
+                <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
+                  Insurance Solutions
                 </h1>
-                <p className="text-xl mb-8 text-blue-100">
-                  Protect what matters most with our comprehensive insurance solutions. 
-                  From life and disability to property coverage, we've got you covered.
+                <p className="text-xl mb-8 text-blue-100 leading-relaxed">
+                  Comprehensive insurance solutions to protect what matters most to you and your family with competitive rates and expert guidance.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg">
-                    Get Insurance Quote
-                  </Button>
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
-                    View Coverage Options
-                  </Button>
+                  <button className="bg-white text-blue-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-lg">
+                    Get a Quote
+                  </button>
+                  <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-900 transition-colors text-lg">
+                    Compare Coverage
+                  </button>
                 </div>
               </div>
               <div className="relative">
-                <div className="bg-white rounded-2xl p-8 shadow-2xl">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-6">Insurance Benefits</h3>
-                  <div className="space-y-4">
-                    {benefits.map((benefit, index) => (
-                      <div key={index} className="flex items-center text-gray-700">
-                        <CheckCircle className="h-5 w-5 text-green-600 mr-3 flex-shrink-0" />
-                        <span>{benefit}</span>
-                      </div>
-                    ))}
-                  </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+                  <h3 className="text-2xl font-semibold mb-6">Why Choose Our Insurance?</h3>
+                  <ul className="space-y-4">
+                    <li className="flex items-center space-x-3">
+                      <CheckCircle className="h-6 w-6 text-green-400" />
+                      <span>Comprehensive coverage</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <CheckCircle className="h-6 w-6 text-green-400" />
+                      <span>Competitive rates</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <CheckCircle className="h-6 w-6 text-green-400" />
+                      <span>Expert guidance</span>
+                    </li>
+                    <li className="flex items-center space-x-3">
+                      <CheckCircle className="h-6 w-6 text-green-400" />
+                      <span>24/7 claims support</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -87,29 +109,28 @@ const InsuranceSolutions = () => {
         </section>
 
         {/* Key Features Section */}
-        <section className="py-16 lg:py-24">
+        <section className="py-20 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
-                Complete protection for your future
-              </h2>
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">Insurance Coverage Options</h2>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                Our insurance solutions provide comprehensive protection for you and your 
-                family, ensuring financial security in life's unexpected moments.
+                Protect yourself, your family, and your assets with our comprehensive range of insurance solutions tailored to your needs.
               </p>
             </div>
             
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-              {insuranceFeatures.map((feature, index) => (
-                <Card key={index} className="text-center border-none shadow-lg hover:shadow-xl transition-shadow">
-                  <CardHeader>
-                    <div className="mx-auto bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-4">
+              {keyFeatures.map((feature, index) => (
+                <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                  <CardHeader className="text-center pb-4">
+                    <div className="mx-auto mb-4 p-4 bg-blue-100 rounded-full w-fit">
                       <feature.icon className="h-8 w-8 text-blue-600" />
                     </div>
-                    <CardTitle className="text-xl">{feature.title}</CardTitle>
+                    <CardTitle className="text-xl font-semibold text-gray-900">{feature.title}</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-gray-600">{feature.description}</p>
+                    <CardDescription className="text-gray-600 text-center leading-relaxed">
+                      {feature.description}
+                    </CardDescription>
                   </CardContent>
                 </Card>
               ))}
@@ -117,88 +138,108 @@ const InsuranceSolutions = () => {
           </div>
         </section>
 
-        {/* Insurance Types */}
-        <section className="py-16 lg:py-24 bg-gray-50">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-4xl font-bold text-center text-gray-900 mb-4">
-              Insurance coverage options
-            </h2>
-            <p className="text-xl text-gray-600 text-center mb-12">
-              Find the right insurance protection for your needs
-            </p>
-            
+        {/* Insurance Types Section */}
+        <section className="py-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">Specialized Insurance Products</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                Beyond basic coverage, we offer specialized insurance products to address your unique protection needs.
+              </p>
+            </div>
+
             <div className="grid lg:grid-cols-3 gap-8">
-              <div className="bg-white rounded-xl p-8 shadow-lg border">
-                <h3 className="text-2xl font-bold mb-4">Life Insurance</h3>
-                <div className="text-3xl font-bold text-green-700 mb-4">Term & Permanent</div>
-                <p className="text-gray-600 mb-6">Protect your family's financial future</p>
-                <ul className="space-y-2 mb-6">
-                  <li>• Term life insurance</li>
-                  <li>• Whole life insurance</li>
-                  <li>• Universal life insurance</li>
-                  <li>• Competitive rates</li>
-                  <li>• Flexible coverage amounts</li>
-                </ul>
-                <Button className="w-full bg-green-700 hover:bg-green-800 text-white py-3">
-                  Get Life Insurance Quote
-                </Button>
-              </div>
-              <div className="bg-white rounded-xl p-8 shadow-lg border-2 border-green-700">
-                <div className="text-center mb-4">
-                  <span className="bg-green-700 text-white px-3 py-1 rounded-full text-sm">Popular Choice</span>
+              {insuranceTypes.map((insurance, index) => (
+                <Card key={index} className="shadow-lg hover:shadow-xl transition-shadow duration-300 border-t-4 border-t-blue-600">
+                  <CardHeader>
+                    <CardTitle className="text-2xl font-semibold text-gray-900">{insurance.title}</CardTitle>
+                    <CardDescription className="text-gray-600 text-lg">{insurance.description}</CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-3">
+                      {insurance.features.map((feature, featureIndex) => (
+                        <li key={featureIndex} className="flex items-center space-x-3">
+                          <CheckCircle className="h-5 w-5 text-green-600 flex-shrink-0" />
+                          <span className="text-gray-700">{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <button className="w-full mt-6 bg-blue-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors">
+                      Get Quote
+                    </button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Benefits Section */}
+        <section className="py-20 bg-blue-900 text-white">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-4xl font-bold mb-6">Insurance Solutions Benefits</h2>
+                <p className="text-xl text-blue-100 mb-8 leading-relaxed">
+                  Our comprehensive insurance solutions provide peace of mind and financial protection for life's unexpected events.
+                </p>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {benefits.map((benefit, index) => (
+                    <div key={index} className="flex items-center space-x-3">
+                      <CheckCircle className="h-5 w-5 text-green-400 flex-shrink-0" />
+                      <span className="text-blue-100">{benefit}</span>
+                    </div>
+                  ))}
                 </div>
-                <h3 className="text-2xl font-bold mb-4">Disability Insurance</h3>
-                <div className="text-3xl font-bold text-green-700 mb-4">Income Protection</div>
-                <p className="text-gray-600 mb-6">Protect your earning ability</p>
-                <ul className="space-y-2 mb-6">
-                  <li>• Short-term disability</li>
-                  <li>• Long-term disability</li>
-                  <li>• Income replacement up to 70%</li>
-                  <li>• Own-occupation coverage</li>
-                  <li>• Group and individual options</li>
-                </ul>
-                <Button className="w-full bg-green-700 hover:bg-green-800 text-white py-3">
-                  Get Disability Quote
-                </Button>
               </div>
-              <div className="bg-white rounded-xl p-8 shadow-lg border">
-                <h3 className="text-2xl font-bold mb-4">Long-Term Care</h3>
-                <div className="text-3xl font-bold text-green-700 mb-4">Future Care</div>
-                <p className="text-gray-600 mb-6">Plan for long-term care needs</p>
-                <ul className="space-y-2 mb-6">
-                  <li>• Nursing home care</li>
-                  <li>• Home health care</li>
-                  <li>• Adult day care</li>
-                  <li>• Flexible benefit periods</li>
-                  <li>• Inflation protection</li>
-                </ul>
-                <Button className="w-full bg-green-700 hover:bg-green-800 text-white py-3">
-                  Get LTC Quote
-                </Button>
+              <div className="space-y-6">
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                  <div className="flex items-center space-x-4 mb-4">
+                    <Shield className="h-8 w-8 text-green-400" />
+                    <div>
+                      <h3 className="text-xl font-semibold">Complete Protection</h3>
+                      <p className="text-blue-200">Comprehensive coverage options</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                  <div className="flex items-center space-x-4 mb-4">
+                    <DollarSign className="h-8 w-8 text-blue-400" />
+                    <div>
+                      <h3 className="text-xl font-semibold">Competitive Rates</h3>
+                      <p className="text-blue-200">Best value for your protection needs</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20">
+                  <div className="flex items-center space-x-4 mb-4">
+                    <Award className="h-8 w-8 text-yellow-400" />
+                    <div>
+                      <h3 className="text-xl font-semibold">Expert Service</h3>
+                      <p className="text-blue-200">Professional insurance advisors</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="py-16 lg:py-24 bg-blue-900 text-white">
+        <section className="py-20">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-4xl font-bold mb-6">Protect your future today</h2>
-            <p className="text-xl text-blue-100 mb-8">
-              Don't wait to protect what matters most. Get comprehensive insurance 
-              coverage with competitive rates and expert guidance.
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Ready to Protect What Matters Most?</h2>
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              Get started with our comprehensive insurance solutions. Contact our insurance specialists for personalized coverage recommendations.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-green-600 hover:bg-green-700 px-8 py-4 text-lg">
-                Get Quote
-              </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
-                Talk to Agent
-              </Button>
+              <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-lg">
+                Get Insurance Quote
+              </button>
+              <button className="border-2 border-blue-600 text-blue-600 px-8 py-4 rounded-lg font-semibold hover:bg-blue-600 hover:text-white transition-colors text-lg">
+                Compare Coverage Options
+              </button>
             </div>
-            <p className="text-sm text-blue-200 mt-6">
-              Coverage subject to underwriting approval. Terms and conditions apply.
-            </p>
           </div>
         </section>
       </main>
