@@ -70,6 +70,10 @@ import ForgotPassword from "./pages/ForgotPassword";
 import Accessibility from "./pages/Accessibility";
 import SiteMap from "./pages/SiteMap";
 
+// New Pages from Hero/Body Links
+import GetStarted from "./pages/GetStarted";
+import LearnMore from "./pages/LearnMore";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -81,6 +85,10 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           
+          {/* Hero/Body Section Routes */}
+          <Route path="/get-started" element={<GetStarted />} />
+          <Route path="/learn-more" element={<LearnMore />} />
+
           {/* Personal Banking Routes */}
           <Route path="/personal/checking-accounts" element={<CheckingAccounts />} />
           <Route path="/personal/savings-accounts" element={<SavingsAccounts />} />

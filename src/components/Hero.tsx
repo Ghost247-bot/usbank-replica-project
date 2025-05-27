@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { Button } from '@/components/ui/button';
+import { Link } from 'react-router-dom';
 import { ArrowRight, Shield, CreditCard, TrendingUp } from 'lucide-react';
 
 const Hero = () => {
@@ -32,13 +33,17 @@ const Hero = () => {
               From checking accounts to mortgages, we're here to support your journey.
             </p>
             <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-              <Button size="lg" className="bg-white text-green-700 hover:bg-gray-100 flex items-center space-x-2 transform transition-all duration-300 hover:scale-105 hover:shadow-lg">
-                <span>Get Started</span>
-                <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
-              </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-green-700 transform transition-all duration-300 hover:scale-105">
-                Learn More
-              </Button>
+              <Link to="/get-started">
+                <Button size="lg" className="bg-white text-green-700 hover:bg-gray-100 flex items-center space-x-2 transform transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                  <span>Get Started</span>
+                  <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                </Button>
+              </Link>
+              <Link to="/learn-more">
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-green-700 transform transition-all duration-300 hover:scale-105">
+                  Learn More
+                </Button>
+              </Link>
             </div>
           </div>
           <div className="hidden lg:block animate-fade-in" style={{ animationDelay: '0.9s' }}>
