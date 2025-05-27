@@ -7,28 +7,24 @@ import WealthManagementDropdown from './WealthManagementDropdown';
 
 const DesktopNavigation = () => {
   return (
-    <nav className="hidden lg:flex items-center space-x-8">
+    <nav className="flex items-center space-x-8">
       <PersonalBankingDropdown />
       <BusinessBankingDropdown />
       <WealthManagementDropdown />
       
-      <div className="relative group">
-        <Link 
-          to="/about-us" 
-          className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
-        >
-          About Us
-        </Link>
-      </div>
+      <Link 
+        to="/about-us" 
+        className="text-gray-700 hover:text-gray-900 px-2 py-1 text-sm font-medium border-b-2 border-transparent hover:border-gray-300 transition-colors"
+      >
+        About Us
+      </Link>
       
-      <div className="relative group">
-        <Link 
-          to="/customer-service" 
-          className="text-gray-700 hover:text-blue-600 px-3 py-2 text-sm font-medium transition-colors"
-        >
-          Support
-        </Link>
-      </div>
+      <Link 
+        to="/customer-service" 
+        className="text-gray-700 hover:text-gray-900 px-2 py-1 text-sm font-medium border-b-2 border-transparent hover:border-gray-300 transition-colors"
+      >
+        Support
+      </Link>
     </nav>
   );
 };

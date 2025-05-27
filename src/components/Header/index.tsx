@@ -39,21 +39,21 @@ const Header = () => {
     <>
       <TopUtilityBar />
       
-      <header className="bg-white shadow-lg border-b sticky top-0 z-50 animate-fade-in">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-14 sm:h-16 lg:h-20">
+      <header className="bg-white border-b-2 border-gray-200 sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex justify-between items-center h-16 lg:h-20">
             {/* Logo Section */}
             <div className="flex items-center flex-shrink-0">
               <Logo />
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden lg:flex flex-1 justify-center">
+            <div className="hidden lg:flex flex-1 justify-center ml-8">
               <DesktopNavigation />
             </div>
 
             {/* Right Side Actions */}
-            <div className="flex items-center space-x-2 sm:space-x-3">
+            <div className="flex items-center space-x-3">
               {/* Search Bar - Hidden on small screens */}
               <div className="hidden md:block">
                 <SearchBar />
@@ -64,7 +64,7 @@ const Header = () => {
 
               {/* Mobile Menu Button */}
               <button 
-                className="lg:hidden p-2 hover:bg-gray-100 rounded-md transition-colors duration-300 ml-2"
+                className="lg:hidden p-2 hover:bg-gray-100 rounded transition-colors ml-2"
                 onClick={(e) => {
                   e.stopPropagation();
                   setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -73,9 +73,9 @@ const Header = () => {
                 aria-expanded={isMobileMenuOpen}
               >
                 {isMobileMenuOpen ? (
-                  <X className="h-5 w-5 sm:h-6 sm:w-6 text-gray-500" />
+                  <X className="h-5 w-5 text-gray-600" />
                 ) : (
-                  <Menu className="h-5 w-5 sm:h-6 sm:w-6 text-gray-500" />
+                  <Menu className="h-5 w-5 text-gray-600" />
                 )}
               </button>
             </div>
