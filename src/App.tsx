@@ -14,6 +14,12 @@ import CreditCards from "./pages/personal/CreditCards";
 import Mortgages from "./pages/personal/Mortgages";
 import PersonalLoans from "./pages/personal/PersonalLoans";
 import AutoLoans from "./pages/personal/AutoLoans";
+import StudentLoans from "./pages/personal/StudentLoans";
+import HomeEquityLoans from "./pages/personal/HomeEquityLoans";
+import CdsMoneyMarket from "./pages/personal/CdsMoneyMarket";
+import OnlineBanking from "./pages/personal/OnlineBanking";
+import MobileBanking from "./pages/personal/MobileBanking";
+import OverdraftProtection from "./pages/personal/OverdraftProtection";
 
 // Business Banking Pages
 import BusinessChecking from "./pages/business/BusinessChecking";
@@ -22,6 +28,8 @@ import BusinessLoans from "./pages/business/BusinessLoans";
 import MerchantServices from "./pages/business/MerchantServices";
 import TreasuryManagement from "./pages/business/TreasuryManagement";
 import BusinessLinesOfCredit from "./pages/business/BusinessLinesOfCredit";
+import EquipmentFinancing from "./pages/business/EquipmentFinancing";
+import CommercialRealEstate from "./pages/business/CommercialRealEstate";
 
 // Wealth Management Pages
 import InvestmentManagement from "./pages/wealth/InvestmentManagement";
@@ -56,6 +64,12 @@ const App = () => (
           <Route path="/personal/mortgages" element={<Mortgages />} />
           <Route path="/personal/personal-loans" element={<PersonalLoans />} />
           <Route path="/personal/auto-loans" element={<AutoLoans />} />
+          <Route path="/personal/student-loans" element={<StudentLoans />} />
+          <Route path="/personal/home-equity-loans" element={<HomeEquityLoans />} />
+          <Route path="/personal/cds-money-market" element={<CdsMoneyMarket />} />
+          <Route path="/personal/online-banking" element={<OnlineBanking />} />
+          <Route path="/personal/mobile-banking" element={<MobileBanking />} />
+          <Route path="/personal/overdraft-protection" element={<OverdraftProtection />} />
 
           {/* Business Banking Routes */}
           <Route path="/business/business-checking" element={<BusinessChecking />} />
@@ -64,6 +78,8 @@ const App = () => (
           <Route path="/business/merchant-services" element={<MerchantServices />} />
           <Route path="/business/treasury-management" element={<TreasuryManagement />} />
           <Route path="/business/business-lines-of-credit" element={<BusinessLinesOfCredit />} />
+          <Route path="/business/equipment-financing" element={<EquipmentFinancing />} />
+          <Route path="/business/commercial-real-estate" element={<CommercialRealEstate />} />
 
           {/* Wealth Management Routes */}
           <Route path="/wealth/investment-management" element={<InvestmentManagement />} />
