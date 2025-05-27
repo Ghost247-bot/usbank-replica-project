@@ -1,13 +1,26 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { Link } from 'react-router-dom';
+import { ExternalLink } from 'lucide-react';
 
 const SiteMap = () => {
   const siteStructure = [
     {
-      title: "Personal Banking",
+      category: "Main Pages",
+      links: [
+        { name: "Home", path: "/" },
+        { name: "About Us", path: "/about-us" },
+        { name: "Contact Us", path: "/contact-us" },
+        { name: "Customer Service", path: "/customer-service" },
+        { name: "Find Locations", path: "/find-locations" },
+        { name: "Get Started", path: "/get-started" },
+        { name: "Learn More", path: "/learn-more" }
+      ]
+    },
+    {
+      category: "Personal Banking",
       links: [
         { name: "Checking Accounts", path: "/personal/checking-accounts" },
         { name: "Savings Accounts", path: "/personal/savings-accounts" },
@@ -24,9 +37,10 @@ const SiteMap = () => {
       ]
     },
     {
-      title: "Business Banking",
+      category: "Business Banking",
       links: [
         { name: "Business Checking", path: "/business/business-checking" },
+        { name: "Business Savings", path: "/business/business-savings" },
         { name: "Business Credit Cards", path: "/business/business-credit-cards" },
         { name: "Business Loans", path: "/business/business-loans" },
         { name: "Merchant Services", path: "/business/merchant-services" },
@@ -41,7 +55,7 @@ const SiteMap = () => {
       ]
     },
     {
-      title: "Wealth Management",
+      category: "Wealth Management",
       links: [
         { name: "Investment Management", path: "/wealth/investment-management" },
         { name: "Retirement Planning", path: "/wealth/retirement-planning" },
@@ -56,7 +70,7 @@ const SiteMap = () => {
       ]
     },
     {
-      title: "Services",
+      category: "Services",
       links: [
         { name: "Financial Education", path: "/financial-education" },
         { name: "Mobile App", path: "/mobile-app" },
@@ -66,25 +80,17 @@ const SiteMap = () => {
       ]
     },
     {
-      title: "About & Support",
-      links: [
-        { name: "About Us", path: "/about-us" },
-        { name: "Customer Service", path: "/customer-service" },
-        { name: "Find Locations", path: "/find-locations" },
-        { name: "Contact Us", path: "/contact-us" },
-        { name: "Security Center", path: "/security-center" }
-      ]
-    },
-    {
-      title: "Account Access",
+      category: "Account Management",
       links: [
         { name: "Sign In", path: "/sign-in" },
-        { name: "Create Account", path: "/create-account" }
+        { name: "Create Account", path: "/create-account" },
+        { name: "Forgot Password", path: "/forgot-password" }
       ]
     },
     {
-      title: "Legal",
+      category: "Legal & Information",
       links: [
+        { name: "Security Center", path: "/security-center" },
         { name: "Privacy Policy", path: "/privacy-policy" },
         { name: "Terms of Service", path: "/terms-of-service" },
         { name: "Accessibility", path: "/accessibility" },
@@ -98,33 +104,32 @@ const SiteMap = () => {
       <Header />
       
       <main>
-        <section className="bg-gradient-to-r from-green-600 to-green-700 text-white py-12 sm:py-16 lg:py-20">
+        <section className="bg-gradient-to-r from-green-600 to-green-700 text-white py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">Site Map</h1>
-              <p className="text-lg sm:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto">
-                Navigate our complete website structure
+              <h1 className="text-5xl font-bold mb-6">Site Map</h1>
+              <p className="text-xl mb-8 max-w-2xl mx-auto">
+                Navigate through all available pages and services on our website
               </p>
             </div>
           </div>
         </section>
 
-        <section className="py-12 sm:py-16">
+        <section className="py-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
               {siteStructure.map((section, index) => (
-                <div key={index} className="space-y-4">
-                  <h2 className="text-lg sm:text-xl font-bold text-gray-800 border-b-2 border-green-600 pb-2">
-                    {section.title}
-                  </h2>
-                  <ul className="space-y-2">
+                <div key={index} className="bg-white rounded-lg shadow-lg p-6 border-t-4 border-t-green-600">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">{section.category}</h2>
+                  <ul className="space-y-3">
                     {section.links.map((link, linkIndex) => (
                       <li key={linkIndex}>
                         <Link 
                           to={link.path}
-                          className="text-gray-600 hover:text-green-600 transition-colors text-sm sm:text-base block py-1"
+                          className="flex items-center text-green-600 hover:text-green-700 transition-colors group"
                         >
-                          {link.name}
+                          <span className="mr-2">{link.name}</span>
+                          <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
                         </Link>
                       </li>
                     ))}
@@ -132,13 +137,27 @@ const SiteMap = () => {
                 </div>
               ))}
             </div>
+          </div>
+        </section>
 
-            <div className="mt-12 sm:mt-16 pt-8 border-t border-gray-200 text-center">
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-3xl font-bold text-gray-900 mb-6">Need Help Finding Something?</h2>
+            <p className="text-xl text-gray-600 mb-8">
+              Can't find what you're looking for? Our customer service team is here to help.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link 
-                to="/"
-                className="inline-flex items-center text-green-600 hover:text-green-700 font-medium text-sm sm:text-base"
+                to="/contact-us"
+                className="bg-green-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors"
               >
-                ← Return to Homepage
+                Contact Us
+              </Link>
+              <Link 
+                to="/customer-service"
+                className="border-2 border-green-600 text-green-600 px-8 py-3 rounded-lg font-semibold hover:bg-green-600 hover:text-white transition-colors"
+              >
+                Customer Service
               </Link>
             </div>
           </div>

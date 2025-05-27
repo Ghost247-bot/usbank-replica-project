@@ -2,100 +2,142 @@
 import React from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { Eye, Keyboard, Volume2, Users, CheckCircle } from 'lucide-react';
 
 const Accessibility = () => {
+  const accessibilityFeatures = [
+    {
+      icon: Eye,
+      title: "Visual Accessibility",
+      description: "High contrast modes, screen reader compatibility, and adjustable text sizes",
+      features: ["Screen reader support", "High contrast themes", "Zoom functionality", "Alternative text for images"]
+    },
+    {
+      icon: Keyboard,
+      title: "Keyboard Navigation",
+      description: "Full keyboard accessibility for users who cannot use a mouse",
+      features: ["Tab navigation", "Keyboard shortcuts", "Focus indicators", "Skip to content links"]
+    },
+    {
+      icon: Volume2,
+      title: "Audio Features",
+      description: "Audio descriptions and hearing accessibility options",
+      features: ["Audio descriptions", "Captions for videos", "Visual alerts", "Audio controls"]
+    },
+    {
+      icon: Users,
+      title: "Cognitive Support",
+      description: "Clear navigation and simplified interfaces for better understanding",
+      features: ["Clear language", "Consistent navigation", "Error prevention", "Help documentation"]
+    }
+  ];
+
+  const complianceStandards = [
+    "WCAG 2.1 AA compliance",
+    "Section 508 compliance",
+    "ADA compliance",
+    "ARIA standards implementation"
+  ];
+
   return (
     <div className="min-h-screen bg-white">
       <Header />
       
       <main>
-        <section className="bg-gradient-to-r from-green-600 to-green-700 text-white py-12 sm:py-16 lg:py-20">
+        <section className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6">Accessibility</h1>
-              <p className="text-lg sm:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto">
-                We're committed to making our services accessible to everyone
+              <h1 className="text-5xl font-bold mb-6">Accessibility</h1>
+              <p className="text-xl mb-8 max-w-3xl mx-auto">
+                We are committed to ensuring our banking services are accessible to everyone, regardless of ability or technology used.
               </p>
             </div>
           </div>
         </section>
 
-        <section className="py-12 sm:py-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="prose prose-lg max-w-none">
-              <p className="text-gray-600 mb-6 text-sm sm:text-base">Last updated: January 1, 2024</p>
-              
-              <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">Our Commitment</h2>
-              <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base leading-relaxed">
-                Moonstone Banking & Trust is committed to ensuring digital accessibility for people with 
-                disabilities. We continually improve the user experience for everyone and apply the 
-                relevant accessibility standards to ensure we provide equal access to all.
+        <section className="py-16">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl font-bold text-gray-900 mb-4">Our Commitment to Accessibility</h2>
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                We believe banking should be accessible to everyone. Our digital platforms are designed with accessibility in mind, following industry best practices and standards.
               </p>
+            </div>
 
-              <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">Conformance Status</h2>
-              <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base leading-relaxed">
-                We strive to conform to the Web Content Accessibility Guidelines (WCAG) 2.1 Level AA 
-                criteria. These guidelines explain how to make web content accessible to people with a 
-                wide array of disabilities.
-              </p>
+            <div className="grid md:grid-cols-2 gap-8">
+              {accessibilityFeatures.map((feature, index) => (
+                <div key={index} className="bg-white rounded-lg shadow-lg p-8 border-l-4 border-l-blue-600">
+                  <div className="flex items-center mb-6">
+                    <div className="p-3 bg-blue-100 rounded-full mr-4">
+                      <feature.icon className="h-8 w-8 text-blue-600" />
+                    </div>
+                    <h3 className="text-2xl font-semibold text-gray-900">{feature.title}</h3>
+                  </div>
+                  <p className="text-gray-600 mb-6">{feature.description}</p>
+                  <ul className="space-y-2">
+                    {feature.features.map((item, itemIndex) => (
+                      <li key={itemIndex} className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-600 mr-3 flex-shrink-0" />
+                        <span className="text-gray-700">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
 
-              <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">Accessibility Features</h2>
-              <div className="space-y-3 sm:space-y-4 mb-4 sm:mb-6">
-                <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
-                  <h3 className="font-semibold text-gray-800 mb-2 text-sm sm:text-base">Keyboard Navigation</h3>
-                  <p className="text-gray-600 text-sm sm:text-base">All interactive elements can be accessed using keyboard navigation.</p>
-                </div>
-                <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
-                  <h3 className="font-semibold text-gray-800 mb-2 text-sm sm:text-base">Screen Reader Support</h3>
-                  <p className="text-gray-600 text-sm sm:text-base">Our website is compatible with popular screen reading software.</p>
-                </div>
-                <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
-                  <h3 className="font-semibold text-gray-800 mb-2 text-sm sm:text-base">Alt Text</h3>
-                  <p className="text-gray-600 text-sm sm:text-base">All images include descriptive alternative text for screen readers.</p>
-                </div>
-                <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
-                  <h3 className="font-semibold text-gray-800 mb-2 text-sm sm:text-base">Color Contrast</h3>
-                  <p className="text-gray-600 text-sm sm:text-base">We maintain high color contrast ratios for better readability.</p>
-                </div>
+        <section className="py-16 bg-gray-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h2 className="text-4xl font-bold text-gray-900 mb-6">Compliance Standards</h2>
+                <p className="text-xl text-gray-600 mb-8">
+                  Our website and digital services meet or exceed the following accessibility standards and guidelines.
+                </p>
+                <ul className="space-y-4">
+                  {complianceStandards.map((standard, index) => (
+                    <li key={index} className="flex items-center">
+                      <CheckCircle className="h-6 w-6 text-green-600 mr-4 flex-shrink-0" />
+                      <span className="text-lg text-gray-700">{standard}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-
-              <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">Assistive Technologies</h2>
-              <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base leading-relaxed">
-                Our website is designed to work with assistive technologies including:
-              </p>
-              <ul className="list-disc pl-6 space-y-2 text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
-                <li>Screen readers (NVDA, JAWS, VoiceOver)</li>
-                <li>Voice recognition software</li>
-                <li>Screen magnification software</li>
-                <li>Alternative keyboards and pointing devices</li>
-              </ul>
-
-              <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">Known Issues</h2>
-              <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base leading-relaxed">
-                We are aware of some accessibility limitations and are actively working to address them. 
-                If you encounter any barriers while using our website, please let us know.
-              </p>
-
-              <h2 className="text-xl sm:text-2xl font-bold mt-6 sm:mt-8 mb-3 sm:mb-4">Feedback and Contact</h2>
-              <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base leading-relaxed">
-                We welcome your feedback on the accessibility of our website. If you encounter any 
-                accessibility barriers or have suggestions for improvement, please contact us:
-              </p>
-              <div className="bg-green-50 p-4 sm:p-6 rounded-lg">
-                <p className="text-gray-700 text-sm sm:text-base mb-2">
-                  <strong>Email:</strong> accessibility@moonstone.com
+              <div className="bg-white rounded-lg shadow-lg p-8">
+                <h3 className="text-2xl font-semibold text-gray-900 mb-6">Need Assistance?</h3>
+                <p className="text-gray-600 mb-6">
+                  If you encounter any accessibility barriers or need assistance accessing our services, please contact us.
                 </p>
-                <p className="text-gray-700 text-sm sm:text-base mb-2">
-                  <strong>Phone:</strong> 1-800-MOONSTONE
-                </p>
-                <p className="text-gray-700 text-sm sm:text-base">
-                  <strong>Mail:</strong> Moonstone Banking & Trust<br />
-                  Accessibility Department<br />
-                  123 Banking Street<br />
-                  New York, NY 10001
-                </p>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Phone Support</h4>
+                    <p className="text-gray-600">1-800-USBANK-1 (TTY: 1-800-555-0199)</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Email Support</h4>
+                    <p className="text-gray-600">accessibility@usbank.com</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Available</h4>
+                    <p className="text-gray-600">24/7 accessibility support</p>
+                  </div>
+                </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        <section className="py-16">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">Continuous Improvement</h2>
+            <p className="text-xl text-gray-600 mb-8">
+              We continuously work to improve the accessibility of our services and welcome your feedback to help us serve you better.
+            </p>
+            <button className="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-lg">
+              Provide Accessibility Feedback
+            </button>
           </div>
         </section>
       </main>
