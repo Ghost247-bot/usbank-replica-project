@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Award, Users, Globe, Heart } from 'lucide-react';
@@ -148,12 +149,16 @@ const AboutUs = () => {
             <h2 className="text-3xl font-bold mb-4">Ready to Bank With Us?</h2>
             <p className="text-xl mb-8">Join millions of customers who trust US Bank with their financial needs</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button className="bg-white text-green-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
-                Find a Branch
-              </button>
-              <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-700 transition-colors">
-                Contact Us
-              </button>
+              <Link to="/find-locations">
+                <button className="bg-white text-green-700 px-8 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">
+                  Find a Branch
+                </button>
+              </Link>
+              <Link to="/contact-us">
+                <button className="border-2 border-white text-white px-8 py-3 rounded-lg font-semibold hover:bg-white hover:text-green-700 transition-colors">
+                  Contact Us
+                </button>
+              </Link>
             </div>
           </div>
         </section>
