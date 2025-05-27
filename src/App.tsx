@@ -23,6 +23,7 @@ import OverdraftProtection from "./pages/personal/OverdraftProtection";
 
 // Business Banking Pages
 import BusinessChecking from "./pages/business/BusinessChecking";
+import BusinessSavings from "./pages/business/BusinessSavings";
 import BusinessCreditCards from "./pages/business/BusinessCreditCards";
 import BusinessLoans from "./pages/business/BusinessLoans";
 import MerchantServices from "./pages/business/MerchantServices";
@@ -105,6 +106,7 @@ const App = () => (
 
           {/* Business Banking Routes */}
           <Route path="/business/business-checking" element={<BusinessChecking />} />
+          <Route path="/business/business-savings" element={<BusinessSavings />} />
           <Route path="/business/business-credit-cards" element={<BusinessCreditCards />} />
           <Route path="/business/business-loans" element={<BusinessLoans />} />
           <Route path="/business/merchant-services" element={<MerchantServices />} />
