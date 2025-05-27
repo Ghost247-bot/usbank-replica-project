@@ -1,6 +1,8 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { CheckCircle } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const InvestmentHero = () => {
   return (
@@ -15,12 +17,16 @@ const InvestmentHero = () => {
               Let our experienced investment professionals help you build and manage a diversified portfolio designed to meet your financial goals.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="bg-white text-blue-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-lg">
-                Schedule Consultation
-              </button>
-              <button className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-900 transition-colors text-lg">
-                View Portfolio Options
-              </button>
+              <Link to="/contact-us">
+                <Button className="bg-white text-blue-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-lg">
+                  Schedule Consultation
+                </Button>
+              </Link>
+              <Link to="/wealth/investment-management">
+                <Button variant="outline" className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-900 transition-colors text-lg">
+                  View Portfolio Options
+                </Button>
+              </Link>
             </div>
           </div>
           <div className="relative">
