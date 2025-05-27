@@ -6,6 +6,7 @@ import ServiceCards from '@/components/ServiceCards';
 import PictureSlider from '@/components/PictureSlider';
 import FeaturedSection from '@/components/FeaturedSection';
 import Footer from '@/components/Footer';
+import BackToTop from '@/components/BackToTop';
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
       <PictureSlider />
       <FeaturedSection />
       <Footer />
+      <BackToTop />
     </div>
   );
 };
