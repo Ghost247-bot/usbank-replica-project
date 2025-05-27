@@ -1,4 +1,3 @@
-
 import React from 'react';
 import {
   Carousel,
@@ -8,6 +7,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from 'react-router-dom';
 
 const PictureSlider = () => {
   const images = [
@@ -112,12 +112,16 @@ const PictureSlider = () => {
             Ready to experience the future of banking?
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button className="bg-green-800 hover:bg-green-900 text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 hover:shadow-lg transform hover:scale-105">
-              Get Started Today
-            </button>
-            <button className="border-2 border-green-800 text-green-800 hover:bg-green-800 hover:text-white px-8 py-3 rounded-lg font-medium transition-all duration-300">
-              Learn More
-            </button>
+            <Link to="/get-started-today">
+              <button className="bg-green-800 hover:bg-green-900 text-white px-8 py-3 rounded-lg font-medium transition-all duration-300 hover:shadow-lg transform hover:scale-105">
+                Get Started Today
+              </button>
+            </Link>
+            <Link to="/download-app">
+              <button className="border-2 border-green-800 text-green-800 hover:bg-green-800 hover:text-white px-8 py-3 rounded-lg font-medium transition-all duration-300">
+                Download App
+              </button>
+            </Link>
           </div>
         </div>
       </div>

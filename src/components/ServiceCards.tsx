@@ -54,7 +54,7 @@ const ServiceCards = () => {
       description: "Build long-term wealth with our comprehensive investment and retirement planning services.",
       features: ["Professional portfolio management", "401(k) and IRA options", "Financial planning consultations", "Low-cost investment options"],
       cta: "Start Investing",
-      link: "/wealth/investment-management",
+      link: "/start-investing",
       color: "text-green-800",
       bgColor: "bg-green-50"
     },
@@ -148,9 +148,9 @@ const ServiceCards = () => {
             Join millions of satisfied customers who trust us with their financial future. Open an account today and experience banking done right.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <Link to="/personal/checking-accounts">
+            <Link to="/get-started-today">
               <Button size="lg" className="bg-green-800 hover:bg-green-900 text-white font-medium px-10 py-4 text-lg transition-all duration-300 hover:shadow-lg">
-                Open Account Today
+                Get Started Today
               </Button>
             </Link>
             <Link to="/contact-us">
