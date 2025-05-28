@@ -9,16 +9,266 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      accounts: {
+        Row: {
+          account_name: string
+          account_number: string
+          account_type: Database["public"]["Enums"]["account_type"]
+          balance: number
+          created_at: string
+          id: string
+          status: Database["public"]["Enums"]["account_status"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          account_name: string
+          account_number: string
+          account_type: Database["public"]["Enums"]["account_type"]
+          balance?: number
+          created_at?: string
+          id?: string
+          status?: Database["public"]["Enums"]["account_status"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          account_name?: string
+          account_number?: string
+          account_type?: Database["public"]["Enums"]["account_type"]
+          balance?: number
+          created_at?: string
+          id?: string
+          status?: Database["public"]["Enums"]["account_status"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "accounts_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      credit_cards: {
+        Row: {
+          card_number: string
+          card_type: string
+          created_at: string
+          credit_limit: number
+          current_balance: number
+          expiry_date: string
+          id: string
+          interest_rate: number
+          status: Database["public"]["Enums"]["account_status"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          card_number: string
+          card_type: string
+          created_at?: string
+          credit_limit: number
+          current_balance?: number
+          expiry_date: string
+          id?: string
+          interest_rate: number
+          status?: Database["public"]["Enums"]["account_status"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          card_number?: string
+          card_type?: string
+          created_at?: string
+          credit_limit?: number
+          current_balance?: number
+          expiry_date?: string
+          id?: string
+          interest_rate?: number
+          status?: Database["public"]["Enums"]["account_status"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "credit_cards_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      loans: {
+        Row: {
+          created_at: string
+          current_balance: number
+          id: string
+          interest_rate: number
+          loan_type: string
+          monthly_payment: number
+          next_payment_date: string | null
+          principal_amount: number
+          status: string
+          term_months: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          current_balance: number
+          id?: string
+          interest_rate: number
+          loan_type: string
+          monthly_payment: number
+          next_payment_date?: string | null
+          principal_amount: number
+          status?: string
+          term_months: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          current_balance?: number
+          id?: string
+          interest_rate?: number
+          loan_type?: string
+          monthly_payment?: number
+          next_payment_date?: string | null
+          principal_amount?: number
+          status?: string
+          term_months?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "loans_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          address: Json | null
+          created_at: string
+          date_of_birth: string | null
+          first_name: string | null
+          id: string
+          last_name: string | null
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          address?: Json | null
+          created_at?: string
+          date_of_birth?: string | null
+          first_name?: string | null
+          id: string
+          last_name?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          address?: Json | null
+          created_at?: string
+          date_of_birth?: string | null
+          first_name?: string | null
+          id?: string
+          last_name?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      transactions: {
+        Row: {
+          account_id: string
+          amount: number
+          created_at: string
+          description: string | null
+          id: string
+          reference_number: string | null
+          status: Database["public"]["Enums"]["transaction_status"]
+          to_account_id: string | null
+          transaction_type: Database["public"]["Enums"]["transaction_type"]
+          updated_at: string
+        }
+        Insert: {
+          account_id: string
+          amount: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          reference_number?: string | null
+          status?: Database["public"]["Enums"]["transaction_status"]
+          to_account_id?: string | null
+          transaction_type: Database["public"]["Enums"]["transaction_type"]
+          updated_at?: string
+        }
+        Update: {
+          account_id?: string
+          amount?: number
+          created_at?: string
+          description?: string | null
+          id?: string
+          reference_number?: string | null
+          status?: Database["public"]["Enums"]["transaction_status"]
+          to_account_id?: string | null
+          transaction_type?: Database["public"]["Enums"]["transaction_type"]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "transactions_account_id_fkey"
+            columns: ["account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "transactions_to_account_id_fkey"
+            columns: ["to_account_id"]
+            isOneToOne: false
+            referencedRelation: "accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      generate_account_number: {
+        Args: Record<PropertyKey, never>
+        Returns: string
+      }
     }
     Enums: {
-      [_ in never]: never
+      account_status: "active" | "inactive" | "frozen" | "closed"
+      account_type:
+        | "checking"
+        | "savings"
+        | "credit_card"
+        | "loan"
+        | "investment"
+      transaction_status: "pending" | "completed" | "failed" | "cancelled"
+      transaction_type:
+        | "deposit"
+        | "withdrawal"
+        | "transfer"
+        | "payment"
+        | "fee"
+        | "interest"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -133,6 +383,24 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      account_status: ["active", "inactive", "frozen", "closed"],
+      account_type: [
+        "checking",
+        "savings",
+        "credit_card",
+        "loan",
+        "investment",
+      ],
+      transaction_status: ["pending", "completed", "failed", "cancelled"],
+      transaction_type: [
+        "deposit",
+        "withdrawal",
+        "transfer",
+        "payment",
+        "fee",
+        "interest",
+      ],
+    },
   },
 } as const
