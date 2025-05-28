@@ -31,19 +31,25 @@ const CreateBannerDialog: React.FC<CreateBannerDialogProps> = ({
     title: '',
     message: '',
     banner_type: 'info' as BannerType,
-    target_user_id: '',
+    target_user_id: 'all',
     expires_at: ''
   });
 
   const handleCreateBanner = async () => {
-    const success = await onCreateBanner(formData);
+    // Convert "all" back to empty string for the API
+    const apiFormData = {
+      ...formData,
+      target_user_id: formData.target_user_id === 'all' ? '' : formData.target_user_id
+    };
+    
+    const success = await onCreateBanner(apiFormData);
     if (success) {
       setShowCreateBanner(false);
       setFormData({
         title: '',
         message: '',
         banner_type: 'info',
-        target_user_id: '',
+        target_user_id: 'all',
         expires_at: ''
       });
     }
@@ -91,7 +97,7 @@ const CreateBannerDialog: React.FC<CreateBannerDialogProps> = ({
               <SelectValue placeholder="Target (All Users by default)" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">All Users</SelectItem>
+              <SelectItem value="all">All Users</SelectItem>
               {users.map((user) => (
                 <SelectItem key={user.id} value={user.id}>
                   {getUserDisplayName(user.id, users)}
