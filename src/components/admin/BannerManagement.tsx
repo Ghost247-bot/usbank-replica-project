@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Users, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -10,11 +9,13 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
+type BannerType = 'info' | 'warning' | 'error' | 'success';
+
 interface Banner {
   id: string;
   title: string;
   message: string;
-  banner_type: 'info' | 'warning' | 'error' | 'success';
+  banner_type: BannerType;
   target_user_id?: string;
   is_active: boolean;
   expires_at?: string;
@@ -27,7 +28,7 @@ const BannerManagement = () => {
   const [formData, setFormData] = useState({
     title: '',
     message: '',
-    banner_type: 'info' as const,
+    banner_type: 'info' as BannerType,
     target_user_id: '',
     expires_at: ''
   });
@@ -47,7 +48,14 @@ const BannerManagement = () => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setBanners(data || []);
+      
+      // Type cast the data to ensure proper typing
+      const typedBanners = (data || []).map(banner => ({
+        ...banner,
+        banner_type: banner.banner_type as BannerType
+      }));
+      
+      setBanners(typedBanners);
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -146,7 +154,7 @@ const BannerManagement = () => {
     }
   };
 
-  const getBannerTypeColor = (type: string) => {
+  const getBannerTypeColor = (type: BannerType) => {
     switch (type) {
       case 'success': return 'text-green-600 bg-green-50';
       case 'warning': return 'text-yellow-600 bg-yellow-50';
@@ -188,7 +196,7 @@ const BannerManagement = () => {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 />
-                <Select value={formData.banner_type} onValueChange={(value) => setFormData({ ...formData, banner_type: value as any })}>
+                <Select value={formData.banner_type} onValueChange={(value: BannerType) => setFormData({ ...formData, banner_type: value })}>
                   <SelectTrigger>
                     <SelectValue placeholder="Banner type" />
                   </SelectTrigger>
