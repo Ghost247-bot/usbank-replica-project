@@ -12,9 +12,29 @@ export const useUserManagement = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      console.log('Fetching users from auth and profiles...');
+      console.log('Fetching users from profiles and user_roles...');
       
-      // First, get all profiles with their status
+      // Get all user IDs from user_roles table first (this contains all users)
+      const { data: userRoles, error: userRolesError } = await supabase
+        .from('user_roles')
+        .select('user_id')
+        .order('created_at', { ascending: false });
+
+      if (userRolesError) {
+        console.error('Error fetching user roles:', userRolesError);
+        throw userRolesError;
+      }
+
+      console.log('Found user roles:', userRoles?.length);
+
+      if (!userRoles || userRoles.length === 0) {
+        console.log('No users found in user_roles table');
+        setUsers([]);
+        return;
+      }
+
+      // Get profiles for these users
+      const userIds = userRoles.map(role => role.user_id);
       const { data: profiles, error: profilesError } = await supabase
         .from('profiles')
         .select(`
@@ -27,56 +47,32 @@ export const useUserManagement = () => {
             freeze_reason
           )
         `)
-        .order('created_at', { ascending: false });
+        .in('id', userIds);
 
       if (profilesError) {
         console.error('Error fetching profiles:', profilesError);
         throw profilesError;
       }
 
-      console.log('Fetched profiles:', profiles);
+      console.log('Fetched profiles:', profiles?.length);
 
-      // Get auth users using the admin API
-      const { data: authUsers, error: authError } = await supabase.auth.admin.listUsers();
-
-      if (authError) {
-        console.error('Error fetching auth users:', authError);
-        // If we can't fetch auth users (possibly due to permissions), 
-        // fall back to using profile data only
-        const usersFromProfiles = profiles?.map(profile => ({
-          id: profile.id,
-          email: `user-${profile.id.slice(0, 8)}@example.com`, // Placeholder
-          first_name: profile.first_name || 'Unknown',
-          last_name: profile.last_name || 'User',
-          is_frozen: profile.user_status?.is_frozen || false,
-          freeze_reason: profile.user_status?.freeze_reason || undefined,
-          created_at: profile.created_at,
-          email_confirmed_at: undefined,
-          last_sign_in_at: undefined
-        })) || [];
-
-        console.log('Using profile-only data:', usersFromProfiles);
-        setUsers(usersFromProfiles);
-        return;
-      }
-
-      // Combine auth users with profile data
-      const combinedUsers = authUsers.users.map(authUser => {
-        const profile = profiles?.find(p => p.id === authUser.id);
+      // Create user objects with available data
+      const combinedUsers = userIds.map(userId => {
+        const profile = profiles?.find(p => p.id === userId);
         return {
-          id: authUser.id,
-          email: authUser.email || 'No email',
-          first_name: profile?.first_name || authUser.user_metadata?.first_name || 'Unknown',
-          last_name: profile?.last_name || authUser.user_metadata?.last_name || 'User',
+          id: userId,
+          email: `user-${userId.slice(0, 8)}@moonstone.bank`, // Placeholder email since we can't access auth data
+          first_name: profile?.first_name || 'Unknown',
+          last_name: profile?.last_name || 'User',
           is_frozen: profile?.user_status?.is_frozen || false,
           freeze_reason: profile?.user_status?.freeze_reason || undefined,
-          created_at: authUser.created_at,
-          email_confirmed_at: authUser.email_confirmed_at,
-          last_sign_in_at: authUser.last_sign_in_at
+          created_at: profile?.created_at || new Date().toISOString(),
+          email_confirmed_at: undefined,
+          last_sign_in_at: undefined
         };
       });
 
-      console.log('Combined users data:', combinedUsers);
+      console.log('Combined users data:', combinedUsers.length, 'users');
       setUsers(combinedUsers);
     } catch (error: any) {
       console.error('Error fetching users:', error);

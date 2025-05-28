@@ -44,20 +44,12 @@ const UserList: React.FC<UserListProps> = ({ users, loading, onFreezeUser }) => 
             <h3 className="font-medium">
               {user.first_name} {user.last_name}
             </h3>
-            <p className="text-sm text-gray-600">{user.email}</p>
+            <p className="text-sm text-gray-600">
+              User ID: {user.id.slice(0, 8)}...{user.id.slice(-4)}
+            </p>
             <p className="text-xs text-gray-500">
               Joined: {new Date(user.created_at).toLocaleDateString()}
             </p>
-            {user.email_confirmed_at && (
-              <p className="text-xs text-green-600">
-                Email confirmed: {new Date(user.email_confirmed_at).toLocaleDateString()}
-              </p>
-            )}
-            {user.last_sign_in_at && (
-              <p className="text-xs text-blue-600">
-                Last sign in: {new Date(user.last_sign_in_at).toLocaleDateString()}
-              </p>
-            )}
             {user.is_frozen && (
               <p className="text-sm text-red-600">
                 Frozen: {user.freeze_reason}
