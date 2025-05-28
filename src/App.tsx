@@ -88,6 +88,17 @@ import AdminLogin from "./pages/AdminLogin";
 import UserDashboard from "./pages/UserDashboard";
 import AdminDashboard from "./pages/AdminDashboard";
 
+// New User Dashboard Feature Pages
+import TransferMoney from "./pages/TransferMoney";
+import PayBills from "./pages/PayBills";
+import DepositCheck from "./pages/DepositCheck";
+import AccountSettings from "./pages/AccountSettings";
+import ManageBudget from "./pages/ManageBudget";
+import ViewAllGoals from "./pages/ViewAllGoals";
+import ViewAllBills from "./pages/ViewAllBills";
+import ManageNotifications from "./pages/ManageNotifications";
+import ViewAllTransactions from "./pages/ViewAllTransactions";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -177,6 +188,17 @@ const App = () => (
             <Route path="/admin-login" element={<AdminLogin />} />
             <Route path="/user-dashboard" element={<UserDashboard />} />
             <Route path="/admin-dashboard" element={<AdminDashboard />} />
+            
+            {/* User Dashboard Feature Routes */}
+            <Route path="/transfer-money" element={<TransferMoney />} />
+            <Route path="/pay-bills" element={<PayBills />} />
+            <Route path="/deposit-check" element={<DepositCheck />} />
+            <Route path="/account-settings" element={<AccountSettings />} />
+            <Route path="/manage-budget" element={<ManageBudget />} />
+            <Route path="/view-all-goals" element={<ViewAllGoals />} />
+            <Route path="/view-all-bills" element={<ViewAllBills />} />
+            <Route path="/manage-notifications" element={<ManageNotifications />} />
+            <Route path="/view-all-transactions" element={<ViewAllTransactions />} />
             
             {/* 404 Page */}
             <Route path="*" element={<NotFound />} />

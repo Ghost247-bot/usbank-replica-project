@@ -4,9 +4,11 @@ import { Target } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useBudgets } from '@/hooks/useBudgets';
+import { useNavigate } from 'react-router-dom';
 
 const BudgetTracker = () => {
   const { budgets, loading } = useBudgets();
+  const navigate = useNavigate();
 
   if (loading) {
     return (
@@ -66,7 +68,11 @@ const BudgetTracker = () => {
             })
           )}
         </div>
-        <Button variant="outline" className="w-full mt-4">
+        <Button 
+          variant="outline" 
+          className="w-full mt-4"
+          onClick={() => navigate('/manage-budget')}
+        >
           Manage Budget
         </Button>
       </CardContent>

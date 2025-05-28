@@ -1,12 +1,16 @@
 
 import React from 'react';
-import { Calendar, AlertCircle } from 'lucide-react';
+import { Calendar } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { useBills } from '@/hooks/useBills';
+import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 
 const UpcomingBills = () => {
   const { bills, loading } = useBills();
+  const navigate = useNavigate();
 
   if (loading) {
     return (
@@ -24,18 +28,7 @@ const UpcomingBills = () => {
     );
   }
 
-  const upcomingBills = bills
-    .filter(bill => !bill.is_paid)
-    .sort((a, b) => new Date(a.due_date).getTime() - new Date(b.due_date).getTime())
-    .slice(0, 3);
-
-  const getDaysUntilDue = (dueDate: string) => {
-    const today = new Date();
-    const due = new Date(dueDate);
-    const diffTime = due.getTime() - today.getTime();
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    return diffDays;
-  };
+  const upcomingBills = bills?.filter(bill => !bill.is_paid).slice(0, 3) || [];
 
   return (
     <Card>
@@ -52,39 +45,31 @@ const UpcomingBills = () => {
               <p>No upcoming bills</p>
             </div>
           ) : (
-            upcomingBills.map((bill) => {
-              const daysUntilDue = getDaysUntilDue(bill.due_date);
-              const isUrgent = daysUntilDue <= 3;
-              
-              return (
-                <div 
-                  key={bill.id}
-                  className={`flex items-center justify-between p-2 rounded-md border ${
-                    isUrgent ? 'bg-yellow-50 border-yellow-200' : 'bg-blue-50 border-blue-200'
-                  }`}
-                >
-                  <div className="flex items-center space-x-2">
-                    {isUrgent ? (
-                      <AlertCircle className="h-4 w-4 text-yellow-600" />
-                    ) : (
-                      <Calendar className="h-4 w-4 text-blue-600" />
-                    )}
-                    <div>
-                      <p className="text-sm font-medium">{bill.bill_name}</p>
-                      <p className="text-xs text-gray-600">
-                        {daysUntilDue > 0 ? `Due in ${daysUntilDue} days` : 
-                         daysUntilDue === 0 ? 'Due today' : 
-                         `Overdue by ${Math.abs(daysUntilDue)} days`}
-                      </p>
-                    </div>
-                  </div>
-                  <span className="text-sm font-semibold">${bill.amount.toFixed(2)}</span>
+            upcomingBills.map((bill) => (
+              <div key={bill.id} className="flex justify-between items-center">
+                <div>
+                  <p className="font-medium text-sm">{bill.bill_name}</p>
+                  <p className="text-xs text-gray-600">
+                    Due {format(new Date(bill.due_date), 'MMM dd')}
+                  </p>
                 </div>
-              );
-            })
+                <div className="text-right">
+                  <p className="font-semibold">${Number(bill.amount).toFixed(2)}</p>
+                  {bill.category && (
+                    <Badge variant="secondary" className="text-xs">
+                      {bill.category}
+                    </Badge>
+                  )}
+                </div>
+              </div>
+            ))
           )}
         </div>
-        <Button variant="outline" className="w-full mt-4">
+        <Button 
+          variant="outline" 
+          className="w-full mt-4"
+          onClick={() => navigate('/view-all-bills')}
+        >
           View All Bills
         </Button>
       </CardContent>

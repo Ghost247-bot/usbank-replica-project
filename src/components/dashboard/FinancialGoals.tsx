@@ -4,9 +4,11 @@ import { Target } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useFinancialGoals } from '@/hooks/useFinancialGoals';
+import { useNavigate } from 'react-router-dom';
 
 const FinancialGoals = () => {
   const { goals, loading } = useFinancialGoals();
+  const navigate = useNavigate();
 
   if (loading) {
     return (
@@ -63,7 +65,11 @@ const FinancialGoals = () => {
             })
           )}
         </div>
-        <Button variant="outline" className="w-full mt-4">
+        <Button 
+          variant="outline" 
+          className="w-full mt-4"
+          onClick={() => navigate('/view-all-goals')}
+        >
           View All Goals
         </Button>
       </CardContent>
