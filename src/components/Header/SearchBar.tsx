@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect, useRef } from 'react';
-import { Search, X } from 'lucide-react';
+import { Search, X, Clock, TrendingUp } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 interface SearchResult {
@@ -90,9 +89,26 @@ const SearchBar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [selectedIndex, setSelectedIndex] = useState(-1);
+  const [recentSearches, setRecentSearches] = useState<SearchResult[]>([]);
   const navigate = useNavigate();
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+
+  // Load recent searches from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('recentSearches');
+    if (saved) {
+      setRecentSearches(JSON.parse(saved));
+    }
+  }, []);
+
+  // Popular searches
+  const popularSearches = [
+    { title: 'Credit Cards', path: '/personal/credit-cards', category: 'Popular' },
+    { title: 'Online Banking', path: '/personal/online-banking', category: 'Popular' },
+    { title: 'Investment Management', path: '/wealth/investment-management', category: 'Popular' },
+    { title: 'Business Checking', path: '/business/business-checking', category: 'Popular' }
+  ];
 
   useEffect(() => {
     if (searchQuery.trim() === '') {
@@ -110,6 +126,12 @@ const SearchBar = () => {
     setSelectedIndex(-1);
   }, [searchQuery]);
 
+  const addToRecentSearches = (result: SearchResult) => {
+    const updated = [result, ...recentSearches.filter(r => r.path !== result.path)].slice(0, 5);
+    setRecentSearches(updated);
+    localStorage.setItem('recentSearches', JSON.stringify(updated));
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Escape') {
       setIsSearchVisible(false);
@@ -124,7 +146,9 @@ const SearchBar = () => {
     } else if (e.key === 'Enter') {
       e.preventDefault();
       if (selectedIndex >= 0 && searchResults[selectedIndex]) {
-        navigate(searchResults[selectedIndex].path);
+        const result = searchResults[selectedIndex];
+        addToRecentSearches(result);
+        navigate(result.path);
         setIsSearchVisible(false);
         setSearchQuery('');
         setSearchResults([]);
@@ -133,6 +157,7 @@ const SearchBar = () => {
   };
 
   const handleResultClick = (result: SearchResult) => {
+    addToRecentSearches(result);
     navigate(result.path);
     setIsSearchVisible(false);
     setSearchQuery('');
@@ -212,31 +237,74 @@ const SearchBar = () => {
               )}
             </div>
             
-            {/* Search Results Dropdown */}
-            {searchResults.length > 0 && (
+            {/* Search Results or Default Content */}
+            {searchQuery.trim() === '' ? (
               <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
-                {searchResults.map((result, index) => (
-                  <button
-                    key={`${result.path}-${index}`}
-                    onClick={() => handleResultClick(result)}
-                    className={`w-full text-left px-3 py-2 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors ${
-                      selectedIndex === index ? 'bg-blue-50 border-blue-200' : ''
-                    }`}
-                  >
-                    <div className="text-sm font-medium text-gray-900">{result.title}</div>
-                    <div className="text-xs text-gray-500">{result.category}</div>
-                  </button>
-                ))}
-              </div>
-            )}
-            
-            {/* No Results Message */}
-            {searchQuery.trim() !== '' && searchResults.length === 0 && (
-              <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 p-3">
-                <div className="text-sm text-gray-500 text-center">
-                  No results found for "{searchQuery}"
+                {recentSearches.length > 0 && (
+                  <div className="p-3">
+                    <div className="flex items-center text-sm text-gray-500 mb-2">
+                      <Clock className="h-4 w-4 mr-2" />
+                      Recent Searches
+                    </div>
+                    {recentSearches.map((result, index) => (
+                      <button
+                        key={`recent-${index}`}
+                        onClick={() => handleResultClick(result)}
+                        className="w-full text-left px-2 py-2 hover:bg-gray-50 rounded transition-colors"
+                      >
+                        <div className="text-sm font-medium text-gray-900">{result.title}</div>
+                        <div className="text-xs text-gray-500">{result.category}</div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+                
+                <div className="border-t border-gray-200 p-3">
+                  <div className="flex items-center text-sm text-gray-500 mb-2">
+                    <TrendingUp className="h-4 w-4 mr-2" />
+                    Popular Searches
+                  </div>
+                  {popularSearches.map((result, index) => (
+                    <button
+                      key={`popular-${index}`}
+                      onClick={() => handleResultClick(result)}
+                      className="w-full text-left px-2 py-2 hover:bg-gray-50 rounded transition-colors"
+                    >
+                      <div className="text-sm font-medium text-gray-900">{result.title}</div>
+                      <div className="text-xs text-gray-500">{result.category}</div>
+                    </button>
+                  ))}
                 </div>
               </div>
+            ) : (
+              <>
+                {/* Search Results Dropdown */}
+                {searchResults.length > 0 && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
+                    {searchResults.map((result, index) => (
+                      <button
+                        key={`${result.path}-${index}`}
+                        onClick={() => handleResultClick(result)}
+                        className={`w-full text-left px-3 py-2 hover:bg-gray-50 border-b border-gray-100 last:border-b-0 transition-colors ${
+                          selectedIndex === index ? 'bg-blue-50 border-blue-200' : ''
+                        }`}
+                      >
+                        <div className="text-sm font-medium text-gray-900">{result.title}</div>
+                        <div className="text-xs text-gray-500">{result.category}</div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+                
+                {/* No Results Message */}
+                {searchQuery.trim() !== '' && searchResults.length === 0 && (
+                  <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 p-3">
+                    <div className="text-sm text-gray-500 text-center">
+                      No results found for "{searchQuery}"
+                    </div>
+                  </div>
+                )}
+              </>
             )}
           </div>
         ) : (

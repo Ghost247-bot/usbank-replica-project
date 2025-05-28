@@ -2,6 +2,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Star, Award, Users } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const FeaturedSection = () => {
   return (
@@ -59,10 +60,12 @@ const FeaturedSection = () => {
                 24/7 customer support
               </li>
             </ul>
-            <Button className="bg-green-700 hover:bg-green-800 text-white flex items-center space-x-2">
-              <span>Download App</span>
-              <ArrowRight className="h-4 w-4" />
-            </Button>
+            <Link to="/download-app">
+              <Button className="bg-green-700 hover:bg-green-800 text-white flex items-center space-x-2">
+                <span>Download App</span>
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
           </div>
           <div className="bg-gradient-to-br from-green-100 to-green-200 rounded-lg p-8 lg:p-12">
             <div className="bg-white rounded-lg shadow-xl p-6 max-w-sm mx-auto">
@@ -134,10 +137,12 @@ const FeaturedSection = () => {
                 Retirement planning tools
               </li>
             </ul>
-            <Button className="bg-green-700 hover:bg-green-800 text-white flex items-center space-x-2">
-              <span>Start Investing</span>
-              <ArrowRight className="h-4 w-4" />
-            </Button>
+            <Link to="/start-investing">
+              <Button className="bg-green-700 hover:bg-green-800 text-white flex items-center space-x-2">
+                <span>Start Investing</span>
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

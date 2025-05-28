@@ -7,6 +7,8 @@ import Logo from './Logo';
 import DesktopNavigation from './DesktopNavigation';
 import SearchBar from './SearchBar';
 import ActionButtons from './ActionButtons';
+import NotificationDropdown from './NotificationDropdown';
+import QuickAccessMenu from './QuickAccessMenu';
 import MobileMenu from './MobileMenu';
 
 const Header = () => {
@@ -53,10 +55,20 @@ const Header = () => {
             </div>
 
             {/* Right Side Actions */}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-2">
               {/* Search Bar - Hidden on small screens */}
               <div className="hidden md:block">
                 <SearchBar />
+              </div>
+              
+              {/* Quick Access Menu - Desktop only */}
+              <div className="hidden lg:block">
+                <QuickAccessMenu />
+              </div>
+
+              {/* Notifications - Desktop and tablet */}
+              <div className="hidden sm:block">
+                <NotificationDropdown />
               </div>
               
               {/* Action Buttons */}
