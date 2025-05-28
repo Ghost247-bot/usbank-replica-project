@@ -32,17 +32,33 @@ export const useAdminStats = () => {
       setLoading(true);
       console.log('Fetching admin dashboard stats...');
 
-      // Fetch total customers
-      const { count: customerCount, error: customerError } = await supabase
-        .from('profiles')
+      // Fetch total customers - try multiple approaches to get accurate count
+      let customerCount = 0;
+      
+      // First try to get count from user_roles table (this should have all users)
+      const { count: userRolesCount, error: userRolesError } = await supabase
+        .from('user_roles')
         .select('*', { count: 'exact', head: true });
 
-      if (customerError) {
-        console.error('Error fetching customer count:', customerError);
-        throw customerError;
-      }
+      if (userRolesError) {
+        console.warn('Error fetching from user_roles:', userRolesError);
+        
+        // Fallback to profiles table
+        const { count: profilesCount, error: profilesError } = await supabase
+          .from('profiles')
+          .select('*', { count: 'exact', head: true });
 
-      console.log('Customer count:', customerCount);
+        if (profilesError) {
+          console.error('Error fetching customer count from profiles:', profilesError);
+          throw profilesError;
+        }
+        
+        customerCount = profilesCount || 0;
+        console.log('Customer count from profiles:', customerCount);
+      } else {
+        customerCount = userRolesCount || 0;
+        console.log('Customer count from user_roles:', customerCount);
+      }
 
       // Fetch total deposits (sum of all account balances)
       const { data: accounts, error: accountsError } = await supabase
@@ -106,14 +122,14 @@ export const useAdminStats = () => {
       console.log('Recent activity:', recentActivity);
 
       setStats({
-        totalCustomers: customerCount || 0,
+        totalCustomers: customerCount,
         totalDeposits: Math.round(totalDeposits * 100) / 100,
         activeLoans: Math.round(activeLoansValue * 100) / 100,
         pendingReviews: pendingCount || 0,
         recentActivity
       });
 
-      console.log('Admin stats updated successfully');
+      console.log('Admin stats updated successfully. Total customers:', customerCount);
 
     } catch (error: any) {
       console.error('Error fetching admin stats:', error);
