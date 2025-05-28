@@ -17,6 +17,7 @@ interface User {
   last_name?: string;
   is_frozen: boolean;
   freeze_reason?: string;
+  created_at: string;
 }
 
 const UserManagement = () => {
@@ -38,37 +39,46 @@ const UserManagement = () => {
 
   const fetchUsers = async () => {
     try {
+      setLoading(true);
+      
+      // Fetch user profiles with their status
       const { data: profiles, error } = await supabase
         .from('profiles')
         .select(`
           id,
           first_name,
           last_name,
+          created_at,
           user_status (
             is_frozen,
             freeze_reason
           )
-        `);
+        `)
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
 
-      // Also get user emails from auth metadata
+      // Transform the data to match our interface
       const usersWithStatus = profiles?.map(profile => ({
         id: profile.id,
-        email: `user-${profile.id.slice(0, 8)}@example.com`, // Placeholder since we can't access auth.users
+        email: `user-${profile.id.slice(0, 8)}@example.com`, // Placeholder since we can't access auth.users directly
         first_name: profile.first_name,
         last_name: profile.last_name,
         is_frozen: Array.isArray(profile.user_status) && profile.user_status.length > 0 ? profile.user_status[0].is_frozen : false,
-        freeze_reason: Array.isArray(profile.user_status) && profile.user_status.length > 0 ? profile.user_status[0].freeze_reason : undefined
+        freeze_reason: Array.isArray(profile.user_status) && profile.user_status.length > 0 ? profile.user_status[0].freeze_reason : undefined,
+        created_at: profile.created_at
       })) || [];
 
       setUsers(usersWithStatus);
     } catch (error: any) {
+      console.error('Error fetching users:', error);
       toast({
         variant: "destructive",
         title: "Error",
         description: "Failed to fetch users: " + error.message,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -120,13 +130,37 @@ const UserManagement = () => {
     user.email.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  if (loading && users.length === 0) {
+    return (
+      <Card>
+        <CardHeader>
+          <CardTitle>User Management</CardTitle>
+          <CardDescription>Loading users...</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-4">
+            {[...Array(5)].map((_, i) => (
+              <div key={i} className="flex items-center justify-between p-4 border rounded-lg animate-pulse">
+                <div className="space-y-2">
+                  <div className="h-4 bg-gray-200 rounded w-32"></div>
+                  <div className="h-3 bg-gray-200 rounded w-48"></div>
+                </div>
+                <div className="h-8 bg-gray-200 rounded w-16"></div>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card>
       <CardHeader>
         <div className="flex justify-between items-center">
           <div>
             <CardTitle>User Management</CardTitle>
-            <CardDescription>Manage user accounts and access</CardDescription>
+            <CardDescription>Manage user accounts and access ({users.length} users)</CardDescription>
           </div>
           <Dialog open={showCreateUser} onOpenChange={setShowCreateUser}>
             <DialogTrigger asChild>
@@ -176,74 +210,81 @@ const UserManagement = () => {
         </div>
 
         <div className="space-y-4">
-          {filteredUsers.map((user) => (
-            <div key={user.id} className="flex items-center justify-between p-4 border rounded-lg">
-              <div>
-                <h3 className="font-medium">
-                  {user.first_name} {user.last_name}
-                </h3>
-                <p className="text-sm text-gray-600">{user.email}</p>
-                {user.is_frozen && (
-                  <p className="text-sm text-red-600">
-                    Frozen: {user.freeze_reason}
-                  </p>
-                )}
-              </div>
-              <div className="flex space-x-2">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setSelectedUser(user)}
-                    >
-                      <Edit className="h-4 w-4" />
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent>
-                    <DialogHeader>
-                      <DialogTitle>
-                        {user.is_frozen ? 'Unfreeze' : 'Freeze'} User
-                      </DialogTitle>
-                      <DialogDescription>
-                        {user.is_frozen 
-                          ? 'Unfreeze this user account' 
-                          : 'Freeze this user account and provide a reason'
-                        }
-                      </DialogDescription>
-                    </DialogHeader>
-                    <div className="space-y-4">
-                      {!user.is_frozen && (
-                        <Textarea
-                          placeholder="Reason for freezing..."
-                          value={freezeReason}
-                          onChange={(e) => setFreezeReason(e.target.value)}
-                        />
-                      )}
+          {filteredUsers.length > 0 ? (
+            filteredUsers.map((user) => (
+              <div key={user.id} className="flex items-center justify-between p-4 border rounded-lg">
+                <div>
+                  <h3 className="font-medium">
+                    {user.first_name} {user.last_name}
+                  </h3>
+                  <p className="text-sm text-gray-600">{user.email}</p>
+                  <p className="text-xs text-gray-500">Joined: {new Date(user.created_at).toLocaleDateString()}</p>
+                  {user.is_frozen && (
+                    <p className="text-sm text-red-600">
+                      Frozen: {user.freeze_reason}
+                    </p>
+                  )}
+                </div>
+                <div className="flex space-x-2">
+                  <Dialog>
+                    <DialogTrigger asChild>
                       <Button
-                        onClick={() => handleFreezeUser(user.id, !user.is_frozen)}
-                        disabled={loading || (!user.is_frozen && !freezeReason)}
-                        className="w-full"
-                        variant={user.is_frozen ? "default" : "destructive"}
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setSelectedUser(user)}
                       >
-                        {user.is_frozen ? (
-                          <>
-                            <UserCheck className="h-4 w-4 mr-2" />
-                            Unfreeze User
-                          </>
-                        ) : (
-                          <>
-                            <UserX className="h-4 w-4 mr-2" />
-                            Freeze User
-                          </>
-                        )}
+                        <Edit className="h-4 w-4" />
                       </Button>
-                    </div>
-                  </DialogContent>
-                </Dialog>
+                    </DialogTrigger>
+                    <DialogContent>
+                      <DialogHeader>
+                        <DialogTitle>
+                          {user.is_frozen ? 'Unfreeze' : 'Freeze'} User
+                        </DialogTitle>
+                        <DialogDescription>
+                          {user.is_frozen 
+                            ? 'Unfreeze this user account' 
+                            : 'Freeze this user account and provide a reason'
+                          }
+                        </DialogDescription>
+                      </DialogHeader>
+                      <div className="space-y-4">
+                        {!user.is_frozen && (
+                          <Textarea
+                            placeholder="Reason for freezing..."
+                            value={freezeReason}
+                            onChange={(e) => setFreezeReason(e.target.value)}
+                          />
+                        )}
+                        <Button
+                          onClick={() => handleFreezeUser(user.id, !user.is_frozen)}
+                          disabled={loading || (!user.is_frozen && !freezeReason)}
+                          className="w-full"
+                          variant={user.is_frozen ? "default" : "destructive"}
+                        >
+                          {user.is_frozen ? (
+                            <>
+                              <UserCheck className="h-4 w-4 mr-2" />
+                              Unfreeze User
+                            </>
+                          ) : (
+                            <>
+                              <UserX className="h-4 w-4 mr-2" />
+                              Freeze User
+                            </>
+                          )}
+                        </Button>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
+                </div>
               </div>
+            ))
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-gray-500">No users found</p>
             </div>
-          ))}
+          )}
         </div>
       </CardContent>
     </Card>

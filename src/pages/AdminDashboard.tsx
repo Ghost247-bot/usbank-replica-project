@@ -10,11 +10,15 @@ import AccountManagement from '@/components/admin/AccountManagement';
 import BannerManagement from '@/components/admin/BannerManagement';
 import NotificationManagement from '@/components/admin/NotificationManagement';
 import TransactionManagement from '@/components/admin/TransactionManagement';
+import StatsCard from '@/components/admin/StatsCard';
+import RecentActivityCard from '@/components/admin/RecentActivityCard';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useAdminStats } from '@/hooks/useAdminStats';
 
 const AdminDashboardContent = () => {
   const [activeTab, setActiveTab] = useState('overview');
+  const { stats, loading } = useAdminStats();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -46,105 +50,39 @@ const AdminDashboardContent = () => {
             <TabsContent value="overview" className="space-y-8">
               {/* Key Metrics */}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Total Customers</CardTitle>
-                    <Users className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">12,847</div>
-                    <p className="text-xs text-muted-foreground">
-                      +5.2% from last month
-                    </p>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Total Deposits</CardTitle>
-                    <DollarSign className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">$45.2M</div>
-                    <p className="text-xs text-muted-foreground">
-                      +12.1% from last month
-                    </p>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Active Loans</CardTitle>
-                    <TrendingUp className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">$23.8M</div>
-                    <p className="text-xs text-muted-foreground">
-                      +8.7% from last month
-                    </p>
-                  </CardContent>
-                </Card>
-
-                <Card>
-                  <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                    <CardTitle className="text-sm font-medium">Pending Reviews</CardTitle>
-                    <AlertTriangle className="h-4 w-4 text-muted-foreground" />
-                  </CardHeader>
-                  <CardContent>
-                    <div className="text-2xl font-bold">23</div>
-                    <p className="text-xs text-muted-foreground">
-                      Requires attention
-                    </p>
-                  </CardContent>
-                </Card>
+                <StatsCard
+                  title="Total Customers"
+                  value={stats.totalCustomers}
+                  change="+5.2% from last month"
+                  icon={Users}
+                  loading={loading}
+                />
+                <StatsCard
+                  title="Total Deposits"
+                  value={Math.round(stats.totalDeposits / 1000000 * 10) / 10}
+                  change="+12.1% from last month"
+                  icon={DollarSign}
+                  loading={loading}
+                />
+                <StatsCard
+                  title="Active Loans"
+                  value={Math.round(stats.activeLoans / 1000000 * 10) / 10}
+                  change="+8.7% from last month"
+                  icon={TrendingUp}
+                  loading={loading}
+                />
+                <StatsCard
+                  title="Pending Reviews"
+                  value={stats.pendingReviews}
+                  change="Requires attention"
+                  icon={AlertTriangle}
+                  loading={loading}
+                />
               </div>
 
               {/* Recent Activity and Admin Tools */}
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Recent Customer Activity</CardTitle>
-                    <CardDescription>Latest account openings and transactions</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between p-3 bg-green-50 rounded-md">
-                        <div>
-                          <p className="font-medium">New Account Opened</p>
-                          <p className="text-sm text-gray-600">Sarah Johnson - Checking Account</p>
-                        </div>
-                        <span className="text-sm text-gray-500">2 min ago</span>
-                      </div>
-
-                      <div className="flex items-center justify-between p-3 bg-blue-50 rounded-md">
-                        <div>
-                          <p className="font-medium">Loan Application</p>
-                          <p className="text-sm text-gray-600">Michael Smith - $50,000 Business Loan</p>
-                        </div>
-                        <span className="text-sm text-gray-500">15 min ago</span>
-                      </div>
-
-                      <div className="flex items-center justify-between p-3 bg-yellow-50 rounded-md">
-                        <div>
-                          <p className="font-medium">Large Transaction</p>
-                          <p className="text-sm text-gray-600">Emma Davis - $25,000 Wire Transfer</p>
-                        </div>
-                        <span className="text-sm text-gray-500">1 hour ago</span>
-                      </div>
-
-                      <div className="flex items-center justify-between p-3 bg-purple-50 rounded-md">
-                        <div>
-                          <p className="font-medium">Credit Card Application</p>
-                          <p className="text-sm text-gray-600">Robert Wilson - Platinum Card</p>
-                        </div>
-                        <span className="text-sm text-gray-500">2 hours ago</span>
-                      </div>
-                    </div>
-                    <Button variant="outline" className="w-full mt-4">
-                      View All Activity
-                    </Button>
-                  </CardContent>
-                </Card>
+                <RecentActivityCard activities={stats.recentActivity} loading={loading} />
 
                 <div className="space-y-6">
                   <Card>
