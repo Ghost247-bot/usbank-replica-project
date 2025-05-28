@@ -3,7 +3,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 
 // Import all pages
@@ -81,7 +81,6 @@ import Accessibility from "./pages/Accessibility";
 import SiteMap from "./pages/SiteMap";
 
 // Auth and Dashboard Pages
-import SignIn from "./pages/SignIn";
 import CreateAccount from "./pages/CreateAccount";
 import ForgotPassword from "./pages/ForgotPassword";
 import AdminLogin from "./pages/AdminLogin";
@@ -182,7 +181,7 @@ const App = () => (
             <Route path="/site-map" element={<SiteMap />} />
             
             {/* Auth and Dashboard Routes */}
-            <Route path="/sign-in" element={<SignIn />} />
+            <Route path="/sign-in" element={<Navigate to="/auth" replace />} />
             <Route path="/create-account" element={<CreateAccount />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/admin-login" element={<AdminLogin />} />

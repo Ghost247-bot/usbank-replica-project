@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 const ActionButtons = () => {
   return (
     <div className="flex items-center space-x-3">
-      <Link to="/sign-in">
+      <Link to="/auth">
         <Button 
           variant="outline" 
           size="sm" 
@@ -19,7 +19,7 @@ const ActionButtons = () => {
       </Link>
       
       {/* Mobile Sign In Button */}
-      <Link to="/sign-in">
+      <Link to="/auth">
         <Button 
           variant="outline" 
           size="sm" 
