@@ -20,6 +20,17 @@ interface User {
   created_at: string;
 }
 
+interface ProfileWithStatus {
+  id: string;
+  first_name: string | null;
+  last_name: string | null;
+  created_at: string;
+  user_status: {
+    is_frozen: boolean | null;
+    freeze_reason: string | null;
+  } | null;
+}
+
 const UserManagement = () => {
   const [users, setUsers] = useState<User[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -55,7 +66,7 @@ const UserManagement = () => {
             freeze_reason
           )
         `)
-        .order('created_at', { ascending: false });
+        .order('created_at', { ascending: false }) as { data: ProfileWithStatus[] | null, error: any };
 
       if (error) {
         console.error('Error fetching profiles:', error);
