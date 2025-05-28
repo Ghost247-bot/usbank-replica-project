@@ -32,11 +32,11 @@ const RecentTransactions = () => {
 
   const getTransactionIcon = (type: string) => {
     switch (type) {
-      case 'credit':
       case 'deposit':
         return <ArrowDownLeft className="h-4 w-4 text-green-600" />;
-      case 'debit':
       case 'withdrawal':
+      case 'payment':
+      case 'fee':
         return <ArrowUpRight className="h-4 w-4 text-red-600" />;
       default:
         return <ArrowUpRight className="h-4 w-4 text-gray-600" />;
@@ -86,10 +86,10 @@ const RecentTransactions = () => {
                 </div>
                 <div className="text-right">
                   <p className={`font-semibold text-sm ${
-                    transaction.transaction_type === 'credit' || transaction.transaction_type === 'deposit'
+                    transaction.transaction_type === 'deposit'
                       ? 'text-green-600' : 'text-red-600'
                   }`}>
-                    {transaction.transaction_type === 'credit' || transaction.transaction_type === 'deposit' ? '+' : '-'}
+                    {transaction.transaction_type === 'deposit' ? '+' : '-'}
                     ${Number(transaction.amount).toFixed(2)}
                   </p>
                   <Badge className={`text-xs ${getStatusColor(transaction.status)}`}>

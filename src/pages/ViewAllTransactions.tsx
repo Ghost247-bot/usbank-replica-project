@@ -38,11 +38,11 @@ const ViewAllTransactions = () => {
 
   const getTransactionIcon = (type: string) => {
     switch (type) {
-      case 'credit':
       case 'deposit':
         return <ArrowDownLeft className="h-4 w-4 text-green-600" />;
-      case 'debit':
       case 'withdrawal':
+      case 'payment':
+      case 'fee':
         return <ArrowUpRight className="h-4 w-4 text-red-600" />;
       default:
         return <ArrowUpRight className="h-4 w-4 text-gray-600" />;
@@ -123,9 +123,12 @@ const ViewAllTransactions = () => {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Types</SelectItem>
-                    <SelectItem value="credit">Credit</SelectItem>
-                    <SelectItem value="debit">Debit</SelectItem>
+                    <SelectItem value="deposit">Deposit</SelectItem>
+                    <SelectItem value="withdrawal">Withdrawal</SelectItem>
                     <SelectItem value="transfer">Transfer</SelectItem>
+                    <SelectItem value="payment">Payment</SelectItem>
+                    <SelectItem value="fee">Fee</SelectItem>
+                    <SelectItem value="interest">Interest</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -187,10 +190,10 @@ const ViewAllTransactions = () => {
                       </div>
                       <div className="text-right">
                         <div className={`text-lg font-semibold ${
-                          transaction.transaction_type === 'credit' || transaction.transaction_type === 'deposit'
+                          transaction.transaction_type === 'deposit'
                             ? 'text-green-600' : 'text-red-600'
                         }`}>
-                          {transaction.transaction_type === 'credit' || transaction.transaction_type === 'deposit' ? '+' : '-'}
+                          {transaction.transaction_type === 'deposit' ? '+' : '-'}
                           ${Number(transaction.amount).toFixed(2)}
                         </div>
                         <Badge className={getStatusColor(transaction.status)}>
