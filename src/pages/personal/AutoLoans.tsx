@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import { CheckCircle, Star, Shield, Smartphone, Car, Users, DollarSign, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Link } from 'react-router-dom';
 
 const AutoLoans = () => {
   const benefits = [
@@ -79,12 +80,16 @@ const AutoLoans = () => {
                   and flexible terms to get you behind the wheel.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg">
-                    Get Pre-Approved
-                  </Button>
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
-                    View Rates
-                  </Button>
+                  <Link to="/get-started">
+                    <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg">
+                      Get Pre-Approved
+                    </Button>
+                  </Link>
+                  <Link to="/compare-rates">
+                    <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
+                      View Rates
+                    </Button>
+                  </Link>
                 </div>
               </div>
               <div className="relative">
@@ -177,9 +182,11 @@ const AutoLoans = () => {
                   <li>• 100% financing available</li>
                   <li>• New car incentives</li>
                 </ul>
-                <Button className="w-full bg-green-700 hover:bg-green-800 text-white py-3">
-                  Get Pre-Approved
-                </Button>
+                <Link to="/get-started">
+                  <Button className="w-full bg-green-700 hover:bg-green-800 text-white py-3">
+                    Get Pre-Approved
+                  </Button>
+                </Link>
               </div>
               <div className="bg-white rounded-xl p-8 shadow-lg border-2 border-green-700">
                 <div className="text-center mb-4">
@@ -194,9 +201,11 @@ const AutoLoans = () => {
                   <li>• Vehicles up to 8 years old</li>
                   <li>• Extended warranty options</li>
                 </ul>
-                <Button className="w-full bg-green-700 hover:bg-green-800 text-white py-3">
-                  Get Pre-Approved
-                </Button>
+                <Link to="/get-started">
+                  <Button className="w-full bg-green-700 hover:bg-green-800 text-white py-3">
+                    Get Pre-Approved
+                  </Button>
+                </Link>
               </div>
               <div className="bg-white rounded-xl p-8 shadow-lg border">
                 <h3 className="text-2xl font-bold mb-4">Refinancing</h3>
@@ -208,9 +217,11 @@ const AutoLoans = () => {
                   <li>• Cash out refinancing</li>
                   <li>• No prepayment penalties</li>
                 </ul>
-                <Button className="w-full bg-green-700 hover:bg-green-800 text-white py-3">
-                  Refinance Now
-                </Button>
+                <Link to="/get-started">
+                  <Button className="w-full bg-green-700 hover:bg-green-800 text-white py-3">
+                    Refinance Now
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -225,12 +236,16 @@ const AutoLoans = () => {
               Our competitive rates and flexible terms make car buying easy.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-green-600 hover:bg-green-700 px-8 py-4 text-lg">
-                Get Pre-Approved
-              </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
-                Calculate Payment
-              </Button>
+              <Link to="/get-started">
+                <Button size="lg" className="bg-green-600 hover:bg-green-700 px-8 py-4 text-lg">
+                  Get Pre-Approved
+                </Button>
+              </Link>
+              <Link to="/calculate-payment">
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
+                  Calculate Payment
+                </Button>
+              </Link>
             </div>
             <p className="text-sm text-blue-200 mt-6">
               Subject to credit approval. Terms and conditions apply.

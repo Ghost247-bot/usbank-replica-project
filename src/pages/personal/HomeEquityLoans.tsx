@@ -5,6 +5,7 @@ import Footer from '@/components/Footer';
 import { CheckCircle, Star, Shield, Smartphone, Home, Users, DollarSign, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Link } from 'react-router-dom';
 
 const HomeEquityLoans = () => {
   const benefits = [
@@ -61,12 +62,16 @@ const HomeEquityLoans = () => {
                   education, or other major expenses with competitive rates.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg">
-                    Apply Now
-                  </Button>
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
-                    Check Your Equity
-                  </Button>
+                  <Link to="/get-started">
+                    <Button size="lg" className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg">
+                      Apply Now
+                    </Button>
+                  </Link>
+                  <Link to="/check-equity">
+                    <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
+                      Check Your Equity
+                    </Button>
+                  </Link>
                 </div>
               </div>
               <div className="relative">
@@ -139,9 +144,11 @@ const HomeEquityLoans = () => {
                   <li>• Terms up to 20 years</li>
                   <li>• Rates starting at 7.25% APR</li>
                 </ul>
-                <Button className="w-full bg-green-700 hover:bg-green-800 text-white py-3">
-                  Apply for Loan
-                </Button>
+                <Link to="/get-started">
+                  <Button className="w-full bg-green-700 hover:bg-green-800 text-white py-3">
+                    Apply for Loan
+                  </Button>
+                </Link>
               </div>
               <div className="bg-white rounded-xl p-8 shadow-lg border-2 border-green-700">
                 <div className="text-center mb-4">
@@ -157,9 +164,11 @@ const HomeEquityLoans = () => {
                   <li>• 10-year draw period</li>
                   <li>• Rates starting at 6.75% APR</li>
                 </ul>
-                <Button className="w-full bg-green-700 hover:bg-green-800 text-white py-3">
-                  Apply for Line of Credit
-                </Button>
+                <Link to="/get-started">
+                  <Button className="w-full bg-green-700 hover:bg-green-800 text-white py-3">
+                    Apply for Line of Credit
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
@@ -174,12 +183,16 @@ const HomeEquityLoans = () => {
               rates with flexible terms that work for your financial goals.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-green-600 hover:bg-green-700 px-8 py-4 text-lg">
-                Apply Online
-              </Button>
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
-                Talk to a Specialist
-              </Button>
+              <Link to="/get-started">
+                <Button size="lg" className="bg-green-600 hover:bg-green-700 px-8 py-4 text-lg">
+                  Apply Online
+                </Button>
+              </Link>
+              <Link to="/contact-us">
+                <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 px-8 py-4 text-lg">
+                  Talk to a Specialist
+                </Button>
+              </Link>
             </div>
             <p className="text-sm text-blue-200 mt-6">
               Subject to credit approval. Property must be owner-occupied.
