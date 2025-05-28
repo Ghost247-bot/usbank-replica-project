@@ -165,6 +165,12 @@ export type Database = {
           id: string
           last_name: string | null
           phone: string | null
+          pin: string | null
+          security_answer_1: string | null
+          security_answer_2: string | null
+          security_question_1: string | null
+          security_question_2: string | null
+          ssn_iban: string | null
           updated_at: string
         }
         Insert: {
@@ -175,6 +181,12 @@ export type Database = {
           id: string
           last_name?: string | null
           phone?: string | null
+          pin?: string | null
+          security_answer_1?: string | null
+          security_answer_2?: string | null
+          security_question_1?: string | null
+          security_question_2?: string | null
+          ssn_iban?: string | null
           updated_at?: string
         }
         Update: {
@@ -185,6 +197,12 @@ export type Database = {
           id?: string
           last_name?: string | null
           phone?: string | null
+          pin?: string | null
+          security_answer_1?: string | null
+          security_answer_2?: string | null
+          security_question_1?: string | null
+          security_question_2?: string | null
+          ssn_iban?: string | null
           updated_at?: string
         }
         Relationships: []
