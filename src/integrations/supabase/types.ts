@@ -16,7 +16,11 @@ export type Database = {
           account_type: Database["public"]["Enums"]["account_type"]
           balance: number
           created_at: string
+          freeze_reason: string | null
+          frozen_at: string | null
+          frozen_by: string | null
           id: string
+          is_frozen: boolean | null
           status: Database["public"]["Enums"]["account_status"]
           updated_at: string
           user_id: string
@@ -27,7 +31,11 @@ export type Database = {
           account_type: Database["public"]["Enums"]["account_type"]
           balance?: number
           created_at?: string
+          freeze_reason?: string | null
+          frozen_at?: string | null
+          frozen_by?: string | null
           id?: string
+          is_frozen?: boolean | null
           status?: Database["public"]["Enums"]["account_status"]
           updated_at?: string
           user_id: string
@@ -38,7 +46,11 @@ export type Database = {
           account_type?: Database["public"]["Enums"]["account_type"]
           balance?: number
           created_at?: string
+          freeze_reason?: string | null
+          frozen_at?: string | null
+          frozen_by?: string | null
           id?: string
+          is_frozen?: boolean | null
           status?: Database["public"]["Enums"]["account_status"]
           updated_at?: string
           user_id?: string
@@ -52,6 +64,36 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      admin_actions: {
+        Row: {
+          action_details: Json | null
+          action_type: string
+          admin_user_id: string
+          created_at: string | null
+          id: string
+          reason: string | null
+          target_user_id: string | null
+        }
+        Insert: {
+          action_details?: Json | null
+          action_type: string
+          admin_user_id: string
+          created_at?: string | null
+          id?: string
+          reason?: string | null
+          target_user_id?: string | null
+        }
+        Update: {
+          action_details?: Json | null
+          action_type?: string
+          admin_user_id?: string
+          created_at?: string | null
+          id?: string
+          reason?: string | null
+          target_user_id?: string | null
+        }
+        Relationships: []
       }
       bills: {
         Row: {
@@ -130,8 +172,12 @@ export type Database = {
           credit_limit: number
           current_balance: number
           expiry_date: string
+          freeze_reason: string | null
+          frozen_at: string | null
+          frozen_by: string | null
           id: string
           interest_rate: number
+          is_frozen: boolean | null
           status: Database["public"]["Enums"]["account_status"]
           updated_at: string
           user_id: string
@@ -143,8 +189,12 @@ export type Database = {
           credit_limit: number
           current_balance?: number
           expiry_date: string
+          freeze_reason?: string | null
+          frozen_at?: string | null
+          frozen_by?: string | null
           id?: string
           interest_rate: number
+          is_frozen?: boolean | null
           status?: Database["public"]["Enums"]["account_status"]
           updated_at?: string
           user_id: string
@@ -156,8 +206,12 @@ export type Database = {
           credit_limit?: number
           current_balance?: number
           expiry_date?: string
+          freeze_reason?: string | null
+          frozen_at?: string | null
+          frozen_by?: string | null
           id?: string
           interest_rate?: number
+          is_frozen?: boolean | null
           status?: Database["public"]["Enums"]["account_status"]
           updated_at?: string
           user_id?: string
@@ -171,6 +225,42 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      dashboard_banners: {
+        Row: {
+          banner_type: string
+          created_at: string | null
+          created_by: string
+          expires_at: string | null
+          id: string
+          is_active: boolean | null
+          message: string
+          target_user_id: string | null
+          title: string
+        }
+        Insert: {
+          banner_type?: string
+          created_at?: string | null
+          created_by: string
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          message: string
+          target_user_id?: string | null
+          title: string
+        }
+        Update: {
+          banner_type?: string
+          created_at?: string | null
+          created_by?: string
+          expires_at?: string | null
+          id?: string
+          is_active?: boolean | null
+          message?: string
+          target_user_id?: string | null
+          title?: string
+        }
+        Relationships: []
       }
       financial_goals: {
         Row: {
@@ -456,6 +546,39 @@ export type Database = {
         }
         Relationships: []
       }
+      user_status: {
+        Row: {
+          created_at: string | null
+          freeze_reason: string | null
+          frozen_at: string | null
+          frozen_by: string | null
+          id: string
+          is_frozen: boolean | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          freeze_reason?: string | null
+          frozen_at?: string | null
+          frozen_by?: string | null
+          id?: string
+          is_frozen?: boolean | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          freeze_reason?: string | null
+          frozen_at?: string | null
+          frozen_by?: string | null
+          id?: string
+          is_frozen?: boolean | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -471,6 +594,22 @@ export type Database = {
           _role: Database["public"]["Enums"]["user_role"]
         }
         Returns: boolean
+      }
+      toggle_account_freeze: {
+        Args: { account_id: string; freeze_status: boolean; reason?: string }
+        Returns: undefined
+      }
+      toggle_card_freeze: {
+        Args: { card_id: string; freeze_status: boolean; reason?: string }
+        Returns: undefined
+      }
+      toggle_user_freeze: {
+        Args: {
+          target_user_id: string
+          freeze_status: boolean
+          reason?: string
+        }
+        Returns: undefined
       }
     }
     Enums: {
