@@ -59,6 +59,37 @@ export const useTransactions = () => {
     }
   };
 
+  const updateAccountBalance = async (accountId: string, amount: number, transactionType: string) => {
+    try {
+      // Get current account balance
+      const { data: account, error: fetchError } = await supabase
+        .from('accounts')
+        .select('balance')
+        .eq('id', accountId)
+        .single();
+
+      if (fetchError) throw fetchError;
+
+      // Calculate new balance
+      const currentBalance = account.balance || 0;
+      const balanceChange = transactionType === 'withdrawal' ? -amount : amount;
+      const newBalance = currentBalance + balanceChange;
+
+      // Update account balance
+      const { error: updateError } = await supabase
+        .from('accounts')
+        .update({ balance: newBalance })
+        .eq('id', accountId);
+
+      if (updateError) throw updateError;
+
+      console.log(`Account ${accountId} balance updated from ${currentBalance} to ${newBalance}`);
+    } catch (error: any) {
+      console.error('Error updating account balance:', error);
+      // Don't throw here, just log the error as this is a secondary operation
+    }
+  };
+
   const createTransaction = async (createForm: CreateTransactionForm) => {
     if (!createForm.account_id || !createForm.amount) return false;
 
@@ -77,23 +108,13 @@ export const useTransactions = () => {
 
       if (error) throw error;
 
-      // Update account balance if transaction is completed (removed the RPC call that was causing the error)
+      // Update account balance if transaction is completed
       if (createForm.status === 'completed') {
-        const balanceChange = createForm.transaction_type === 'withdrawal' 
-          ? -parseFloat(createForm.amount) 
-          : parseFloat(createForm.amount);
-
-        // Direct update to account balance instead of using non-existent RPC
-        const { error: balanceError } = await supabase
-          .from('accounts')
-          .update({ 
-            balance: balanceChange // This should be handled properly with proper balance calculation
-          })
-          .eq('id', createForm.account_id);
-
-        if (balanceError) {
-          console.warn('Balance update failed:', balanceError);
-        }
+        await updateAccountBalance(
+          createForm.account_id,
+          parseFloat(createForm.amount),
+          createForm.transaction_type
+        );
       }
 
       toast({
