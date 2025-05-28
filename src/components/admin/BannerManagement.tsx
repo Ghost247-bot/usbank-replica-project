@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Plus, Edit, Trash2, Users, User } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -22,8 +23,15 @@ interface Banner {
   created_at: string;
 }
 
+interface UserProfile {
+  id: string;
+  first_name?: string;
+  last_name?: string;
+}
+
 const BannerManagement = () => {
   const [banners, setBanners] = useState<Banner[]>([]);
+  const [users, setUsers] = useState<UserProfile[]>([]);
   const [showCreateBanner, setShowCreateBanner] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
@@ -38,7 +46,27 @@ const BannerManagement = () => {
 
   useEffect(() => {
     fetchBanners();
+    fetchUsers();
   }, []);
+
+  const fetchUsers = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('id, first_name, last_name')
+        .order('first_name', { ascending: true });
+
+      if (error) throw error;
+      setUsers(data || []);
+    } catch (error: any) {
+      console.error('Error fetching users:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to fetch users: " + error.message,
+      });
+    }
+  };
 
   const fetchBanners = async () => {
     try {
@@ -49,7 +77,6 @@ const BannerManagement = () => {
 
       if (error) throw error;
       
-      // Type cast the data to ensure proper typing
       const typedBanners = (data || []).map(banner => ({
         ...banner,
         banner_type: banner.banner_type as BannerType
@@ -163,13 +190,19 @@ const BannerManagement = () => {
     }
   };
 
+  const getUserDisplayName = (userId: string) => {
+    const user = users.find(u => u.id === userId);
+    if (!user) return 'Unknown User';
+    return `${user.first_name || ''} ${user.last_name || ''}`.trim() || 'Unnamed User';
+  };
+
   return (
     <Card>
       <CardHeader>
         <div className="flex justify-between items-center">
           <div>
             <CardTitle>Banner Management</CardTitle>
-            <CardDescription>Create and manage dashboard banners</CardDescription>
+            <CardDescription>Create and manage dashboard banners for all users or specific users</CardDescription>
           </div>
           <Dialog open={showCreateBanner} onOpenChange={setShowCreateBanner}>
             <DialogTrigger asChild>
@@ -207,11 +240,19 @@ const BannerManagement = () => {
                     <SelectItem value="error">Error</SelectItem>
                   </SelectContent>
                 </Select>
-                <Input
-                  placeholder="Target User ID (optional)"
-                  value={formData.target_user_id}
-                  onChange={(e) => setFormData({ ...formData, target_user_id: e.target.value })}
-                />
+                <Select value={formData.target_user_id} onValueChange={(value) => setFormData({ ...formData, target_user_id: value })}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Target (All Users by default)" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">All Users</SelectItem>
+                    {users.map((user) => (
+                      <SelectItem key={user.id} value={user.id}>
+                        {getUserDisplayName(user.id)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
                 <Input
                   type="datetime-local"
                   placeholder="Expires at (optional)"
@@ -257,7 +298,7 @@ const BannerManagement = () => {
                       {banner.target_user_id ? (
                         <>
                           <User className="h-3 w-3 mr-1" />
-                          Specific User
+                          {getUserDisplayName(banner.target_user_id)}
                         </>
                       ) : (
                         <>
