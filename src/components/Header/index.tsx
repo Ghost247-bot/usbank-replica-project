@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import TopUtilityBar from './TopUtilityBar';
 import Logo from './Logo';
 import DesktopNavigation from './DesktopNavigation';
@@ -10,10 +10,19 @@ import QuickAccessMenu from './QuickAccessMenu';
 import NotificationDropdown from './NotificationDropdown';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
-import { LogOut } from 'lucide-react';
+import { LogOut, Menu } from 'lucide-react';
 
 const Header = () => {
   const { user, signOut } = useAuth();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleMobileMenuToggle = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleMobileMenuClose = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <header className="bg-white border-b border-gray-200">
@@ -52,10 +61,19 @@ const Header = () => {
               <ActionButtons />
             )}
             
-            <MobileMenu />
+            {/* Mobile menu button */}
+            <button
+              onClick={handleMobileMenuToggle}
+              className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
+              aria-label="Toggle mobile menu"
+            >
+              <Menu className="h-6 w-6 text-gray-600" />
+            </button>
           </div>
         </div>
       </div>
+
+      <MobileMenu isOpen={isMobileMenuOpen} onClose={handleMobileMenuClose} />
     </header>
   );
 };
