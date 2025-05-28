@@ -1,51 +1,16 @@
 
 import React, { useState } from 'react';
 import { Bell, X, CheckCircle, AlertCircle, Info } from 'lucide-react';
-
-interface Notification {
-  id: string;
-  type: 'info' | 'success' | 'warning';
-  title: string;
-  message: string;
-  timestamp: string;
-  read: boolean;
-}
+import { useNotifications } from '@/hooks/useNotifications';
 
 const NotificationDropdown = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [notifications, setNotifications] = useState<Notification[]>([
-    {
-      id: '1',
-      type: 'success',
-      title: 'Payment Processed',
-      message: 'Your payment of $125.00 has been successfully processed.',
-      timestamp: '2 min ago',
-      read: false
-    },
-    {
-      id: '2',
-      type: 'info',
-      title: 'New Feature Available',
-      message: 'Check out our new mobile check deposit feature.',
-      timestamp: '1 hour ago',
-      read: false
-    },
-    {
-      id: '3',
-      type: 'warning',
-      title: 'Account Security',
-      message: 'We noticed a login from a new device. Was this you?',
-      timestamp: '3 hours ago',
-      read: true
-    }
-  ]);
+  const { notifications, loading, markAsRead } = useNotifications();
 
-  const unreadCount = notifications.filter(n => !n.read).length;
+  const unreadCount = notifications.filter(n => !n.is_read).length;
 
-  const markAsRead = (id: string) => {
-    setNotifications(prev => 
-      prev.map(n => n.id === id ? { ...n, read: true } : n)
-    );
+  const handleMarkAsRead = (id: string) => {
+    markAsRead(id);
   };
 
   const getIcon = (type: string) => {
@@ -59,6 +24,22 @@ const NotificationDropdown = () => {
     }
   };
 
+  const formatTimestamp = (timestamp: string) => {
+    const date = new Date(timestamp);
+    const now = new Date();
+    const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
+    
+    if (diffInMinutes < 60) {
+      return diffInMinutes === 0 ? 'Just now' : `${diffInMinutes} min ago`;
+    } else if (diffInMinutes < 1440) {
+      const hours = Math.floor(diffInMinutes / 60);
+      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    } else {
+      const days = Math.floor(diffInMinutes / 1440);
+      return `${days} day${days > 1 ? 's' : ''} ago`;
+    }
+  };
+
   return (
     <div className="relative">
       <button
@@ -69,7 +50,7 @@ const NotificationDropdown = () => {
         <Bell className="h-5 w-5 text-gray-600" />
         {unreadCount > 0 && (
           <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-            {unreadCount}
+            {unreadCount > 9 ? '9+' : unreadCount}
           </span>
         )}
       </button>
@@ -87,24 +68,28 @@ const NotificationDropdown = () => {
           </div>
           
           <div className="max-h-96 overflow-y-auto">
-            {notifications.length === 0 ? (
+            {loading ? (
+              <div className="p-6 text-center text-gray-500">
+                Loading...
+              </div>
+            ) : notifications.length === 0 ? (
               <div className="p-6 text-center text-gray-500">
                 No notifications
               </div>
             ) : (
-              notifications.map(notification => (
+              notifications.slice(0, 10).map(notification => (
                 <div
                   key={notification.id}
                   className={`p-3 border-b border-gray-100 hover:bg-gray-50 cursor-pointer ${
-                    !notification.read ? 'bg-blue-50' : ''
+                    !notification.is_read ? 'bg-blue-50' : ''
                   }`}
-                  onClick={() => markAsRead(notification.id)}
+                  onClick={() => handleMarkAsRead(notification.id)}
                 >
                   <div className="flex items-start space-x-3">
                     {getIcon(notification.type)}
                     <div className="flex-1 min-w-0">
                       <p className={`text-sm font-medium ${
-                        !notification.read ? 'text-gray-900' : 'text-gray-700'
+                        !notification.is_read ? 'text-gray-900' : 'text-gray-700'
                       }`}>
                         {notification.title}
                       </p>
@@ -112,10 +97,10 @@ const NotificationDropdown = () => {
                         {notification.message}
                       </p>
                       <p className="text-xs text-gray-500 mt-1">
-                        {notification.timestamp}
+                        {formatTimestamp(notification.created_at)}
                       </p>
                     </div>
-                    {!notification.read && (
+                    {!notification.is_read && (
                       <div className="w-2 h-2 bg-blue-500 rounded-full mt-2"></div>
                     )}
                   </div>

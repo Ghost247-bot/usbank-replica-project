@@ -53,6 +53,75 @@ export type Database = {
           },
         ]
       }
+      bills: {
+        Row: {
+          amount: number
+          bill_name: string
+          category: string | null
+          created_at: string
+          due_date: string
+          frequency: string
+          id: string
+          is_paid: boolean | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          bill_name: string
+          category?: string | null
+          created_at?: string
+          due_date: string
+          frequency?: string
+          id?: string
+          is_paid?: boolean | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          bill_name?: string
+          category?: string | null
+          created_at?: string
+          due_date?: string
+          frequency?: string
+          id?: string
+          is_paid?: boolean | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      budgets: {
+        Row: {
+          category: string
+          created_at: string
+          current_spent: number | null
+          id: string
+          monthly_limit: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category: string
+          created_at?: string
+          current_spent?: number | null
+          id?: string
+          monthly_limit: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          current_spent?: number | null
+          id?: string
+          monthly_limit?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       credit_cards: {
         Row: {
           card_number: string
@@ -102,6 +171,42 @@ export type Database = {
             referencedColumns: ["id"]
           },
         ]
+      }
+      financial_goals: {
+        Row: {
+          created_at: string
+          current_amount: number | null
+          goal_name: string
+          goal_type: string
+          id: string
+          target_amount: number
+          target_date: string | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          current_amount?: number | null
+          goal_name: string
+          goal_type: string
+          id?: string
+          target_amount: number
+          target_date?: string | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          current_amount?: number | null
+          goal_name?: string
+          goal_type?: string
+          id?: string
+          target_amount?: number
+          target_date?: string | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
       }
       loans: {
         Row: {
@@ -156,6 +261,39 @@ export type Database = {
           },
         ]
       }
+      notifications: {
+        Row: {
+          created_at: string
+          id: string
+          is_read: boolean | null
+          message: string
+          title: string
+          type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_read?: boolean | null
+          message: string
+          title: string
+          type: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_read?: boolean | null
+          message?: string
+          title?: string
+          type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           address: Json | null
@@ -204,6 +342,39 @@ export type Database = {
           security_question_2?: string | null
           ssn_iban?: string | null
           updated_at?: string
+        }
+        Relationships: []
+      }
+      rewards: {
+        Row: {
+          amount: number
+          description: string | null
+          earned_date: string
+          id: string
+          is_redeemed: boolean | null
+          redeemed_date: string | null
+          reward_type: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          description?: string | null
+          earned_date?: string
+          id?: string
+          is_redeemed?: boolean | null
+          redeemed_date?: string | null
+          reward_type: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          description?: string | null
+          earned_date?: string
+          id?: string
+          is_redeemed?: boolean | null
+          redeemed_date?: string | null
+          reward_type?: string
+          user_id?: string
         }
         Relationships: []
       }
