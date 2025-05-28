@@ -9,13 +9,16 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
 
+type TransactionStatus = "pending" | "completed" | "failed" | "cancelled";
+type TransactionType = "deposit" | "withdrawal" | "transfer" | "payment" | "fee" | "interest";
+
 interface Transaction {
   id: string;
   account_id: string;
   amount: number;
-  transaction_type: string;
+  transaction_type: TransactionType;
   description: string;
-  status: string;
+  status: TransactionStatus;
   created_at: string;
   reference_number?: string;
 }
@@ -27,8 +30,8 @@ const TransactionManagement = () => {
   const [editForm, setEditForm] = useState({
     amount: '',
     description: '',
-    status: '',
-    transaction_type: ''
+    status: '' as TransactionStatus,
+    transaction_type: '' as TransactionType
   });
   const [loading, setLoading] = useState(false);
 
@@ -47,7 +50,15 @@ const TransactionManagement = () => {
         .limit(100);
 
       if (error) throw error;
-      setTransactions(data || []);
+      
+      // Type cast the data to ensure proper typing
+      const typedTransactions = (data || []).map(transaction => ({
+        ...transaction,
+        status: transaction.status as TransactionStatus,
+        transaction_type: transaction.transaction_type as TransactionType
+      }));
+      
+      setTransactions(typedTransactions);
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -109,7 +120,7 @@ const TransactionManagement = () => {
     transaction.account_id.includes(searchTerm)
   );
 
-  const getStatusColor = (status: string) => {
+  const getStatusColor = (status: TransactionStatus) => {
     switch (status) {
       case 'completed': return 'text-green-600 bg-green-50';
       case 'pending': return 'text-yellow-600 bg-yellow-50';
@@ -119,7 +130,7 @@ const TransactionManagement = () => {
     }
   };
 
-  const getTransactionTypeColor = (type: string) => {
+  const getTransactionTypeColor = (type: TransactionType) => {
     switch (type) {
       case 'deposit': return 'text-green-600';
       case 'withdrawal': return 'text-red-600';
@@ -205,7 +216,7 @@ const TransactionManagement = () => {
                         value={editForm.description}
                         onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
                       />
-                      <Select value={editForm.transaction_type} onValueChange={(value) => setEditForm({ ...editForm, transaction_type: value })}>
+                      <Select value={editForm.transaction_type} onValueChange={(value: TransactionType) => setEditForm({ ...editForm, transaction_type: value })}>
                         <SelectTrigger>
                           <SelectValue placeholder="Transaction type" />
                         </SelectTrigger>
@@ -218,7 +229,7 @@ const TransactionManagement = () => {
                           <SelectItem value="interest">Interest</SelectItem>
                         </SelectContent>
                       </Select>
-                      <Select value={editForm.status} onValueChange={(value) => setEditForm({ ...editForm, status: value })}>
+                      <Select value={editForm.status} onValueChange={(value: TransactionStatus) => setEditForm({ ...editForm, status: value })}>
                         <SelectTrigger>
                           <SelectValue placeholder="Status" />
                         </SelectTrigger>

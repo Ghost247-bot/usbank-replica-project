@@ -58,8 +58,8 @@ const UserManagement = () => {
         email: `user-${profile.id.slice(0, 8)}@example.com`, // Placeholder since we can't access auth.users
         first_name: profile.first_name,
         last_name: profile.last_name,
-        is_frozen: profile.user_status?.[0]?.is_frozen || false,
-        freeze_reason: profile.user_status?.[0]?.freeze_reason
+        is_frozen: Array.isArray(profile.user_status) && profile.user_status.length > 0 ? profile.user_status[0].is_frozen : false,
+        freeze_reason: Array.isArray(profile.user_status) && profile.user_status.length > 0 ? profile.user_status[0].freeze_reason : undefined
       })) || [];
 
       setUsers(usersWithStatus);

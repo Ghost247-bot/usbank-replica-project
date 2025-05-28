@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
-import { Users, DollarSign, TrendingUp, AlertTriangle, Settings, Tabs, TabsContent, TabsList, TabsTrigger } from 'lucide-react';
+import { Users, DollarSign, TrendingUp, AlertTriangle, Settings } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import AdminProtectedRoute from '@/components/AdminProtectedRoute';
