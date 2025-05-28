@@ -1,12 +1,12 @@
-
 import React from 'react';
 import { Users, DollarSign, TrendingUp, AlertTriangle, Eye, Settings, FileText, BarChart3 } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import AdminProtectedRoute from '@/components/AdminProtectedRoute';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
-const AdminDashboard = () => {
+const AdminDashboardContent = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
@@ -24,7 +24,7 @@ const AdminDashboard = () => {
             </Button>
           </div>
 
-          {/* Key Metrics */}
+          {/* ... keep existing code (Key Metrics section) */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -79,8 +79,8 @@ const AdminDashboard = () => {
             </Card>
           </div>
 
+          {/* ... keep existing code (rest of the dashboard sections) */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Recent Customer Activity */}
             <Card>
               <CardHeader>
                 <CardTitle>Recent Customer Activity</CardTitle>
@@ -126,7 +126,6 @@ const AdminDashboard = () => {
               </CardContent>
             </Card>
 
-            {/* Admin Tools */}
             <div className="space-y-6">
               <Card>
                 <CardHeader>
@@ -230,6 +229,14 @@ const AdminDashboard = () => {
 
       <Footer />
     </div>
+  );
+};
+
+const AdminDashboard = () => {
+  return (
+    <AdminProtectedRoute>
+      <AdminDashboardContent />
+    </AdminProtectedRoute>
   );
 };
 

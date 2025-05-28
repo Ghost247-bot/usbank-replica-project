@@ -432,6 +432,30 @@ export type Database = {
           },
         ]
       }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["user_role"]
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["user_role"]
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -440,6 +464,13 @@ export type Database = {
       generate_account_number: {
         Args: Record<PropertyKey, never>
         Returns: string
+      }
+      has_role: {
+        Args: {
+          _user_id: string
+          _role: Database["public"]["Enums"]["user_role"]
+        }
+        Returns: boolean
       }
     }
     Enums: {
@@ -458,6 +489,7 @@ export type Database = {
         | "payment"
         | "fee"
         | "interest"
+      user_role: "admin" | "user" | "moderator"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -590,6 +622,7 @@ export const Constants = {
         "fee",
         "interest",
       ],
+      user_role: ["admin", "user", "moderator"],
     },
   },
 } as const
