@@ -3,14 +3,11 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Search, Filter, Download, ArrowUpRight, ArrowDownLeft } from 'lucide-react';
+import { ArrowLeft, Download } from 'lucide-react';
 import { useBankingData } from '@/hooks/useBankingData';
-import { format } from 'date-fns';
+import TransactionFilters from '@/components/transactions/TransactionFilters';
+import TransactionList from '@/components/transactions/TransactionList';
 
 const ViewAllTransactions = () => {
   const navigate = useNavigate();
@@ -35,32 +32,6 @@ const ViewAllTransactions = () => {
       </div>
     );
   }
-
-  const getTransactionIcon = (type: string) => {
-    switch (type) {
-      case 'deposit':
-        return <ArrowDownLeft className="h-4 w-4 text-green-600" />;
-      case 'withdrawal':
-      case 'payment':
-      case 'fee':
-        return <ArrowUpRight className="h-4 w-4 text-red-600" />;
-      default:
-        return <ArrowUpRight className="h-4 w-4 text-gray-600" />;
-    }
-  };
-
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'completed':
-        return 'bg-green-100 text-green-800';
-      case 'pending':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'failed':
-        return 'bg-red-100 text-red-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
-  };
 
   const getAccountName = (accountId: string) => {
     const account = accounts?.find(acc => acc.id === accountId);
@@ -93,120 +64,20 @@ const ViewAllTransactions = () => {
           </div>
         </div>
 
-        {/* Filters */}
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Filter className="h-5 w-5" />
-              <span>Filters</span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Search</label>
-                <div className="relative">
-                  <Search className="h-4 w-4 absolute left-3 top-3 text-gray-400" />
-                  <Input
-                    placeholder="Search transactions..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Transaction Type</label>
-                <Select value={filterType} onValueChange={setFilterType}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Types</SelectItem>
-                    <SelectItem value="deposit">Deposit</SelectItem>
-                    <SelectItem value="withdrawal">Withdrawal</SelectItem>
-                    <SelectItem value="transfer">Transfer</SelectItem>
-                    <SelectItem value="payment">Payment</SelectItem>
-                    <SelectItem value="fee">Fee</SelectItem>
-                    <SelectItem value="interest">Interest</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <label className="text-sm font-medium">Account</label>
-                <Select value={filterAccount} onValueChange={setFilterAccount}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Accounts</SelectItem>
-                    {accounts?.map((account) => (
-                      <SelectItem key={account.id} value={account.id}>
-                        {account.account_name}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+        <TransactionFilters
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+          filterType={filterType}
+          setFilterType={setFilterType}
+          filterAccount={filterAccount}
+          setFilterAccount={setFilterAccount}
+          accounts={accounts || []}
+        />
 
-        {/* Transactions List */}
-        <Card>
-          <CardHeader>
-            <CardTitle>Transaction History ({filteredTransactions.length})</CardTitle>
-          </CardHeader>
-          <CardContent>
-            {filteredTransactions.length === 0 ? (
-              <div className="text-center py-12">
-                <Search className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                <h3 className="text-lg font-semibold mb-2">No transactions found</h3>
-                <p className="text-gray-600">Try adjusting your search criteria</p>
-              </div>
-            ) : (
-              <div className="space-y-4">
-                {filteredTransactions.map((transaction) => (
-                  <div key={transaction.id} className="border rounded-lg p-4 hover:bg-gray-50">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-4">
-                        {getTransactionIcon(transaction.transaction_type)}
-                        <div>
-                          <h3 className="font-semibold">
-                            {transaction.description || 'Transaction'}
-                          </h3>
-                          <div className="flex items-center space-x-2 text-sm text-gray-600">
-                            <span>{getAccountName(transaction.account_id)}</span>
-                            <span>•</span>
-                            <span>{format(new Date(transaction.created_at), 'MMM dd, yyyy HH:mm')}</span>
-                            {transaction.reference_number && (
-                              <>
-                                <span>•</span>
-                                <span>Ref: {transaction.reference_number}</span>
-                              </>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className={`text-lg font-semibold ${
-                          transaction.transaction_type === 'deposit'
-                            ? 'text-green-600' : 'text-red-600'
-                        }`}>
-                          {transaction.transaction_type === 'deposit' ? '+' : '-'}
-                          ${Number(transaction.amount).toFixed(2)}
-                        </div>
-                        <Badge className={getStatusColor(transaction.status)}>
-                          {transaction.status}
-                        </Badge>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </CardContent>
-        </Card>
+        <TransactionList
+          transactions={filteredTransactions}
+          getAccountName={getAccountName}
+        />
       </main>
 
       <Footer />
