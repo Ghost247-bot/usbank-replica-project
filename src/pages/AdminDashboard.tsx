@@ -18,6 +18,8 @@ const AdminDashboardContent = () => {
   const [activeTab, setActiveTab] = useState('overview');
   const { stats, loading } = useAdminStats();
 
+  console.log('Admin dashboard rendering with stats:', stats, 'loading:', loading);
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
