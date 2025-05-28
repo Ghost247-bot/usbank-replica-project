@@ -40,6 +40,7 @@ const UserManagement = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
+      console.log('Fetching users from profiles table...');
       
       // Fetch user profiles with their status
       const { data: profiles, error } = await supabase
@@ -49,26 +50,32 @@ const UserManagement = () => {
           first_name,
           last_name,
           created_at,
-          user_status (
+          user_status!left (
             is_frozen,
             freeze_reason
           )
         `)
         .order('created_at', { ascending: false });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error fetching profiles:', error);
+        throw error;
+      }
+
+      console.log('Fetched profiles:', profiles);
 
       // Transform the data to match our interface
       const usersWithStatus = profiles?.map(profile => ({
         id: profile.id,
-        email: `user-${profile.id.slice(0, 8)}@example.com`, // Placeholder since we can't access auth.users directly
-        first_name: profile.first_name,
-        last_name: profile.last_name,
-        is_frozen: Array.isArray(profile.user_status) && profile.user_status.length > 0 ? profile.user_status[0].is_frozen : false,
-        freeze_reason: Array.isArray(profile.user_status) && profile.user_status.length > 0 ? profile.user_status[0].freeze_reason : undefined,
+        email: `user-${profile.id.slice(0, 8)}@moonstone.bank`, // Placeholder email format
+        first_name: profile.first_name || 'Unknown',
+        last_name: profile.last_name || 'User',
+        is_frozen: profile.user_status?.is_frozen || false,
+        freeze_reason: profile.user_status?.freeze_reason || undefined,
         created_at: profile.created_at
       })) || [];
 
+      console.log('Transformed users:', usersWithStatus);
       setUsers(usersWithStatus);
     } catch (error: any) {
       console.error('Error fetching users:', error);
@@ -85,13 +92,18 @@ const UserManagement = () => {
   const handleFreezeUser = async (userId: string, freeze: boolean) => {
     try {
       setLoading(true);
+      console.log(`${freeze ? 'Freezing' : 'Unfreezing'} user:`, userId);
+      
       const { error } = await supabase.rpc('toggle_user_freeze', {
         target_user_id: userId,
         freeze_status: freeze,
         reason: freeze ? freezeReason : null
       });
 
-      if (error) throw error;
+      if (error) {
+        console.error('Error toggling user freeze:', error);
+        throw error;
+      }
 
       toast({
         title: "Success",
@@ -102,6 +114,7 @@ const UserManagement = () => {
       setSelectedUser(null);
       fetchUsers();
     } catch (error: any) {
+      console.error('Error in handleFreezeUser:', error);
       toast({
         variant: "destructive",
         title: "Error",
@@ -282,7 +295,9 @@ const UserManagement = () => {
             ))
           ) : (
             <div className="text-center py-8">
-              <p className="text-gray-500">No users found</p>
+              <p className="text-gray-500">
+                {loading ? 'Loading users...' : 'No users found'}
+              </p>
             </div>
           )}
         </div>
