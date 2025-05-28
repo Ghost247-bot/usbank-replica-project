@@ -18,17 +18,8 @@ interface User {
   is_frozen: boolean;
   freeze_reason?: string;
   created_at: string;
-}
-
-interface ProfileWithStatus {
-  id: string;
-  first_name: string | null;
-  last_name: string | null;
-  created_at: string;
-  user_status: {
-    is_frozen: boolean | null;
-    freeze_reason: string | null;
-  } | null;
+  email_confirmed_at?: string;
+  last_sign_in_at?: string;
 }
 
 const UserManagement = () => {
@@ -51,10 +42,10 @@ const UserManagement = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      console.log('Fetching users from profiles table...');
+      console.log('Fetching users from auth and profiles...');
       
-      // Fetch user profiles with their status
-      const { data: profiles, error } = await supabase
+      // First, get all profiles with their status
+      const { data: profiles, error: profilesError } = await supabase
         .from('profiles')
         .select(`
           id,
@@ -66,28 +57,57 @@ const UserManagement = () => {
             freeze_reason
           )
         `)
-        .order('created_at', { ascending: false }) as { data: ProfileWithStatus[] | null, error: any };
+        .order('created_at', { ascending: false });
 
-      if (error) {
-        console.error('Error fetching profiles:', error);
-        throw error;
+      if (profilesError) {
+        console.error('Error fetching profiles:', profilesError);
+        throw profilesError;
       }
 
       console.log('Fetched profiles:', profiles);
 
-      // Transform the data to match our interface
-      const usersWithStatus = profiles?.map(profile => ({
-        id: profile.id,
-        email: `user-${profile.id.slice(0, 8)}@moonstone.bank`, // Placeholder email format
-        first_name: profile.first_name || 'Unknown',
-        last_name: profile.last_name || 'User',
-        is_frozen: profile.user_status?.is_frozen || false,
-        freeze_reason: profile.user_status?.freeze_reason || undefined,
-        created_at: profile.created_at
-      })) || [];
+      // Get auth users using the admin API
+      const { data: authUsers, error: authError } = await supabase.auth.admin.listUsers();
 
-      console.log('Transformed users:', usersWithStatus);
-      setUsers(usersWithStatus);
+      if (authError) {
+        console.error('Error fetching auth users:', authError);
+        // If we can't fetch auth users (possibly due to permissions), 
+        // fall back to using profile data only
+        const usersFromProfiles = profiles?.map(profile => ({
+          id: profile.id,
+          email: `user-${profile.id.slice(0, 8)}@example.com`, // Placeholder
+          first_name: profile.first_name || 'Unknown',
+          last_name: profile.last_name || 'User',
+          is_frozen: profile.user_status?.is_frozen || false,
+          freeze_reason: profile.user_status?.freeze_reason || undefined,
+          created_at: profile.created_at,
+          email_confirmed_at: undefined,
+          last_sign_in_at: undefined
+        })) || [];
+
+        console.log('Using profile-only data:', usersFromProfiles);
+        setUsers(usersFromProfiles);
+        return;
+      }
+
+      // Combine auth users with profile data
+      const combinedUsers = authUsers.users.map(authUser => {
+        const profile = profiles?.find(p => p.id === authUser.id);
+        return {
+          id: authUser.id,
+          email: authUser.email || 'No email',
+          first_name: profile?.first_name || authUser.user_metadata?.first_name || 'Unknown',
+          last_name: profile?.last_name || authUser.user_metadata?.last_name || 'User',
+          is_frozen: profile?.user_status?.is_frozen || false,
+          freeze_reason: profile?.user_status?.freeze_reason || undefined,
+          created_at: authUser.created_at,
+          email_confirmed_at: authUser.email_confirmed_at,
+          last_sign_in_at: authUser.last_sign_in_at
+        };
+      });
+
+      console.log('Combined users data:', combinedUsers);
+      setUsers(combinedUsers);
     } catch (error: any) {
       console.error('Error fetching users:', error);
       toast({
@@ -242,7 +262,19 @@ const UserManagement = () => {
                     {user.first_name} {user.last_name}
                   </h3>
                   <p className="text-sm text-gray-600">{user.email}</p>
-                  <p className="text-xs text-gray-500">Joined: {new Date(user.created_at).toLocaleDateString()}</p>
+                  <p className="text-xs text-gray-500">
+                    Joined: {new Date(user.created_at).toLocaleDateString()}
+                  </p>
+                  {user.email_confirmed_at && (
+                    <p className="text-xs text-green-600">
+                      Email confirmed: {new Date(user.email_confirmed_at).toLocaleDateString()}
+                    </p>
+                  )}
+                  {user.last_sign_in_at && (
+                    <p className="text-xs text-blue-600">
+                      Last sign in: {new Date(user.last_sign_in_at).toLocaleDateString()}
+                    </p>
+                  )}
                   {user.is_frozen && (
                     <p className="text-sm text-red-600">
                       Frozen: {user.freeze_reason}
