@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import DashboardBanner from '@/components/dashboard/DashboardBanner';
 import AccountOverview from '@/components/dashboard/AccountOverview';
 import RecentTransactions from '@/components/dashboard/RecentTransactions';
 import SpendingAnalytics from '@/components/dashboard/SpendingAnalytics';
@@ -51,6 +52,7 @@ const UserDashboard = () => {
           </p>
         </div>
 
+        <DashboardBanner />
         <AccountOverview />
         <MonthlySpendingTrend />
         

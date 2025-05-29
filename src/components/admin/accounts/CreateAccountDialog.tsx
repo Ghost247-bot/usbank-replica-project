@@ -39,7 +39,7 @@ interface CreateAccountDialogProps {
 interface CreateAccountData {
   user_id: string;
   account_name: string;
-  account_type: 'checking' | 'savings' | 'investment';
+  account_type: 'checking' | 'savings' | 'investment' | 'escrow';
   balance: number;
 }
 
@@ -144,6 +144,7 @@ const CreateAccountDialog: React.FC<CreateAccountDialogProps> = ({
                       <SelectItem value="checking">Checking</SelectItem>
                       <SelectItem value="savings">Savings</SelectItem>
                       <SelectItem value="investment">Investment</SelectItem>
+                      <SelectItem value="escrow">Escrow</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
