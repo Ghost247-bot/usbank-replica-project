@@ -10,6 +10,8 @@ import { AccountTab } from './accounts/types';
 import AccountList from './accounts/AccountList';
 import CreditCardList from './accounts/CreditCardList';
 import LoadingSkeleton from './accounts/LoadingSkeleton';
+import CreateAccountDialog from './accounts/CreateAccountDialog';
+import CreateCreditCardDialog from './accounts/CreateCreditCardDialog';
 
 const AccountManagement = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -18,7 +20,10 @@ const AccountManagement = () => {
   const {
     accounts,
     creditCards,
+    users,
     loading,
+    handleCreateAccount,
+    handleCreateCreditCard,
     handleFreezeAccount,
     handleFreezeCard
   } = useAccountManagement();
@@ -33,8 +38,24 @@ const AccountManagement = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Account & Card Management</CardTitle>
-        <CardDescription>Manage accounts and credit cards ({accounts.length} accounts, {creditCards.length} cards)</CardDescription>
+        <div className="flex justify-between items-start">
+          <div>
+            <CardTitle>Account & Card Management</CardTitle>
+            <CardDescription>Manage accounts and credit cards ({accounts.length} accounts, {creditCards.length} cards)</CardDescription>
+          </div>
+          <div className="flex space-x-2">
+            <CreateAccountDialog
+              users={users}
+              onCreateAccount={handleCreateAccount}
+              loading={loading}
+            />
+            <CreateCreditCardDialog
+              users={users}
+              onCreateCard={handleCreateCreditCard}
+              loading={loading}
+            />
+          </div>
+        </div>
         <div className="flex space-x-2 mt-4">
           <Button
             variant={activeTab === 'accounts' ? 'default' : 'outline'}
