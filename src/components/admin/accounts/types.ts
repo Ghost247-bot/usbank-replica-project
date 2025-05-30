@@ -3,7 +3,7 @@ export interface Account {
   id: string;
   account_number: string;
   account_name: string;
-  account_type: string;
+  account_type: 'checking' | 'savings' | 'investment' | 'escrow' | 'credit_card' | 'loan';
   balance: number;
   is_frozen: boolean;
   freeze_reason?: string;
