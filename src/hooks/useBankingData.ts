@@ -27,6 +27,17 @@ interface CreditCard {
   status: string;
 }
 
+interface Transaction {
+  id: string;
+  account_id: string;
+  amount: number;
+  transaction_type: string;
+  description: string;
+  status: string;
+  created_at: string;
+  reference_number?: string;
+}
+
 export const useBankingData = () => {
   const { user } = useAuth();
 
@@ -70,7 +81,30 @@ export const useBankingData = () => {
     enabled: !!user,
   });
 
-  const isLoading = accountsLoading || cardsLoading;
+  const { data: transactions = [], isLoading: transactionsLoading } = useQuery({
+    queryKey: ['transactions', user?.id],
+    queryFn: async () => {
+      if (!user || !accounts?.length) return [];
+      
+      const accountIds = accounts.map(acc => acc.id);
+      const { data, error } = await supabase
+        .from('transactions')
+        .select('*')
+        .in('account_id', accountIds)
+        .order('created_at', { ascending: false })
+        .limit(50);
+
+      if (error) {
+        console.error('Error fetching transactions:', error);
+        throw error;
+      }
+      
+      return data || [];
+    },
+    enabled: !!user && !!accounts?.length,
+  });
+
+  const isLoading = accountsLoading || cardsLoading || transactionsLoading;
 
   // Calculate balances
   const totalBalance = accounts.reduce((sum, account) => sum + Number(account.balance), 0);
@@ -81,6 +115,7 @@ export const useBankingData = () => {
   return {
     accounts: accounts as Account[],
     creditCards: creditCards as CreditCard[],
+    transactions: transactions as Transaction[],
     totalBalance,
     checkingBalance,
     savingsBalance,
