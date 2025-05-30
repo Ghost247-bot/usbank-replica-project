@@ -23,7 +23,9 @@ const AccountManagement = () => {
     users,
     loading,
     handleCreateAccount,
+    handleEditAccount,
     handleCreateCreditCard,
+    handleEditCreditCard,
     handleFreezeAccount,
     handleFreezeCard,
     handleDeleteAccount,
@@ -91,6 +93,7 @@ const AccountManagement = () => {
             accounts={filteredAccounts}
             onFreezeAccount={handleFreezeAccount}
             onDeleteAccount={handleDeleteAccount}
+            onEditAccount={handleEditAccount}
             loading={loading}
           />
         ) : (
@@ -98,6 +101,7 @@ const AccountManagement = () => {
             cards={filteredCards}
             onFreezeCard={handleFreezeCard}
             onDeleteCard={handleDeleteCard}
+            onEditCard={handleEditCreditCard}
             loading={loading}
           />
         )}

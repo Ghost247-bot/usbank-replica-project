@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Account, CreditCard } from './types';
 import { User } from '../users/types';
-import { fetchAccounts, createAccount, freezeAccount, deleteAccount } from './api/accountApi';
-import { fetchCreditCards, createCreditCard, freezeCreditCard, deleteCreditCard } from './api/creditCardApi';
+import { fetchAccounts, createAccount, updateAccount, freezeAccount, deleteAccount } from './api/accountApi';
+import { fetchCreditCards, createCreditCard, updateCreditCard, freezeCreditCard, deleteCreditCard } from './api/creditCardApi';
 import { fetchUsers } from './api/userApi';
 
 export const useAccountManagement = () => {
@@ -96,6 +96,33 @@ export const useAccountManagement = () => {
     }
   };
 
+  const handleEditAccount = async (accountId: string, accountData: {
+    account_name: string;
+    account_type: 'checking' | 'savings' | 'investment';
+    balance: number;
+  }) => {
+    try {
+      setLoading(true);
+      await updateAccount(accountId, accountData);
+      toast({
+        title: "Success",
+        description: "Account updated successfully",
+      });
+      handleFetchAccounts();
+      return true;
+    } catch (error: any) {
+      console.error('Error updating account:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to update account: " + error.message,
+      });
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleCreateCreditCard = async (cardData: {
     user_id: string;
     card_type: string;
@@ -118,6 +145,34 @@ export const useAccountManagement = () => {
         variant: "destructive",
         title: "Error",
         description: "Failed to create credit card: " + error.message,
+      });
+      return false;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleEditCreditCard = async (cardId: string, cardData: {
+    card_type: string;
+    credit_limit: number;
+    interest_rate: number;
+    current_balance: number;
+  }) => {
+    try {
+      setLoading(true);
+      await updateCreditCard(cardId, cardData);
+      toast({
+        title: "Success",
+        description: "Credit card updated successfully",
+      });
+      handleFetchCreditCards();
+      return true;
+    } catch (error: any) {
+      console.error('Error updating credit card:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to update credit card: " + error.message,
       });
       return false;
     } finally {
@@ -213,7 +268,9 @@ export const useAccountManagement = () => {
     users,
     loading,
     handleCreateAccount,
+    handleEditAccount,
     handleCreateCreditCard,
+    handleEditCreditCard,
     handleFreezeAccount,
     handleFreezeCard,
     handleDeleteAccount,

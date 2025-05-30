@@ -50,6 +50,26 @@ export const createCreditCard = async (cardData: {
   if (error) throw error;
 };
 
+export const updateCreditCard = async (cardId: string, cardData: {
+  card_type: string;
+  credit_limit: number;
+  interest_rate: number;
+  current_balance: number;
+}): Promise<void> => {
+  const { error } = await supabase
+    .from('credit_cards')
+    .update({
+      card_type: cardData.card_type,
+      credit_limit: cardData.credit_limit,
+      interest_rate: cardData.interest_rate,
+      current_balance: cardData.current_balance,
+      updated_at: new Date().toISOString()
+    })
+    .eq('id', cardId);
+
+  if (error) throw error;
+};
+
 export const freezeCreditCard = async (cardId: string, freeze: boolean, freezeReason?: string): Promise<void> => {
   const { error } = await supabase.rpc('toggle_card_freeze', {
     card_id: cardId,

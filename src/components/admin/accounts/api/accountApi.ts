@@ -47,6 +47,24 @@ export const createAccount = async (accountData: {
   if (error) throw error;
 };
 
+export const updateAccount = async (accountId: string, accountData: {
+  account_name: string;
+  account_type: 'checking' | 'savings' | 'investment';
+  balance: number;
+}): Promise<void> => {
+  const { error } = await supabase
+    .from('accounts')
+    .update({
+      account_name: accountData.account_name,
+      account_type: accountData.account_type,
+      balance: accountData.balance,
+      updated_at: new Date().toISOString()
+    })
+    .eq('id', accountId);
+
+  if (error) throw error;
+};
+
 export const freezeAccount = async (accountId: string, freeze: boolean, freezeReason?: string): Promise<void> => {
   const { error } = await supabase.rpc('toggle_account_freeze', {
     account_id: accountId,

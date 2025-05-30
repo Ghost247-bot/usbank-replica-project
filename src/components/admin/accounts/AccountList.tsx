@@ -5,11 +5,17 @@ import { Account } from './types';
 import { getUserDisplayName } from './utils';
 import FreezeDialog from './FreezeDialog';
 import DeleteDialog from './DeleteDialog';
+import EditAccountDialog from './EditAccountDialog';
 
 interface AccountListProps {
   accounts: Account[];
   onFreezeAccount: (accountId: string, freeze: boolean, reason?: string) => void;
   onDeleteAccount: (accountId: string) => void;
+  onEditAccount: (accountId: string, accountData: {
+    account_name: string;
+    account_type: 'checking' | 'savings' | 'investment';
+    balance: number;
+  }) => Promise<boolean>;
   loading: boolean;
 }
 
@@ -17,6 +23,7 @@ const AccountList: React.FC<AccountListProps> = ({
   accounts,
   onFreezeAccount,
   onDeleteAccount,
+  onEditAccount,
   loading
 }) => {
   if (accounts.length === 0) {
@@ -52,6 +59,11 @@ const AccountList: React.FC<AccountListProps> = ({
             )}
           </div>
           <div className="flex space-x-2">
+            <EditAccountDialog
+              account={account}
+              onEditAccount={onEditAccount}
+              loading={loading}
+            />
             <FreezeDialog
               item={account}
               onFreeze={onFreezeAccount}

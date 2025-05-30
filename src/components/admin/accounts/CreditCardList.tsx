@@ -5,11 +5,18 @@ import { CreditCard as CreditCardType } from './types';
 import { getUserDisplayName } from './utils';
 import FreezeDialog from './FreezeDialog';
 import DeleteDialog from './DeleteDialog';
+import EditCreditCardDialog from './EditCreditCardDialog';
 
 interface CreditCardListProps {
   cards: CreditCardType[];
   onFreezeCard: (cardId: string, freeze: boolean, reason?: string) => void;
   onDeleteCard: (cardId: string) => void;
+  onEditCard: (cardId: string, cardData: {
+    card_type: string;
+    credit_limit: number;
+    interest_rate: number;
+    current_balance: number;
+  }) => Promise<boolean>;
   loading: boolean;
 }
 
@@ -17,6 +24,7 @@ const CreditCardList: React.FC<CreditCardListProps> = ({
   cards,
   onFreezeCard,
   onDeleteCard,
+  onEditCard,
   loading
 }) => {
   if (cards.length === 0) {
@@ -54,6 +62,11 @@ const CreditCardList: React.FC<CreditCardListProps> = ({
             )}
           </div>
           <div className="flex space-x-2">
+            <EditCreditCardDialog
+              card={card}
+              onEditCard={onEditCard}
+              loading={loading}
+            />
             <FreezeDialog
               item={card}
               onFreeze={onFreezeCard}
