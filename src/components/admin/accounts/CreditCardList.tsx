@@ -4,16 +4,19 @@ import { CreditCard } from 'lucide-react';
 import { CreditCard as CreditCardType } from './types';
 import { getUserDisplayName } from './utils';
 import FreezeDialog from './FreezeDialog';
+import DeleteDialog from './DeleteDialog';
 
 interface CreditCardListProps {
   cards: CreditCardType[];
   onFreezeCard: (cardId: string, freeze: boolean, reason?: string) => void;
+  onDeleteCard: (cardId: string) => void;
   loading: boolean;
 }
 
 const CreditCardList: React.FC<CreditCardListProps> = ({
   cards,
   onFreezeCard,
+  onDeleteCard,
   loading
 }) => {
   if (cards.length === 0) {
@@ -50,12 +53,20 @@ const CreditCardList: React.FC<CreditCardListProps> = ({
               </p>
             )}
           </div>
-          <FreezeDialog
-            item={card}
-            onFreeze={onFreezeCard}
-            loading={loading}
-            type="card"
-          />
+          <div className="flex space-x-2">
+            <FreezeDialog
+              item={card}
+              onFreeze={onFreezeCard}
+              loading={loading}
+              type="card"
+            />
+            <DeleteDialog
+              item={card}
+              onDelete={onDeleteCard}
+              loading={loading}
+              type="card"
+            />
+          </div>
         </div>
       ))}
     </div>

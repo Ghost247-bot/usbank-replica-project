@@ -25,7 +25,9 @@ const AccountManagement = () => {
     handleCreateAccount,
     handleCreateCreditCard,
     handleFreezeAccount,
-    handleFreezeCard
+    handleFreezeCard,
+    handleDeleteAccount,
+    handleDeleteCard
   } = useAccountManagement();
 
   const filteredAccounts = filterAccounts(accounts, searchTerm);
@@ -88,12 +90,14 @@ const AccountManagement = () => {
           <AccountList
             accounts={filteredAccounts}
             onFreezeAccount={handleFreezeAccount}
+            onDeleteAccount={handleDeleteAccount}
             loading={loading}
           />
         ) : (
           <CreditCardList
             cards={filteredCards}
             onFreezeCard={handleFreezeCard}
+            onDeleteCard={handleDeleteCard}
             loading={loading}
           />
         )}

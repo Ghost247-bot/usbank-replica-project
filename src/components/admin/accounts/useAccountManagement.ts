@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { supabase } from '@/integrations/supabase/client';
@@ -293,6 +292,62 @@ export const useAccountManagement = () => {
     }
   };
 
+  const handleDeleteAccount = async (accountId: string) => {
+    try {
+      setLoading(true);
+      const { error } = await supabase
+        .from('accounts')
+        .delete()
+        .eq('id', accountId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Account deleted successfully",
+      });
+
+      fetchAccounts();
+    } catch (error: any) {
+      console.error('Error deleting account:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to delete account: " + error.message,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteCard = async (cardId: string) => {
+    try {
+      setLoading(true);
+      const { error } = await supabase
+        .from('credit_cards')
+        .delete()
+        .eq('id', cardId);
+
+      if (error) throw error;
+
+      toast({
+        title: "Success",
+        description: "Credit card deleted successfully",
+      });
+
+      fetchCreditCards();
+    } catch (error: any) {
+      console.error('Error deleting credit card:', error);
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Failed to delete credit card: " + error.message,
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     accounts,
     creditCards,
@@ -301,6 +356,8 @@ export const useAccountManagement = () => {
     handleCreateAccount,
     handleCreateCreditCard,
     handleFreezeAccount,
-    handleFreezeCard
+    handleFreezeCard,
+    handleDeleteAccount,
+    handleDeleteCard
   };
 };

@@ -4,16 +4,19 @@ import { DollarSign } from 'lucide-react';
 import { Account } from './types';
 import { getUserDisplayName } from './utils';
 import FreezeDialog from './FreezeDialog';
+import DeleteDialog from './DeleteDialog';
 
 interface AccountListProps {
   accounts: Account[];
   onFreezeAccount: (accountId: string, freeze: boolean, reason?: string) => void;
+  onDeleteAccount: (accountId: string) => void;
   loading: boolean;
 }
 
 const AccountList: React.FC<AccountListProps> = ({
   accounts,
   onFreezeAccount,
+  onDeleteAccount,
   loading
 }) => {
   if (accounts.length === 0) {
@@ -48,12 +51,20 @@ const AccountList: React.FC<AccountListProps> = ({
               </p>
             )}
           </div>
-          <FreezeDialog
-            item={account}
-            onFreeze={onFreezeAccount}
-            loading={loading}
-            type="account"
-          />
+          <div className="flex space-x-2">
+            <FreezeDialog
+              item={account}
+              onFreeze={onFreezeAccount}
+              loading={loading}
+              type="account"
+            />
+            <DeleteDialog
+              item={account}
+              onDelete={onDeleteAccount}
+              loading={loading}
+              type="account"
+            />
+          </div>
         </div>
       ))}
     </div>
