@@ -1,8 +1,11 @@
+
 import { useState, useEffect } from 'react';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
 import { Account, CreditCard } from './types';
 import { User } from '../users/types';
+import { fetchAccounts, createAccount, freezeAccount, deleteAccount } from './api/accountApi';
+import { fetchCreditCards, createCreditCard, freezeCreditCard, deleteCreditCard } from './api/creditCardApi';
+import { fetchUsers } from './api/userApi';
 
 export const useAccountManagement = () => {
   const [accounts, setAccounts] = useState<Account[]>([]);
@@ -12,59 +15,15 @@ export const useAccountManagement = () => {
   const { toast } = useToast();
 
   useEffect(() => {
-    fetchAccounts();
-    fetchCreditCards();
-    fetchUsers();
+    handleFetchAccounts();
+    handleFetchCreditCards();
+    handleFetchUsers();
   }, []);
 
-  const fetchUsers = async () => {
+  const handleFetchUsers = async () => {
     try {
-      console.log('Fetching users for account creation...');
-      
-      const { data: userRoles, error: userRolesError } = await supabase
-        .from('user_roles')
-        .select('user_id')
-        .order('created_at', { ascending: false });
-
-      if (userRolesError) {
-        console.error('Error fetching user roles:', userRolesError);
-        throw userRolesError;
-      }
-
-      if (!userRoles || userRoles.length === 0) {
-        console.log('No users found');
-        setUsers([]);
-        return;
-      }
-
-      const userIds = userRoles.map(role => role.user_id);
-      const { data: profiles, error: profilesError } = await supabase
-        .from('profiles')
-        .select('id, first_name, last_name, created_at')
-        .in('id', userIds);
-
-      if (profilesError) {
-        console.error('Error fetching profiles:', profilesError);
-        throw profilesError;
-      }
-
-      const combinedUsers = userIds.map(userId => {
-        const profile = profiles?.find(p => p.id === userId);
-        return {
-          id: userId,
-          email: `user-${userId.slice(0, 8)}@moonstone.bank`,
-          first_name: profile?.first_name || 'Unknown',
-          last_name: profile?.last_name || 'User',
-          is_frozen: false,
-          freeze_reason: undefined,
-          created_at: profile?.created_at || new Date().toISOString(),
-          email_confirmed_at: undefined,
-          last_sign_in_at: undefined
-        };
-      });
-
-      console.log('Fetched users for account creation:', combinedUsers.length);
-      setUsers(combinedUsers);
+      const usersData = await fetchUsers();
+      setUsers(usersData);
     } catch (error: any) {
       console.error('Error fetching users:', error);
       toast({
@@ -75,23 +34,11 @@ export const useAccountManagement = () => {
     }
   };
 
-  const fetchAccounts = async () => {
+  const handleFetchAccounts = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('accounts')
-        .select(`
-          *,
-          profiles (
-            first_name,
-            last_name
-          )
-        `)
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      console.log('Fetched accounts:', data);
-      setAccounts(data || []);
+      const accountsData = await fetchAccounts();
+      setAccounts(accountsData);
     } catch (error: any) {
       console.error('Error fetching accounts:', error);
       toast({
@@ -104,23 +51,11 @@ export const useAccountManagement = () => {
     }
   };
 
-  const fetchCreditCards = async () => {
+  const handleFetchCreditCards = async () => {
     try {
       setLoading(true);
-      const { data, error } = await supabase
-        .from('credit_cards')
-        .select(`
-          *,
-          profiles (
-            first_name,
-            last_name
-          )
-        `)
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      console.log('Fetched credit cards:', data);
-      setCreditCards(data || []);
+      const cardsData = await fetchCreditCards();
+      setCreditCards(cardsData);
     } catch (error: any) {
       console.error('Error fetching credit cards:', error);
       toast({
@@ -141,34 +76,12 @@ export const useAccountManagement = () => {
   }) => {
     try {
       setLoading(true);
-      
-      // Generate account number
-      const { data: accountNumber, error: genError } = await supabase.rpc('generate_account_number');
-      
-      if (genError) {
-        console.error('Error generating account number:', genError);
-        throw genError;
-      }
-
-      const { error } = await supabase
-        .from('accounts')
-        .insert({
-          user_id: accountData.user_id,
-          account_name: accountData.account_name,
-          account_type: accountData.account_type,
-          account_number: accountNumber,
-          balance: accountData.balance,
-          status: 'active'
-        });
-
-      if (error) throw error;
-
+      await createAccount(accountData);
       toast({
         title: "Success",
         description: "Account created successfully",
       });
-
-      fetchAccounts();
+      handleFetchAccounts();
       return true;
     } catch (error: any) {
       console.error('Error creating account:', error);
@@ -192,36 +105,12 @@ export const useAccountManagement = () => {
   }) => {
     try {
       setLoading(true);
-      
-      // Generate a card number (16 digits)
-      const cardNumber = Array.from({ length: 16 }, () => Math.floor(Math.random() * 10)).join('');
-      
-      // Generate expiry date (3 years from now)
-      const expiryDate = new Date();
-      expiryDate.setFullYear(expiryDate.getFullYear() + 3);
-      const expiryString = expiryDate.toISOString().split('T')[0];
-
-      const { error } = await supabase
-        .from('credit_cards')
-        .insert({
-          user_id: cardData.user_id,
-          card_type: cardData.card_type,
-          card_number: cardNumber,
-          credit_limit: cardData.credit_limit,
-          interest_rate: cardData.interest_rate,
-          current_balance: cardData.current_balance,
-          expiry_date: expiryString,
-          status: 'active'
-        });
-
-      if (error) throw error;
-
+      await createCreditCard(cardData);
       toast({
         title: "Success",
         description: "Credit card created successfully",
       });
-
-      fetchCreditCards();
+      handleFetchCreditCards();
       return true;
     } catch (error: any) {
       console.error('Error creating credit card:', error);
@@ -239,20 +128,12 @@ export const useAccountManagement = () => {
   const handleFreezeAccount = async (accountId: string, freeze: boolean, freezeReason?: string) => {
     try {
       setLoading(true);
-      const { error } = await supabase.rpc('toggle_account_freeze', {
-        account_id: accountId,
-        freeze_status: freeze,
-        reason: freeze ? freezeReason : null
-      });
-
-      if (error) throw error;
-
+      await freezeAccount(accountId, freeze, freezeReason);
       toast({
         title: "Success",
         description: `Account ${freeze ? 'frozen' : 'unfrozen'} successfully`,
       });
-
-      fetchAccounts();
+      handleFetchAccounts();
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -267,20 +148,12 @@ export const useAccountManagement = () => {
   const handleFreezeCard = async (cardId: string, freeze: boolean, freezeReason?: string) => {
     try {
       setLoading(true);
-      const { error } = await supabase.rpc('toggle_card_freeze', {
-        card_id: cardId,
-        freeze_status: freeze,
-        reason: freeze ? freezeReason : null
-      });
-
-      if (error) throw error;
-
+      await freezeCreditCard(cardId, freeze, freezeReason);
       toast({
         title: "Success",
         description: `Card ${freeze ? 'frozen' : 'unfrozen'} successfully`,
       });
-
-      fetchCreditCards();
+      handleFetchCreditCards();
     } catch (error: any) {
       toast({
         variant: "destructive",
@@ -295,19 +168,12 @@ export const useAccountManagement = () => {
   const handleDeleteAccount = async (accountId: string) => {
     try {
       setLoading(true);
-      const { error } = await supabase
-        .from('accounts')
-        .delete()
-        .eq('id', accountId);
-
-      if (error) throw error;
-
+      await deleteAccount(accountId);
       toast({
         title: "Success",
         description: "Account deleted successfully",
       });
-
-      fetchAccounts();
+      handleFetchAccounts();
     } catch (error: any) {
       console.error('Error deleting account:', error);
       toast({
@@ -323,19 +189,12 @@ export const useAccountManagement = () => {
   const handleDeleteCard = async (cardId: string) => {
     try {
       setLoading(true);
-      const { error } = await supabase
-        .from('credit_cards')
-        .delete()
-        .eq('id', cardId);
-
-      if (error) throw error;
-
+      await deleteCreditCard(cardId);
       toast({
         title: "Success",
         description: "Credit card deleted successfully",
       });
-
-      fetchCreditCards();
+      handleFetchCreditCards();
     } catch (error: any) {
       console.error('Error deleting credit card:', error);
       toast({
