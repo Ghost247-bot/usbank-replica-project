@@ -15,28 +15,28 @@ const Index = () => {
   const { user } = useAuth();
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white overflow-x-hidden">
       <Header />
       
-      <main>
+      <main className="w-full">
         <Hero />
         <ServiceCards />
         <FeaturedSection />
         <PictureSlider />
         
         {!user && (
-          <section className="py-16 bg-blue-900 text-white text-center">
-            <div className="max-w-4xl mx-auto px-4">
-              <h2 className="text-3xl font-bold mb-4">Ready to get started?</h2>
-              <p className="text-xl mb-8">Join thousands of customers who trust Moonstone Bank</p>
-              <div className="space-x-4">
+          <section className="py-12 sm:py-16 bg-blue-900 text-white text-center">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4">Ready to get started?</h2>
+              <p className="text-lg sm:text-xl mb-6 sm:mb-8">Join thousands of customers who trust Moonstone Bank</p>
+              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4 justify-center">
                 <Link to="/auth">
-                  <Button size="lg" className="bg-green-600 hover:bg-green-700">
+                  <Button size="lg" className="bg-green-600 hover:bg-green-700 w-full sm:w-auto">
                     Open an Account
                   </Button>
                 </Link>
                 <Link to="/auth">
-                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900">
+                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-900 w-full sm:w-auto">
                     Sign In
                   </Button>
                 </Link>

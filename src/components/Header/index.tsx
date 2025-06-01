@@ -25,35 +25,41 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white border-b border-gray-200">
+    <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
       <TopUtilityBar />
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center space-x-8">
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+        <div className="flex items-center justify-between h-14 sm:h-16">
+          <div className="flex items-center space-x-4 sm:space-x-8">
             <Logo />
-            <DesktopNavigation />
+            <div className="hidden lg:block">
+              <DesktopNavigation />
+            </div>
           </div>
           
-          <div className="flex items-center space-x-4">
-            <SearchBar />
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            <div className="hidden md:block">
+              <SearchBar />
+            </div>
             
             {user ? (
               <>
-                <QuickAccessMenu />
-                <NotificationDropdown />
+                <div className="hidden lg:flex items-center space-x-2">
+                  <QuickAccessMenu />
+                  <NotificationDropdown />
+                </div>
                 <div className="flex items-center space-x-2">
-                  <span className="text-sm text-gray-700">
+                  <span className="text-xs sm:text-sm text-gray-700 hidden sm:block">
                     Welcome, {user.user_metadata?.first_name || 'User'}
                   </span>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={signOut}
-                    className="flex items-center space-x-1"
+                    className="flex items-center space-x-1 text-xs sm:text-sm px-2 sm:px-3"
                   >
-                    <LogOut className="h-4 w-4" />
-                    <span>Sign Out</span>
+                    <LogOut className="h-3 w-3 sm:h-4 sm:w-4" />
+                    <span className="hidden sm:inline">Sign Out</span>
                   </Button>
                 </div>
               </>
@@ -67,7 +73,7 @@ const Header = () => {
               className="lg:hidden p-2 hover:bg-gray-100 rounded-lg transition-colors"
               aria-label="Toggle mobile menu"
             >
-              <Menu className="h-6 w-6 text-gray-600" />
+              <Menu className="h-5 w-5 sm:h-6 sm:w-6 text-gray-600" />
             </button>
           </div>
         </div>
