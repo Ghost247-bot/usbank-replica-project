@@ -26,28 +26,58 @@ export const createCreditCard = async (cardData: {
   interest_rate: number;
   current_balance: number;
 }): Promise<void> => {
-  // Generate a card number (16 digits)
-  const cardNumber = Array.from({ length: 16 }, () => Math.floor(Math.random() * 10)).join('');
+  console.log('Creating credit card with data:', cardData);
   
-  // Generate expiry date (3 years from now)
+  // Generate a valid card number (16 digits starting with appropriate prefix)
+  const cardPrefixes: { [key: string]: string } = {
+    'Visa': '4',
+    'Mastercard': '5',
+    'American Express': '3',
+    'Discover': '6'
+  };
+  
+  const prefix = cardPrefixes[cardData.card_type] || '4';
+  const remainingDigits = 16 - prefix.length;
+  const randomDigits = Array.from({ length: remainingDigits }, () => Math.floor(Math.random() * 10)).join('');
+  const cardNumber = prefix + randomDigits;
+  
+  // Generate expiry date (3 years from now) in YYYY-MM-DD format
   const expiryDate = new Date();
   expiryDate.setFullYear(expiryDate.getFullYear() + 3);
-  const expiryString = expiryDate.toISOString().split('T')[0];
+  // Ensure we use the last day of the expiry month
+  const year = expiryDate.getFullYear();
+  const month = expiryDate.getMonth() + 1; // getMonth() returns 0-11
+  const lastDayOfMonth = new Date(year, month, 0).getDate();
+  const expiryString = `${year}-${month.toString().padStart(2, '0')}-${lastDayOfMonth.toString().padStart(2, '0')}`;
 
-  const { error } = await supabase
+  console.log('Generated card number:', cardNumber);
+  console.log('Generated expiry date:', expiryString);
+
+  const insertData = {
+    user_id: cardData.user_id,
+    card_type: cardData.card_type,
+    card_number: cardNumber,
+    credit_limit: Number(cardData.credit_limit),
+    interest_rate: Number(cardData.interest_rate),
+    current_balance: Number(cardData.current_balance),
+    expiry_date: expiryString,
+    status: 'active' as const
+  };
+
+  console.log('Insert data:', insertData);
+
+  const { data, error } = await supabase
     .from('credit_cards')
-    .insert({
-      user_id: cardData.user_id,
-      card_type: cardData.card_type,
-      card_number: cardNumber,
-      credit_limit: cardData.credit_limit,
-      interest_rate: cardData.interest_rate,
-      current_balance: cardData.current_balance,
-      expiry_date: expiryString,
-      status: 'active'
-    });
+    .insert(insertData)
+    .select()
+    .single();
 
-  if (error) throw error;
+  if (error) {
+    console.error('Supabase error:', error);
+    throw error;
+  }
+  
+  console.log('Successfully created credit card:', data);
 };
 
 export const updateCreditCard = async (cardId: string, cardData: {
@@ -60,9 +90,9 @@ export const updateCreditCard = async (cardId: string, cardData: {
     .from('credit_cards')
     .update({
       card_type: cardData.card_type,
-      credit_limit: cardData.credit_limit,
-      interest_rate: cardData.interest_rate,
-      current_balance: cardData.current_balance,
+      credit_limit: Number(cardData.credit_limit),
+      interest_rate: Number(cardData.interest_rate),
+      current_balance: Number(cardData.current_balance),
       updated_at: new Date().toISOString()
     })
     .eq('id', cardId);
