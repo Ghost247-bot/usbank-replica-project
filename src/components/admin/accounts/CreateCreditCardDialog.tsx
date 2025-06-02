@@ -57,7 +57,7 @@ const CreateCreditCardDialog: React.FC<CreateCreditCardDialogProps> = ({
       user_id: '',
       card_type: 'Visa',
       credit_limit: 1000,
-      interest_rate: 18.99,
+      interest_rate: 5.99,
       current_balance: 0,
     },
   });
@@ -76,7 +76,7 @@ const CreateCreditCardDialog: React.FC<CreateCreditCardDialogProps> = ({
       return;
     }
 
-    // Ensure numeric values are properly formatted
+    // Ensure numeric values are properly formatted and within database constraints
     const formattedData = {
       ...data,
       credit_limit: Number(data.credit_limit),
@@ -201,7 +201,7 @@ const CreateCreditCardDialog: React.FC<CreateCreditCardDialogProps> = ({
               rules={{ 
                 required: 'Interest rate is required',
                 min: { value: 0, message: 'Interest rate cannot be negative' },
-                max: { value: 50, message: 'Interest rate cannot exceed 50%' }
+                max: { value: 9.9999, message: 'Interest rate cannot exceed 9.9999%' }
               }}
               render={({ field }) => (
                 <FormItem>
@@ -211,8 +211,8 @@ const CreateCreditCardDialog: React.FC<CreateCreditCardDialogProps> = ({
                       type="number"
                       step="0.01"
                       min="0"
-                      max="50"
-                      placeholder="18.99"
+                      max="9.9999"
+                      placeholder="5.99"
                       {...field}
                       onChange={(e) => field.onChange(parseFloat(e.target.value) || 0)}
                     />
