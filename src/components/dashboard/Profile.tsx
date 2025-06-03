@@ -53,7 +53,23 @@ const Profile = () => {
       }
 
       if (data) {
-        setProfileData(data);
+        // Convert the database data to match our ProfileData interface
+        const convertedData: ProfileData = {
+          first_name: data.first_name || '',
+          last_name: data.last_name || '',
+          phone: data.phone || '',
+          profile_picture_url: data.profile_picture_url || '',
+          address: typeof data.address === 'object' && data.address !== null 
+            ? data.address as { street?: string; city?: string; state?: string; zipCode?: string; country?: string; }
+            : {
+                street: '',
+                city: '',
+                state: '',
+                zipCode: '',
+                country: ''
+              }
+        };
+        setProfileData(convertedData);
       }
     } catch (error) {
       console.error('Error fetching profile:', error);
