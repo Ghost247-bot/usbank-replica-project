@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from }
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import DashboardBanner from '@/components/dashboard/DashboardBanner';
@@ -14,6 +14,7 @@ import FinancialGoals from '@/components/dashboard/FinancialGoals';
 import UpcomingBills from '@/components/dashboard/UpcomingBills';
 import AlertsNotifications from '@/components/dashboard/AlertsNotifications';
 import Rewards from '@/components/dashboard/Rewards';
+import Profile from '@/components/dashboard/Profile';
 import { useAuth } from '@/hooks/useAuth';
 
 const UserDashboard = () => {
@@ -53,6 +54,12 @@ const UserDashboard = () => {
         </div>
 
         <DashboardBanner />
+        
+        {/* Profile Section */}
+        <div className="mb-8">
+          <Profile />
+        </div>
+
         <AccountOverview />
         <MonthlySpendingTrend />
         
