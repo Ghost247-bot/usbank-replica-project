@@ -21,7 +21,6 @@ interface CreditCard {
   card_type: string;
   credit_limit: number;
   current_balance: number;
-  interest_rate: number;
   is_frozen: boolean;
   freeze_reason?: string;
   user_id: string;
