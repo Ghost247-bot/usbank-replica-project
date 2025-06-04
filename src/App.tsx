@@ -1,213 +1,71 @@
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import './App.css';
+import Auth from '@/pages/Auth';
+import UserDashboard from '@/pages/UserDashboard';
+import AdminDashboard from '@/pages/AdminDashboard';
+import TransferMoney from '@/pages/TransferMoney';
+import PayBills from '@/pages/PayBills';
+import DepositCheck from '@/pages/DepositCheck';
+import AccountSettings from '@/pages/AccountSettings';
+import ContactUs from '@/pages/ContactUs';
+import FinancialEducation from '@/pages/FinancialEducation';
+import ScheduleConsultation from '@/pages/ScheduleConsultation';
+import WealthManagement from '@/pages/WealthManagement';
+import PersonalBankingRoutes from '@/routes/PersonalBankingRoutes';
+import BusinessBankingRoutes from '@/routes/BusinessBankingRoutes';
+import InvestmentOptionsPage from '@/pages/wealth/InvestmentOptionsPage';
+import PortfolioOptionsPage from '@/pages/wealth/PortfolioOptionsPage';
+import StartInvesting from '@/pages/StartInvesting';
+import TotalBalancePage from '@/pages/accounts/TotalBalancePage';
+import CheckingAccountPage from '@/pages/accounts/CheckingAccountPage';
+import SavingsAccountPage from '@/pages/accounts/SavingsAccountPage';
+import InvestmentAccountPage from '@/pages/accounts/InvestmentAccountPage';
+import EscrowAccountPage from '@/pages/accounts/EscrowAccountPage';
+import CreditCardPage from '@/pages/accounts/CreditCardPage';
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider } from "@/hooks/useAuth";
+function App() {
+  const queryClient = new QueryClient();
 
-// Import all pages
-import Index from "./pages/Index";
-import NotFound from "./pages/NotFound";
-import Auth from "./pages/Auth";
-
-// Personal Banking Pages
-import CheckingAccounts from "./pages/personal/CheckingAccounts";
-import SavingsAccounts from "./pages/personal/SavingsAccounts";
-import CreditCards from "./pages/personal/CreditCards";
-import Mortgages from "./pages/personal/Mortgages";
-import PersonalLoans from "./pages/personal/PersonalLoans";
-import AutoLoans from "./pages/personal/AutoLoans";
-import StudentLoans from "./pages/personal/StudentLoans";
-import HomeEquityLoans from "./pages/personal/HomeEquityLoans";
-import CdsMoneyMarket from "./pages/personal/CdsMoneyMarket";
-import OnlineBanking from "./pages/personal/OnlineBanking";
-import MobileBanking from "./pages/personal/MobileBanking";
-import OverdraftProtection from "./pages/personal/OverdraftProtection";
-
-// Business Banking Pages
-import BusinessChecking from "./pages/business/BusinessChecking";
-import BusinessSavings from "./pages/business/BusinessSavings";
-import BusinessCreditCards from "./pages/business/BusinessCreditCards";
-import BusinessLoans from "./pages/business/BusinessLoans";
-import MerchantServices from "./pages/business/MerchantServices";
-import TreasuryManagement from "./pages/business/TreasuryManagement";
-import BusinessLinesOfCredit from "./pages/business/BusinessLinesOfCredit";
-import EquipmentFinancing from "./pages/business/EquipmentFinancing";
-import CommercialRealEstate from "./pages/business/CommercialRealEstate";
-import SbaLoans from "./pages/business/SbaLoans";
-import PayrollServices from "./pages/business/PayrollServices";
-import BusinessInsurance from "./pages/business/BusinessInsurance";
-import InternationalBanking from "./pages/business/InternationalBanking";
-
-// Wealth Management Pages
-import InvestmentManagement from "./pages/wealth/InvestmentManagement";
-import RetirementPlanning from "./pages/wealth/RetirementPlanning";
-import TrustServices from "./pages/wealth/TrustServices";
-import PrivateBanking from "./pages/wealth/PrivateBanking";
-import FinancialPlanning from "./pages/wealth/FinancialPlanning";
-import EstatePlanning from "./pages/wealth/EstatePlanning";
-import TaxPlanning from "./pages/wealth/TaxPlanning";
-import InsuranceSolutions from "./pages/wealth/InsuranceSolutions";
-import PortfolioAnalysis from "./pages/wealth/PortfolioAnalysis";
-import AlternativeInvestments from "./pages/wealth/AlternativeInvestments";
-import PortfolioOptions from "./pages/wealth/PortfolioOptions";
-import ConservativeGrowthPortfolio from "./pages/wealth/ConservativeGrowthPortfolio";
-import ModerateGrowthPortfolio from "./pages/wealth/ModerateGrowthPortfolio";
-import AggressiveGrowthPortfolio from "./pages/wealth/AggressiveGrowthPortfolio";
-import GrowthPortfolios from "./pages/wealth/GrowthPortfolios";
-import IncomePortfolios from "./pages/wealth/IncomePortfolios";
-import BalancedPortfolios from "./pages/wealth/BalancedPortfolios";
-
-// Action Pages
-import AboutUs from "./pages/AboutUs";
-import LearnMore from "./pages/LearnMore";
-import CheckEquity from "./pages/CheckEquity";
-import CalculatePayment from "./pages/CalculatePayment";
-
-// Services Pages
-import FinancialEducation from "./pages/FinancialEducation";
-import MobileApp from "./pages/MobileApp";
-import WireTransfers from "./pages/WireTransfers";
-import SafeDepositBoxes from "./pages/SafeDepositBoxes";
-import NotaryServices from "./pages/NotaryServices";
-import CustomerService from "./pages/CustomerService";
-import FindLocations from "./pages/FindLocations";
-import ContactUs from "./pages/ContactUs";
-import SecurityCenter from "./pages/SecurityCenter";
-import PrivacyPolicy from "./pages/PrivacyPolicy";
-import TermsOfService from "./pages/TermsOfService";
-import Accessibility from "./pages/Accessibility";
-import SiteMap from "./pages/SiteMap";
-
-// Auth and Dashboard Pages
-import CreateAccount from "./pages/CreateAccount";
-import ForgotPassword from "./pages/ForgotPassword";
-import AdminLogin from "./pages/AdminLogin";
-import AdminSetup from "./pages/AdminSetup";
-import UserDashboard from "./pages/UserDashboard";
-import AdminDashboard from "./pages/AdminDashboard";
-
-// New User Dashboard Feature Pages
-import TransferMoney from "./pages/TransferMoney";
-import PayBills from "./pages/PayBills";
-import DepositCheck from "./pages/DepositCheck";
-import AccountSettings from "./pages/AccountSettings";
-import ManageBudget from "./pages/ManageBudget";
-import ViewAllGoals from "./pages/ViewAllGoals";
-import ViewAllBills from "./pages/ViewAllBills";
-import ManageNotifications from "./pages/ManageNotifications";
-import ViewAllTransactions from "./pages/ViewAllTransactions";
-
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
+  return (
+    <Router>
+      <QueryClientProvider client={queryClient}>
+        <div className="min-h-screen bg-white">
           <Routes>
-            <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
-            
-            {/* Personal Banking Routes */}
-            <Route path="/personal/checking-accounts" element={<CheckingAccounts />} />
-            <Route path="/personal/savings-accounts" element={<SavingsAccounts />} />
-            <Route path="/personal/credit-cards" element={<CreditCards />} />
-            <Route path="/personal/mortgages" element={<Mortgages />} />
-            <Route path="/personal/personal-loans" element={<PersonalLoans />} />
-            <Route path="/personal/auto-loans" element={<AutoLoans />} />
-            <Route path="/personal/student-loans" element={<StudentLoans />} />
-            <Route path="/personal/home-equity-loans" element={<HomeEquityLoans />} />
-            <Route path="/personal/cds-money-market" element={<CdsMoneyMarket />} />
-            <Route path="/personal/online-banking" element={<OnlineBanking />} />
-            <Route path="/personal/mobile-banking" element={<MobileBanking />} />
-            <Route path="/personal/overdraft-protection" element={<OverdraftProtection />} />
-            
-            {/* Business Banking Routes */}
-            <Route path="/business/business-checking" element={<BusinessChecking />} />
-            <Route path="/business/business-savings" element={<BusinessSavings />} />
-            <Route path="/business/business-credit-cards" element={<BusinessCreditCards />} />
-            <Route path="/business/business-loans" element={<BusinessLoans />} />
-            <Route path="/business/merchant-services" element={<MerchantServices />} />
-            <Route path="/business/treasury-management" element={<TreasuryManagement />} />
-            <Route path="/business/business-lines-of-credit" element={<BusinessLinesOfCredit />} />
-            <Route path="/business/equipment-financing" element={<EquipmentFinancing />} />
-            <Route path="/business/commercial-real-estate" element={<CommercialRealEstate />} />
-            <Route path="/business/sba-loans" element={<SbaLoans />} />
-            <Route path="/business/payroll-services" element={<PayrollServices />} />
-            <Route path="/business/business-insurance" element={<BusinessInsurance />} />
-            <Route path="/business/international-banking" element={<InternationalBanking />} />
-            
-            {/* Wealth Management Routes */}
-            <Route path="/wealth/investment-management" element={<InvestmentManagement />} />
-            <Route path="/wealth/retirement-planning" element={<RetirementPlanning />} />
-            <Route path="/wealth/trust-services" element={<TrustServices />} />
-            <Route path="/wealth/private-banking" element={<PrivateBanking />} />
-            <Route path="/wealth/financial-planning" element={<FinancialPlanning />} />
-            <Route path="/wealth/estate-planning" element={<EstatePlanning />} />
-            <Route path="/wealth/tax-planning" element={<TaxPlanning />} />
-            <Route path="/wealth/insurance-solutions" element={<InsuranceSolutions />} />
-            <Route path="/wealth/portfolio-analysis" element={<PortfolioAnalysis />} />
-            <Route path="/wealth/alternative-investments" element={<AlternativeInvestments />} />
-            <Route path="/wealth/portfolio-options" element={<PortfolioOptions />} />
-            <Route path="/wealth/conservative-growth-portfolio" element={<ConservativeGrowthPortfolio />} />
-            <Route path="/wealth/moderate-growth-portfolio" element={<ModerateGrowthPortfolio />} />
-            <Route path="/wealth/aggressive-growth-portfolio" element={<AggressiveGrowthPortfolio />} />
-            <Route path="/wealth/growth-portfolios" element={<GrowthPortfolios />} />
-            <Route path="/wealth/income-portfolios" element={<IncomePortfolios />} />
-            <Route path="/wealth/balanced-portfolios" element={<BalancedPortfolios />} />
-            
-            {/* Action Routes */}
-            <Route path="/about-us" element={<AboutUs />} />
-            <Route path="/learn-more" element={<LearnMore />} />
-            <Route path="/check-equity" element={<CheckEquity />} />
-            <Route path="/calculate-payment" element={<CalculatePayment />} />
-            
-            {/* Services Routes */}
-            <Route path="/financial-education" element={<FinancialEducation />} />
-            <Route path="/mobile-app" element={<MobileApp />} />
-            <Route path="/wire-transfers" element={<WireTransfers />} />
-            <Route path="/safe-deposit-boxes" element={<SafeDepositBoxes />} />
-            <Route path="/notary-services" element={<NotaryServices />} />
-            <Route path="/customer-service" element={<CustomerService />} />
-            <Route path="/find-locations" element={<FindLocations />} />
-            <Route path="/contact-us" element={<ContactUs />} />
-            <Route path="/security-center" element={<SecurityCenter />} />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms-of-service" element={<TermsOfService />} />
-            <Route path="/accessibility" element={<Accessibility />} />
-            <Route path="/site-map" element={<SiteMap />} />
-            
-            {/* Auth and Dashboard Routes */}
-            <Route path="/sign-in" element={<Navigate to="/auth" replace />} />
-            <Route path="/create-account" element={<CreateAccount />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/admin-login" element={<AdminLogin />} />
-            <Route path="/admin-setup" element={<AdminSetup />} />
-            <Route path="/user-dashboard" element={<UserDashboard />} />
-            <Route path="/admin-dashboard" element={<AdminDashboard />} />
-            
-            {/* User Dashboard Feature Routes */}
+            <Route path="/dashboard" element={<UserDashboard />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/transfer-money" element={<TransferMoney />} />
             <Route path="/pay-bills" element={<PayBills />} />
             <Route path="/deposit-check" element={<DepositCheck />} />
             <Route path="/account-settings" element={<AccountSettings />} />
-            <Route path="/manage-budget" element={<ManageBudget />} />
-            <Route path="/view-all-goals" element={<ViewAllGoals />} />
-            <Route path="/view-all-bills" element={<ViewAllBills />} />
-            <Route path="/manage-notifications" element={<ManageNotifications />} />
-            <Route path="/view-all-transactions" element={<ViewAllTransactions />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/financial-education" element={<FinancialEducation />} />
+            <Route path="/schedule-consultation" element={<ScheduleConsultation />} />
+            <Route path="/wealth-management" element={<WealthManagement />} />
+            <Route path="/wealth/investment-options" element={<InvestmentOptionsPage />} />
+            <Route path="/wealth/portfolio-options" element={<PortfolioOptionsPage />} />
+            <Route path="/start-investing" element={<StartInvesting />} />
+
+            {/* Personal Banking Routes */}
+            <Route path="/personal/*" element={<PersonalBankingRoutes />} />
+
+            {/* Business Banking Routes */}
+            <Route path="/business/*" element={<BusinessBankingRoutes />} />
             
-            {/* 404 Page */}
-            <Route path="*" element={<NotFound />} />
+            {/* Account Pages */}
+            <Route path="/accounts/total-balance" element={<TotalBalancePage />} />
+            <Route path="/accounts/checking" element={<CheckingAccountPage />} />
+            <Route path="/accounts/savings" element={<SavingsAccountPage />} />
+            <Route path="/accounts/investment" element={<InvestmentAccountPage />} />
+            <Route path="/accounts/escrow" element={<EscrowAccountPage />} />
+            <Route path="/accounts/credit-card" element={<CreditCardPage />} />
           </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </AuthProvider>
-  </QueryClientProvider>
-);
+        </div>
+      </QueryClientProvider>
+    </Router>
+  );
+}
 
 export default App;

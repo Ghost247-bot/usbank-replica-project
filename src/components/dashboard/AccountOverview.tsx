@@ -1,121 +1,114 @@
 
 import React from 'react';
-import { DollarSign, CreditCard, TrendingUp, Shield, PiggyBank } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useBankingData } from '@/hooks/useBankingData';
 
 const AccountOverview = () => {
+  const navigate = useNavigate();
   const { 
-    accounts, 
     totalBalance, 
     checkingBalance, 
     savingsBalance, 
-    escrowBalance,
-    investmentBalance,
-    creditCardBalance, 
+    escrowBalance, 
+    investmentBalance, 
+    creditCardBalance,
     isLoading 
   } = useBankingData();
 
-  console.log('AccountOverview - Escrow balance:', escrowBalance);
+  const accounts = [
+    {
+      title: "Total Balance",
+      amount: totalBalance,
+      description: "All accounts combined",
+      route: "/accounts/total-balance",
+      icon: "💰"
+    },
+    {
+      title: "Checking Account", 
+      amount: checkingBalance,
+      description: "Available balance",
+      route: "/accounts/checking",
+      icon: "💳"
+    },
+    {
+      title: "Savings Account",
+      amount: savingsBalance,
+      description: "1.5% APY earning",
+      route: "/accounts/savings",
+      icon: "🏦"
+    },
+    {
+      title: "Investment Account",
+      amount: investmentBalance,
+      description: "Portfolio balance",
+      route: "/accounts/investment",
+      icon: "📈"
+    },
+    {
+      title: "Escrow Account",
+      amount: escrowBalance,
+      description: "Secured funds",
+      route: "/accounts/escrow",
+      icon: "🏠"
+    },
+    {
+      title: "Credit Card",
+      amount: creditCardBalance,
+      description: "Current balance",
+      route: "/accounts/credit-card",
+      icon: "💳"
+    }
+  ];
 
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-        {[...Array(6)].map((_, i) => (
-          <Card key={i} className="animate-pulse">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <div className="h-4 bg-gray-200 rounded w-20"></div>
-              <div className="h-4 w-4 bg-gray-200 rounded"></div>
-            </CardHeader>
-            <CardContent>
-              <div className="h-8 bg-gray-200 rounded w-24 mb-2"></div>
-              <div className="h-3 bg-gray-200 rounded w-32"></div>
-            </CardContent>
-          </Card>
-        ))}
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold text-gray-900 mb-6">Account Overview</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {[...Array(6)].map((_, i) => (
+            <Card key={i}>
+              <CardHeader className="animate-pulse">
+                <div className="h-4 bg-gray-200 rounded w-3/4"></div>
+              </CardHeader>
+              <CardContent className="animate-pulse">
+                <div className="h-8 bg-gray-200 rounded w-1/2 mb-2"></div>
+                <div className="h-3 bg-gray-200 rounded w-2/3"></div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Total Balance</CardTitle>
-          <DollarSign className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">${totalBalance.toFixed(2)}</div>
-          <p className="text-xs text-muted-foreground">
-            All accounts combined
-          </p>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Checking Account</CardTitle>
-          <CreditCard className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">${Number(checkingBalance).toFixed(2)}</div>
-          <p className="text-xs text-muted-foreground">
-            Available balance
-          </p>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Savings Account</CardTitle>
-          <PiggyBank className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">${Number(savingsBalance).toFixed(2)}</div>
-          <p className="text-xs text-muted-foreground">
-            1.5% APY earning
-          </p>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Investment Account</CardTitle>
-          <TrendingUp className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">${Number(investmentBalance).toFixed(2)}</div>
-          <p className="text-xs text-muted-foreground">
-            Portfolio balance
-          </p>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Escrow Account</CardTitle>
-          <Shield className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">${Number(escrowBalance).toFixed(2)}</div>
-          <p className="text-xs text-muted-foreground">
-            Secured funds
-          </p>
-        </CardContent>
-      </Card>
-
-      <Card>
-        <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-          <CardTitle className="text-sm font-medium">Credit Card</CardTitle>
-          <CreditCard className="h-4 w-4 text-muted-foreground" />
-        </CardHeader>
-        <CardContent>
-          <div className="text-2xl font-bold">${creditCardBalance.toFixed(2)}</div>
-          <p className="text-xs text-muted-foreground">
-            Current balance
-          </p>
-        </CardContent>
-      </Card>
+    <div className="mb-8">
+      <h2 className="text-2xl font-bold text-gray-900 mb-6">Account Overview</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {accounts.map((account, index) => (
+          <Card 
+            key={index} 
+            className="hover:shadow-lg transition-shadow cursor-pointer"
+            onClick={() => navigate(account.route)}
+          >
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-sm font-medium">
+                {account.title}
+              </CardTitle>
+              <span className="text-xl">{account.icon}</span>
+            </CardHeader>
+            <CardContent>
+              <div className="text-2xl font-bold">
+                ${account.amount.toFixed(2)}
+              </div>
+              <p className="text-xs text-muted-foreground">
+                {account.description}
+              </p>
+            </CardContent>
+          </Card>
+        ))}
+      </div>
     </div>
   );
 };
