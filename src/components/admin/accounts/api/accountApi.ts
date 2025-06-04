@@ -22,7 +22,7 @@ export const fetchAccounts = async (): Promise<Account[]> => {
 export const createAccount = async (accountData: {
   user_id: string;
   account_name: string;
-  account_type: 'checking' | 'savings' | 'investment';
+  account_type: 'checking' | 'savings' | 'investment' | 'escrow';
   balance: number;
 }): Promise<void> => {
   // Generate account number
@@ -49,7 +49,7 @@ export const createAccount = async (accountData: {
 
 export const updateAccount = async (accountId: string, accountData: {
   account_name: string;
-  account_type: 'checking' | 'savings' | 'investment';
+  account_type: 'checking' | 'savings' | 'investment' | 'escrow';
   balance: number;
 }): Promise<void> => {
   const { error } = await supabase

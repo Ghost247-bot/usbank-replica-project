@@ -631,6 +631,7 @@ export type Database = {
         | "credit_card"
         | "loan"
         | "investment"
+        | "escrow"
       transaction_status: "pending" | "completed" | "failed" | "cancelled"
       transaction_type:
         | "deposit"
@@ -762,6 +763,7 @@ export const Constants = {
         "credit_card",
         "loan",
         "investment",
+        "escrow",
       ],
       transaction_status: ["pending", "completed", "failed", "cancelled"],
       transaction_type: [
