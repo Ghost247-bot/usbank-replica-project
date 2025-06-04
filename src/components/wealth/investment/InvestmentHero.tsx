@@ -1,55 +1,44 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { CheckCircle } from 'lucide-react';
+import { TrendingUp, Shield, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const InvestmentHero = () => {
   return (
-    <section className="bg-gradient-to-r from-blue-900 to-blue-800 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 lg:py-24">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <h1 className="text-4xl lg:text-5xl font-bold mb-6 leading-tight">
-              Professional Investment Management
-            </h1>
-            <p className="text-xl mb-8 text-blue-100 leading-relaxed">
-              Let our experienced investment professionals help you build and manage a diversified portfolio designed to meet your financial goals.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/contact-us">
-                <Button className="bg-white text-blue-900 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors text-lg">
-                  Schedule Consultation
-                </Button>
-              </Link>
-              <Link to="/wealth/portfolio-options">
-                <Button variant="outline" className="border-2 border-white text-white px-8 py-4 rounded-lg font-semibold hover:bg-white hover:text-blue-900 transition-colors text-lg">
-                  View Portfolio Options
-                </Button>
-              </Link>
-            </div>
+    <section className="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+            Smart Investment Solutions
+          </h1>
+          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto">
+            Build wealth with our comprehensive investment management services designed for every stage of your financial journey.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+            <Button size="lg" className="bg-white text-blue-600 hover:bg-gray-100">
+              Start Investing Today
+            </Button>
+            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
+              Schedule Consultation
+            </Button>
           </div>
-          <div className="relative">
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-              <h3 className="text-2xl font-semibold mb-6">Why Choose Our Investment Management?</h3>
-              <ul className="space-y-4">
-                <li className="flex items-center space-x-3">
-                  <CheckCircle className="h-6 w-6 text-green-400" />
-                  <span>Personalized investment strategies</span>
-                </li>
-                <li className="flex items-center space-x-3">
-                  <CheckCircle className="h-6 w-6 text-green-400" />
-                  <span>Professional portfolio management</span>
-                </li>
-                <li className="flex items-center space-x-3">
-                  <CheckCircle className="h-6 w-6 text-green-400" />
-                  <span>Comprehensive risk management</span>
-                </li>
-                <li className="flex items-center space-x-3">
-                  <CheckCircle className="h-6 w-6 text-green-400" />
-                  <span>Regular performance monitoring</span>
-                </li>
-              </ul>
+
+          <div className="grid md:grid-cols-3 gap-8 mt-16">
+            <div className="text-center">
+              <TrendingUp className="h-12 w-12 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Professional Management</h3>
+              <p className="text-blue-100">Expert portfolio management tailored to your goals</p>
+            </div>
+            <div className="text-center">
+              <Shield className="h-12 w-12 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Risk Management</h3>
+              <p className="text-blue-100">Sophisticated strategies to protect your investments</p>
+            </div>
+            <div className="text-center">
+              <Users className="h-12 w-12 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold mb-2">Personal Service</h3>
+              <p className="text-blue-100">Dedicated advisors committed to your success</p>
             </div>
           </div>
         </div>

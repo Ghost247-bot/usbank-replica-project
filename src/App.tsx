@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -24,6 +25,7 @@ import SavingsAccountPage from '@/pages/accounts/SavingsAccountPage';
 import InvestmentAccountPage from '@/pages/accounts/InvestmentAccountPage';
 import EscrowAccountPage from '@/pages/accounts/EscrowAccountPage';
 import CreditCardPage from '@/pages/accounts/CreditCardPage';
+import Index from '@/pages/Index';
 
 function App() {
   const queryClient = new QueryClient();
@@ -33,6 +35,7 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <div className="min-h-screen bg-white">
           <Routes>
+            <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/dashboard" element={<UserDashboard />} />
             <Route path="/admin" element={<AdminDashboard />} />
