@@ -46,6 +46,8 @@ export const useBankingData = () => {
     queryFn: async () => {
       if (!user) return [];
       
+      console.log('Fetching accounts for user:', user.id);
+      
       const { data, error } = await supabase
         .from('accounts')
         .select('*')
@@ -56,6 +58,7 @@ export const useBankingData = () => {
         throw error;
       }
       
+      console.log('Fetched accounts:', data);
       return data || [];
     },
     enabled: !!user,
@@ -110,7 +113,18 @@ export const useBankingData = () => {
   const totalBalance = accounts.reduce((sum, account) => sum + Number(account.balance), 0);
   const checkingBalance = accounts.find(acc => acc.account_type === 'checking')?.balance || 0;
   const savingsBalance = accounts.find(acc => acc.account_type === 'savings')?.balance || 0;
+  const escrowBalance = accounts.find(acc => acc.account_type === 'escrow')?.balance || 0;
+  const investmentBalance = accounts.find(acc => acc.account_type === 'investment')?.balance || 0;
   const creditCardBalance = creditCards.reduce((sum, card) => sum + Number(card.current_balance), 0);
+
+  console.log('Account balances calculated:', {
+    totalBalance,
+    checkingBalance,
+    savingsBalance,
+    escrowBalance,
+    investmentBalance,
+    creditCardBalance
+  });
 
   return {
     accounts: accounts as Account[],
@@ -119,6 +133,8 @@ export const useBankingData = () => {
     totalBalance,
     checkingBalance,
     savingsBalance,
+    escrowBalance,
+    investmentBalance,
     creditCardBalance,
     isLoading,
   };

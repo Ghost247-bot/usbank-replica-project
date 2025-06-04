@@ -5,11 +5,18 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useBankingData } from '@/hooks/useBankingData';
 
 const AccountOverview = () => {
-  const { accounts, totalBalance, checkingBalance, savingsBalance, creditCardBalance, isLoading } = useBankingData();
+  const { 
+    accounts, 
+    totalBalance, 
+    checkingBalance, 
+    savingsBalance, 
+    escrowBalance,
+    investmentBalance,
+    creditCardBalance, 
+    isLoading 
+  } = useBankingData();
 
-  // Calculate balances for new account types
-  const investmentBalance = accounts?.find(acc => acc.account_type === 'investment')?.balance || 0;
-  const escrowBalance = accounts?.find(acc => acc.account_type === 'escrow')?.balance || 0;
+  console.log('AccountOverview - Escrow balance:', escrowBalance);
 
   if (isLoading) {
     return (
