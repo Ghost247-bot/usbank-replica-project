@@ -2,6 +2,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { AuthProvider } from '@/hooks/useAuth';
 import './App.css';
 import Auth from '@/pages/Auth';
 import UserDashboard from '@/pages/UserDashboard';
@@ -31,43 +32,45 @@ function App() {
   const queryClient = new QueryClient();
 
   return (
-    <Router>
-      <QueryClientProvider client={queryClient}>
-        <div className="min-h-screen bg-white">
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/dashboard" element={<UserDashboard />} />
-            <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/transfer-money" element={<TransferMoney />} />
-            <Route path="/pay-bills" element={<PayBills />} />
-            <Route path="/deposit-check" element={<DepositCheck />} />
-            <Route path="/account-settings" element={<AccountSettings />} />
-            <Route path="/contact-us" element={<ContactUs />} />
-            <Route path="/financial-education" element={<FinancialEducation />} />
-            <Route path="/schedule-consultation" element={<ScheduleConsultation />} />
-            <Route path="/wealth-management" element={<WealthManagement />} />
-            <Route path="/wealth/investment-options" element={<InvestmentOptionsPage />} />
-            <Route path="/wealth/portfolio-options" element={<PortfolioOptionsPage />} />
-            <Route path="/start-investing" element={<StartInvesting />} />
+    <AuthProvider>
+      <Router>
+        <QueryClientProvider client={queryClient}>
+          <div className="min-h-screen bg-white">
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/dashboard" element={<UserDashboard />} />
+              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/transfer-money" element={<TransferMoney />} />
+              <Route path="/pay-bills" element={<PayBills />} />
+              <Route path="/deposit-check" element={<DepositCheck />} />
+              <Route path="/account-settings" element={<AccountSettings />} />
+              <Route path="/contact-us" element={<ContactUs />} />
+              <Route path="/financial-education" element={<FinancialEducation />} />
+              <Route path="/schedule-consultation" element={<ScheduleConsultation />} />
+              <Route path="/wealth-management" element={<WealthManagement />} />
+              <Route path="/wealth/investment-options" element={<InvestmentOptionsPage />} />
+              <Route path="/wealth/portfolio-options" element={<PortfolioOptionsPage />} />
+              <Route path="/start-investing" element={<StartInvesting />} />
 
-            {/* Personal Banking Routes */}
-            <Route path="/personal/*" element={<PersonalBankingRoutes />} />
+              {/* Personal Banking Routes */}
+              <Route path="/personal/*" element={<PersonalBankingRoutes />} />
 
-            {/* Business Banking Routes */}
-            <Route path="/business/*" element={<BusinessBankingRoutes />} />
-            
-            {/* Account Pages */}
-            <Route path="/accounts/total-balance" element={<TotalBalancePage />} />
-            <Route path="/accounts/checking" element={<CheckingAccountPage />} />
-            <Route path="/accounts/savings" element={<SavingsAccountPage />} />
-            <Route path="/accounts/investment" element={<InvestmentAccountPage />} />
-            <Route path="/accounts/escrow" element={<EscrowAccountPage />} />
-            <Route path="/accounts/credit-card" element={<CreditCardPage />} />
-          </Routes>
-        </div>
-      </QueryClientProvider>
-    </Router>
+              {/* Business Banking Routes */}
+              <Route path="/business/*" element={<BusinessBankingRoutes />} />
+              
+              {/* Account Pages */}
+              <Route path="/accounts/total-balance" element={<TotalBalancePage />} />
+              <Route path="/accounts/checking" element={<CheckingAccountPage />} />
+              <Route path="/accounts/savings" element={<SavingsAccountPage />} />
+              <Route path="/accounts/investment" element={<InvestmentAccountPage />} />
+              <Route path="/accounts/escrow" element={<EscrowAccountPage />} />
+              <Route path="/accounts/credit-card" element={<CreditCardPage />} />
+            </Routes>
+          </div>
+        </QueryClientProvider>
+      </Router>
+    </AuthProvider>
   );
 }
 
