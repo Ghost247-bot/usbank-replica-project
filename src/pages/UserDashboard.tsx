@@ -22,12 +22,16 @@ const UserDashboard = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Only redirect if we're done loading and there's no user
     if (!loading && !user) {
+      console.log('No user found after loading completed, redirecting to auth');
       navigate('/auth');
     }
   }, [user, loading, navigate]);
 
+  // Show loading spinner while auth is initializing
   if (loading) {
+    console.log('Auth loading, showing spinner');
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
@@ -35,9 +39,17 @@ const UserDashboard = () => {
     );
   }
 
+  // Don't render anything if no user (will redirect)
   if (!user) {
-    return null;
+    console.log('No user, will redirect');
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      </div>
+    );
   }
+
+  console.log('Rendering dashboard for user:', user.id);
 
   return (
     <div className="min-h-screen bg-gray-50">
