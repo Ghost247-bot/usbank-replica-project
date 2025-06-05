@@ -10,10 +10,15 @@ import { useAuth } from '@/hooks/useAuth';
 const DashboardBanner = () => {
   const { user } = useAuth();
 
-  const { data: banners, isLoading } = useQuery({
+  const { data: banners, isLoading, error } = useQuery({
     queryKey: ['dashboard_banners', user?.id],
     queryFn: async () => {
-      if (!user) return [];
+      if (!user) {
+        console.log('No user found for banners query');
+        return [];
+      }
+      
+      console.log('Fetching banners for user:', user.id);
       
       const { data, error } = await supabase
         .from('dashboard_banners')
@@ -28,6 +33,7 @@ const DashboardBanner = () => {
         throw error;
       }
       
+      console.log('Fetched banners:', data);
       return data || [];
     },
     enabled: !!user,
@@ -59,9 +65,24 @@ const DashboardBanner = () => {
     }
   };
 
-  if (isLoading || !banners || banners.length === 0) {
+  // Add error logging
+  if (error) {
+    console.error('Banner query error:', error);
+  }
+
+  // Show loading state briefly
+  if (isLoading) {
+    console.log('Banners loading...');
     return null;
   }
+
+  // Don't show anything if no banners or error
+  if (error || !banners || banners.length === 0) {
+    console.log('No banners to display:', { error, banners });
+    return null;
+  }
+
+  console.log('Rendering banners:', banners);
 
   return (
     <div className="space-y-4 mb-8">
