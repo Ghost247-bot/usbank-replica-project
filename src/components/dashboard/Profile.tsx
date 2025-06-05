@@ -26,7 +26,7 @@ interface ProfileData {
 const Profile = () => {
   const { user } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
+  const [isMinimized, setIsMinimized] = useState(true); // Changed to true for auto-minimize
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [profileData, setProfileData] = useState<ProfileData>({});
