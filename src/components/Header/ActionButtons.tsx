@@ -6,36 +6,34 @@ import { Button } from '@/components/ui/button';
 
 const ActionButtons = () => {
   return (
-    <div className="flex items-center space-x-3 sm:space-x-6">
+    <div className="flex items-center space-x-3">
       <Link to="/auth">
         <Button 
-          variant="ghost" 
+          variant="outline" 
           size="sm" 
-          className="hidden sm:flex items-center space-x-2 text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 text-sm font-black px-6 h-12 rounded-2xl border border-transparent hover:border-white/10"
+          className="hidden sm:flex items-center space-x-2 border-slate-300 text-slate-700 hover:bg-slate-50 transition-all duration-200 h-10 px-4 rounded-lg font-bold"
         >
-          <User className="h-4.5 w-4.5" />
+          <User className="h-4 w-4" />
           <span>Sign In</span>
         </Button>
       </Link>
       
-      {/* Mobile Sign In Button */}
-      <Link to="/auth">
+      <Link to="/create-account" className="hidden sm:block">
         <Button 
-          variant="ghost" 
           size="sm" 
-          className="sm:hidden flex items-center text-slate-300 hover:text-white hover:bg-white/10 transition-all duration-300 px-4 h-12 rounded-2xl border border-white/10 shadow-lg"
+          className="bg-[#0A1F44] hover:bg-slate-800 text-white font-bold transition-all duration-200 h-10 px-6 rounded-lg"
         >
-          <User className="h-5 w-5" />
+          Open Account
         </Button>
       </Link>
-      
-      <Link to="/create-account">
+
+      {/* Mobile view just shows one solid button for space */}
+      <Link to="/auth" className="sm:hidden">
         <Button 
           size="sm" 
-          className="bg-blue-600 hover:bg-blue-500 text-white font-black transition-all duration-300 text-xs sm:text-sm px-6 sm:px-10 h-12 rounded-2xl shadow-[0_10px_20px_-5px_rgba(59,130,246,0.4)] hover:-translate-y-1 active:scale-95"
+          className="bg-[#0A1F44] text-white h-9 px-4 rounded-lg font-bold"
         >
-          <span className="hidden sm:inline">Open Account</span>
-          <span className="sm:hidden">Open</span>
+          Sign In
         </Button>
       </Link>
     </div>

@@ -79,83 +79,73 @@ const WealthManagementDropdown = () => {
 
   return (
     <div className="relative" ref={dropdownRef}>
-        <button
-          className="flex items-center space-x-2 text-slate-300 hover:text-white px-4 py-2 text-sm font-semibold transition-all duration-200 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10"
-          onClick={(e) => {
-            e.preventDefault();
-            setIsOpen(!isOpen);
-          }}
-          aria-expanded={isOpen}
-          aria-haspopup="true"
-        >
-          <span>Wealth Management</span>
-          <ChevronDown className={`h-4 w-4 transition-all duration-200 ${isOpen ? 'rotate-180 text-white' : 'text-slate-400'}`} />
-        </button>
+      <button
+        className={`flex items-center space-x-1.5 px-4 py-2 text-[15px] font-medium transition-colors duration-200 ${isOpen ? 'text-blue-700' : 'text-slate-700 hover:text-blue-700'}`}
+        onClick={(e) => {
+          e.preventDefault();
+          setIsOpen(!isOpen);
+        }}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+      >
+        <span className="flex flex-col items-start leading-tight">
+          <span>Wealth</span>
+          <span>Management</span>
+        </span>
+        <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+      </button>
 
-            {isOpen && (
-              <div
-                className="absolute top-full left-1/2 transform -translate-x-1/2 mt-4 w-screen max-w-[1000px] bg-slate-900/98 backdrop-blur-2xl border border-white/10 rounded-3xl shadow-[0_32px_64px_-12px_rgba(0,0,0,0.8)] z-[60] overflow-hidden animate-in fade-in zoom-in slide-in-from-top-2 duration-300"
-              >
-                <div className="p-8 lg:p-10 bg-gradient-to-br from-slate-900 via-slate-950 to-slate-900">
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 min-w-0">
-                  {Object.entries(wealthServices).map(([category, services]) => (
-                    <div key={category} className="space-y-6">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-1.5 h-6 bg-purple-500 rounded-full shadow-[0_0_15px_rgba(168,85,247,0.5)]" />
-                        <h3 className="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em]">
-                          {category}
-                        </h3>
-                      </div>
-                      <div className="space-y-1.5">
-                        {services.map((service) => (
-                          <Link
-                            key={service.href}
-                            to={service.href}
-                            className="group flex items-start space-x-4 p-4 rounded-2xl hover:bg-white/[0.03] transition-all duration-300 border border-transparent hover:border-white/10 relative overflow-hidden"
-                            onClick={() => setIsOpen(false)}
-                          >
-                            <div className="flex-shrink-0 p-2.5 rounded-xl bg-purple-500/10 group-hover:bg-purple-500/20 transition-colors duration-300">
-                              <service.icon className="h-5 w-5 text-purple-400 group-hover:text-purple-300 transition-colors duration-300" />
-                            </div>
-                            <div className="min-w-0 pt-0.5">
-                              <div className="text-sm font-bold text-slate-200 group-hover:text-white transition-colors duration-300">
-                                {service.title}
-                              </div>
-                              <div className="text-[13px] text-slate-500 mt-1 group-hover:text-slate-400 transition-colors duration-300 line-clamp-2 font-medium">
-                                {service.description}
-                              </div>
-                            </div>
-                            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-purple-500/[0.02] to-purple-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                
-                <div className="mt-10 pt-8 border-t border-white/5">
-                  <div className="bg-gradient-to-r from-purple-600/15 via-pink-600/15 to-indigo-600/15 rounded-3xl p-6 flex flex-col sm:flex-row items-center justify-between gap-6 border border-white/5 shadow-inner">
-                    <div className="text-center sm:text-left">
-                      <h4 className="text-lg font-black text-white mb-1 tracking-tight">
-                        Preserve Your Legacy
-                      </h4>
-                      <p className="text-xs text-slate-400 font-medium">
-                        World-class wealth strategies for generations to come.
-                      </p>
-                    </div>
-                    <Link
-                      to="/contact-us"
-                      className="group relative inline-flex items-center px-8 py-3 bg-purple-600 text-white text-sm font-black rounded-2xl hover:bg-purple-500 transition-all duration-300 shadow-[0_10px_20px_-5px_rgba(168,85,247,0.4)] hover:-translate-y-1 active:scale-95 overflow-hidden"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      <span className="relative z-10">Contact Advisor</span>
-                      <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
-                    </Link>
+      {isOpen && (
+        <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 lg:-translate-x-[80%] w-[95vw] max-w-[1000px] bg-white border border-slate-200 rounded-2xl shadow-2xl z-[60] overflow-hidden animate-in fade-in zoom-in duration-300">
+          <div className="p-8 lg:p-10">
+            <div className="grid grid-cols-3 gap-12">
+              {Object.entries(wealthServices).map(([category, services]) => (
+                <div key={category} className="space-y-6">
+                  <h3 className="text-[13px] font-bold text-slate-900 uppercase tracking-wider">
+                    {category}
+                  </h3>
+                  <div className="space-y-6">
+                    {services.map((service) => (
+                      <Link
+                        key={service.href}
+                        to={service.href}
+                        className="group flex items-start space-x-4"
+                        onClick={() => setIsOpen(false)}
+                      >
+                        <div className="flex-shrink-0 mt-1">
+                          <service.icon className="h-6 w-6 text-blue-700 opacity-80 group-hover:opacity-100 transition-opacity" />
+                        </div>
+                        <div>
+                          <div className="text-[15px] font-bold text-slate-900 group-hover:text-blue-700 transition-colors">
+                            {service.title}
+                          </div>
+                          <div className="text-[13px] text-slate-500 font-medium">
+                            {service.description}
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
-          )}
+          </div>
+          
+          <div className="bg-slate-50 border-t border-slate-100 p-8 flex items-center justify-between">
+            <div className="flex flex-col">
+              <h4 className="text-[17px] font-bold text-slate-900">Need personalized advice?</h4>
+              <p className="text-[14px] text-slate-600">Connect with our wealth management specialists</p>
+            </div>
+            <Link
+              to="/contact-us"
+              className="bg-[#3D5AFE] text-white px-8 py-3 rounded-lg font-bold text-[15px] hover:bg-blue-700 transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              Contact Advisor
+            </Link>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

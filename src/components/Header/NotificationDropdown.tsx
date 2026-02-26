@@ -46,51 +46,51 @@ const NotificationDropdown = () => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2.5 hover:bg-white/5 rounded-xl transition-all duration-200 text-slate-300 border border-white/5 group"
+        className="relative p-2 hover:bg-slate-100 rounded-full transition-all duration-200 text-slate-600 group"
         aria-label="Notifications"
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
         <Bell className="h-5 w-5 group-hover:scale-110 transition-transform duration-200" />
         {unreadCount > 0 && (
-          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-bold rounded-full h-5 w-5 flex items-center justify-center shadow-lg border-2 border-slate-900 animate-pulse">
+          <span className="absolute top-1 right-1 bg-red-600 text-white text-[9px] font-bold rounded-full h-4 w-4 flex items-center justify-center shadow-sm border-2 border-white">
             {unreadCount > 9 ? '9+' : unreadCount}
           </span>
         )}
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-3 w-72 sm:w-80 max-w-[85vw] bg-slate-800/95 backdrop-blur-xl border border-slate-600/50 rounded-2xl shadow-2xl z-[70] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="p-3.5 sm:p-4 border-b border-slate-600/30 flex justify-between items-center bg-gradient-to-r from-slate-800 to-slate-900">
-            <h3 className="text-sm font-bold text-slate-100">Notifications</h3>
+        <div className="absolute right-0 mt-3 w-72 sm:w-80 max-w-[85vw] bg-white border border-slate-200 rounded-lg shadow-xl z-[70] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+            <h3 className="text-sm font-bold text-slate-900">Notifications</h3>
             <button
               onClick={() => setIsOpen(false)}
-              className="p-1 hover:bg-white/5 rounded-lg text-slate-400 hover:text-slate-200 transition-all duration-200"
+              className="p-1 hover:bg-slate-200 rounded text-slate-400 hover:text-slate-600 transition-all duration-200"
             >
-              <X className="h-3.5 w-3.5" />
+              <X className="h-4 w-4" />
             </button>
           </div>
           
-          <div className="max-h-[350px] overflow-y-auto custom-scrollbar">
+          <div className="max-h-[350px] overflow-y-auto">
             {loading ? (
-              <div className="p-6 text-center text-slate-400 flex flex-col items-center">
-                <div className="w-6 h-6 border-2 border-blue-500/30 border-t-blue-500 rounded-full animate-spin mb-2.5"></div>
+              <div className="p-6 text-center text-slate-500 flex flex-col items-center">
+                <div className="w-6 h-6 border-2 border-blue-600/30 border-t-blue-600 rounded-full animate-spin mb-2"></div>
                 <p className="text-[13px]">Loading notifications...</p>
               </div>
             ) : notifications.length === 0 ? (
               <div className="p-8 text-center">
-                <div className="bg-slate-700/30 w-10 h-10 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Bell className="h-5 w-5 text-slate-500" />
+                <div className="bg-slate-100 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <Bell className="h-6 w-6 text-slate-400" />
                 </div>
-                <p className="text-slate-400 text-sm font-medium">No new notifications</p>
-                <p className="text-[11px] text-slate-500 mt-1">We'll notify you when something happens</p>
+                <p className="text-slate-900 text-sm font-bold">No new notifications</p>
+                <p className="text-[12px] text-slate-500 mt-1">We'll notify you when something happens</p>
               </div>
             ) : (
               notifications.slice(0, 10).map(notification => (
                 <div
                   key={notification.id}
-                  className={`p-3.5 sm:p-4 border-b border-slate-600/20 hover:bg-slate-700/50 cursor-pointer transition-all duration-200 group ${
-                    !notification.is_read ? 'bg-blue-500/5 border-l-2 border-l-blue-500' : ''
+                  className={`p-4 border-b border-slate-50 hover:bg-slate-50 cursor-pointer transition-all duration-200 group ${
+                    !notification.is_read ? 'bg-blue-50/30 border-l-4 border-l-blue-600' : ''
                   }`}
                   onClick={() => handleMarkAsRead(notification.id)}
                 >
@@ -101,21 +101,18 @@ const NotificationDropdown = () => {
                     <div className="flex-1 min-w-0">
                       <div className="flex justify-between items-start mb-0.5">
                         <p className={`text-[13px] font-bold ${
-                          !notification.is_read ? 'text-slate-100' : 'text-slate-300'
-                        } truncate group-hover:text-white transition-colors`}>
+                          !notification.is_read ? 'text-slate-900' : 'text-slate-700'
+                        } truncate group-hover:text-blue-700 transition-colors`}>
                           {notification.title}
                         </p>
-                        <span className="text-[9px] font-medium text-slate-500 flex-shrink-0 ml-2">
+                        <span className="text-[10px] font-medium text-slate-400 flex-shrink-0 ml-2">
                           {formatTimestamp(notification.created_at)}
                         </span>
                       </div>
-                      <p className="text-[12px] text-slate-400 line-clamp-2 leading-relaxed group-hover:text-slate-300 transition-colors">
+                      <p className="text-[12px] text-slate-500 line-clamp-2 leading-relaxed font-medium">
                         {notification.message}
                       </p>
                     </div>
-                    {!notification.is_read && (
-                      <div className="w-1.5 h-1.5 bg-blue-500 rounded-full mt-1.5 shadow-[0_0_8px_rgba(59,130,246,0.5)]"></div>
-                    )}
                   </div>
                 </div>
               ))
@@ -123,8 +120,8 @@ const NotificationDropdown = () => {
           </div>
           
           {notifications.length > 0 && (
-            <div className="p-3 border-t border-slate-600/30 bg-slate-900/50">
-              <button className="w-full py-1.5 text-[12px] text-blue-400 hover:text-blue-300 font-bold transition-all duration-200 hover:bg-blue-500/5 rounded-lg">
+            <div className="p-3 border-t border-slate-100 bg-slate-50">
+              <button className="w-full py-2 text-[12px] text-blue-700 hover:text-blue-800 font-bold transition-all duration-200 hover:bg-white rounded-lg border border-transparent hover:border-slate-200">
                 View All Notifications
               </button>
             </div>

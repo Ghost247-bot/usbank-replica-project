@@ -97,15 +97,15 @@ const SearchBar = () => {
               />
             )}
           </div>
-        ) : (
-          <button 
-            onClick={() => setIsSearchVisible(true)}
-            className="p-2 hover:bg-slate-700/50 rounded-lg transition-all duration-200 text-slate-300"
-            aria-label="Open search"
-          >
-            <Search className="h-4 w-4" />
-          </button>
-        )}
+          ) : (
+            <button 
+              onClick={() => setIsSearchVisible(true)}
+              className="p-2 hover:bg-slate-100 rounded-full transition-all duration-200 text-slate-600"
+              aria-label="Open search"
+            >
+              <Search className="h-5 w-5" />
+            </button>
+          )}
       </div>
     </div>
   );

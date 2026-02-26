@@ -46,9 +46,9 @@ const MobileMenu = ({ isOpen, onClose }: MobileMenuProps) => {
 
   return (
     <div className="fixed inset-0 z-[60] xl:hidden">
-      <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md" onClick={onClose} />
+      <div className="fixed inset-0 bg-slate-950/40 backdrop-blur-sm" onClick={onClose} />
       <div 
-        className="fixed top-0 right-0 bottom-0 w-full max-w-[320px] bg-slate-900/95 backdrop-blur-2xl shadow-2xl flex flex-col border-l border-white/10 animate-in slide-in-from-right duration-500 ease-out"
+        className="fixed top-0 right-0 bottom-0 w-full max-w-[320px] bg-white shadow-2xl flex flex-col border-l border-slate-200 animate-in slide-in-from-right duration-500 ease-out"
         onClick={(e) => e.stopPropagation()}
       >
         <MobileMenuHeader onClose={onClose} />

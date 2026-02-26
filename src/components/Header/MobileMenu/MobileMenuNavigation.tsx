@@ -11,7 +11,7 @@ const MobileMenuNavigation = ({ onClose }: MobileMenuNavigationProps) => {
     <>
       <Link
         to="/about-us"
-        className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+        className="block px-4 py-3.5 text-base font-bold text-slate-700 hover:text-blue-700 hover:bg-slate-50 rounded-xl transition-all border border-transparent hover:border-slate-100"
         onClick={onClose}
       >
         About Us
@@ -19,7 +19,7 @@ const MobileMenuNavigation = ({ onClose }: MobileMenuNavigationProps) => {
       
       <Link
         to="/customer-service"
-        className="block px-3 py-3 text-base font-medium text-gray-700 hover:text-green-600 hover:bg-green-50 rounded-lg transition-colors"
+        className="block px-4 py-3.5 text-base font-bold text-slate-700 hover:text-blue-700 hover:bg-slate-50 rounded-xl transition-all border border-transparent hover:border-slate-100"
         onClick={onClose}
       >
         Support

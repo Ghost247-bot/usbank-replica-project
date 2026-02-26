@@ -46,13 +46,13 @@ const QuickAccessMenu = () => {
     }
   ];
 
-  const getColorClasses = (color: string) => {
+    const getColorClasses = (color: string) => {
     switch (color) {
-      case 'blue': return 'bg-blue-500/10 text-blue-400';
-      case 'purple': return 'bg-purple-500/10 text-purple-400';
-      case 'emerald': return 'bg-emerald-500/10 text-emerald-400';
-      case 'amber': return 'bg-amber-500/10 text-amber-400';
-      default: return 'bg-slate-500/10 text-slate-400';
+      case 'blue': return 'bg-blue-50 text-blue-600';
+      case 'purple': return 'bg-purple-50 text-purple-600';
+      case 'emerald': return 'bg-emerald-50 text-emerald-600';
+      case 'amber': return 'bg-amber-50 text-amber-600';
+      default: return 'bg-slate-50 text-slate-600';
     }
   };
 
@@ -60,42 +60,42 @@ const QuickAccessMenu = () => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="p-2 hover:bg-slate-700/50 rounded-full transition-all duration-200 text-slate-300 relative group"
+        className="p-2 hover:bg-slate-100 rounded-full transition-all duration-200 text-slate-600 relative group"
         aria-label="Quick access menu"
       >
-        <Grid3X3 className="h-4.5 w-4.5 group-hover:scale-110 transition-transform duration-200" />
+        <Grid3X3 className="h-5 w-5 group-hover:scale-110 transition-transform duration-200" />
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-3 w-72 bg-slate-800/95 backdrop-blur-xl border border-slate-600/50 rounded-xl shadow-2xl z-[70] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
-          <div className="p-3 border-b border-slate-600/30 bg-gradient-to-r from-slate-800 to-slate-900">
-            <h3 className="text-sm font-bold text-slate-200">Quick Access</h3>
+        <div className="absolute right-0 mt-3 w-72 bg-white border border-slate-200 rounded-lg shadow-xl z-[70] overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+          <div className="p-4 border-b border-slate-100 bg-slate-50">
+            <h3 className="text-sm font-bold text-slate-900">Quick Access</h3>
           </div>
           
-          <div className="p-1.5 max-h-[350px] overflow-y-auto custom-scrollbar">
+          <div className="p-2 max-h-[350px] overflow-y-auto">
             {quickActions.map((action, index) => (
               <Link
                 key={index}
                 to={action.path}
                 onClick={() => setIsOpen(false)}
-                className="group flex items-center space-x-2.5 p-2.5 hover:bg-slate-700/50 rounded-lg transition-all duration-200 border border-transparent hover:border-slate-600/30"
+                className="group flex items-center space-x-3 p-3 hover:bg-slate-50 rounded-lg transition-all duration-200"
               >
-                <div className={`p-1.5 rounded-lg transition-colors duration-200 ${getColorClasses(action.color)}`}>
+                <div className={`p-2 rounded-lg transition-colors duration-200 ${getColorClasses(action.color)}`}>
                   <action.icon className="h-4 w-4" />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <p className="text-[13px] font-semibold text-slate-200 group-hover:text-white transition-colors duration-200">{action.title}</p>
-                  <p className="text-[11px] text-slate-400 group-hover:text-slate-300 transition-colors duration-200 truncate">{action.description}</p>
+                  <p className="text-[13px] font-bold text-slate-900 group-hover:text-blue-700 transition-colors duration-200">{action.title}</p>
+                  <p className="text-[11px] text-slate-500 font-medium truncate">{action.description}</p>
                 </div>
-                <ChevronRight className="h-3.5 w-3.5 text-slate-500 group-hover:text-slate-300 transform group-hover:translate-x-1 transition-all duration-200" />
+                <ChevronRight className="h-3.5 w-3.5 text-slate-400 group-hover:text-blue-700 transform group-hover:translate-x-1 transition-all duration-200" />
               </Link>
             ))}
           </div>
 
-          <div className="p-2.5 bg-slate-900/50 border-t border-slate-600/30">
+          <div className="p-3 bg-slate-50 border-t border-slate-100">
             <Link 
               to="/user-dashboard" 
-              className="text-[11px] text-center block text-blue-400 hover:text-blue-300 font-medium py-1 transition-colors"
+              className="text-[12px] text-center block text-blue-700 hover:text-blue-800 font-bold py-1 transition-colors"
               onClick={() => setIsOpen(false)}
             >
               View Full Dashboard
