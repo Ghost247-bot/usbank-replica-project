@@ -6,7 +6,7 @@ const Logo = () => {
   return (
     <Link to="/" className="flex items-center hover:opacity-80 transition-opacity">
       <img 
-        src="/lovable-uploads/720b07eb-d3f3-452e-9778-fa1cb83f9853.png" 
+        src="/Logo with Crescent Moon and Gemstone.png" 
         alt="Moonstone" 
         className="h-8 w-8 sm:h-10 sm:w-10 object-contain mr-2 sm:mr-3"
       />

@@ -1,73 +1,172 @@
-# Welcome to your Lovable project
+# Moonstone Holdings - US Bank Replica
 
-## Project info
+A comprehensive banking application replica built with React, TypeScript, and modern web technologies.
 
-**URL**: https://lovable.dev/projects/0dcfc1f8-456e-4d50-9fa2-743602239d42
+## Project Overview
 
-## How can I edit this code?
+Moonstone Holdings is a full-featured banking application that provides users with a complete digital banking experience, including account management, transactions, wealth management, and administrative features.
 
-There are several ways of editing your application.
+## Tech Stack
 
-**Use Lovable**
+- **Frontend**: React 18 with TypeScript
+- **UI Components**: Tailwind CSS + shadcn/ui
+- **State Management**: React Query (TanStack Query)
+- **Routing**: React Router v6
+- **Authentication**: Supabase Auth
+- **Database**: Supabase PostgreSQL
+- **Build Tool**: Vite
+- **Package Manager**: npm
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/0dcfc1f8-456e-4d50-9fa2-743602239d42) and start prompting.
+## Features
 
-Changes made via Lovable will be committed automatically to this repo.
+### User Dashboard
+- Account overview with balance tracking
+- Recent transactions with filtering and export
+- Quick actions for transfers, payments, and deposits
+- Budget tracking and financial goals
+- Spending analytics and insights
+- Wealth management integration
 
-**Use your preferred IDE**
+### Account Management
+- Multiple account types (Checking, Savings, Investment, Escrow)
+- Credit card management
+- Transaction history and details
+- Account settings and preferences
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### Wealth Management
+- Investment portfolio tracking
+- Financial planning tools
+- Retirement planning
+- Tax planning assistance
+- Estate planning services
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Admin Dashboard
+- User management and administration
+- Account oversight and management
+- Transaction monitoring
+- Banner and notification management
+- System analytics and reporting
 
-Follow these steps:
+## Getting Started
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+- Supabase account
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+### Installation
 
-# Step 3: Install the necessary dependencies.
-npm i
+1. Clone the repository:
+```bash
+git clone https://github.com/Ghost247-bot/usbank-replica-project.git
+cd usbank-replica-project
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Set up environment variables:
+```bash
+cp .env.example .env
+# Update .env with your Supabase credentials
+```
+
+4. Run the development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+5. Open your browser and navigate to `http://localhost:5173`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Environment Setup
 
-**Use GitHub Codespaces**
+Create a `.env` file in the root directory with the following variables:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```env
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
 
-## What technologies are used for this project?
+## Database Setup
 
-This project is built with:
+1. Set up a new Supabase project
+2. Run the provided SQL migration scripts in the `supabase/migrations` directory
+3. Configure Row Level Security (RLS) policies
+4. Set up authentication providers
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Project Structure
 
-## How can I deploy this project?
+```
+src/
+├── components/          # Reusable UI components
+│   ├── Header/         # Header navigation
+│   ├── dashboard/      # Dashboard components
+│   ├── admin/          # Admin components
+│   └── ui/             # Base UI components
+├── pages/              # Page components
+│   ├── accounts/       # Account pages
+│   ├── wealth/         # Wealth management pages
+│   └── ...            # Other pages
+├── hooks/              # Custom React hooks
+├── utils/              # Utility functions
+├── routes/             # Route configurations
+└── types/              # TypeScript type definitions
+```
 
-Simply open [Lovable](https://lovable.dev/projects/0dcfc1f8-456e-4d50-9fa2-743602239d42) and click on Share -> Publish.
+## Available Scripts
 
-## Can I connect a custom domain to my Lovable project?
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+- `npm run lint:fix` - Fix ESLint issues
 
-Yes, you can!
+## Deployment
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Vercel (Recommended)
+1. Connect your GitHub repository to Vercel
+2. Configure environment variables
+3. Deploy automatically on push to main branch
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+### Other Platforms
+The application can be deployed to any platform that supports static sites, including:
+- Netlify
+- AWS S3 + CloudFront
+- GitHub Pages
+- DigitalOcean App Platform
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Commit your changes with descriptive messages
+5. Push to your fork
+6. Create a pull request
+
+## Security
+
+- All sensitive data is stored in Supabase with proper RLS policies
+- Authentication handled by Supabase Auth
+- Environment variables for configuration
+- No hardcoded credentials in the codebase
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+For support or questions:
+- Create an issue in the GitHub repository
+- Check the documentation
+- Review the FAQ section
+
+## Acknowledgments
+
+- Built with modern web technologies
+- UI components from shadcn/ui
+- Authentication and database by Supabase
+- Styling with Tailwind CSS
