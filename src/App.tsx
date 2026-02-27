@@ -27,6 +27,10 @@ import SavingsAccountPage from '@/pages/accounts/SavingsAccountPage';
 import InvestmentAccountPage from '@/pages/accounts/InvestmentAccountPage';
 import EscrowAccountPage from '@/pages/accounts/EscrowAccountPage';
 import CreditCardPage from '@/pages/accounts/CreditCardPage';
+import ViewAllTransactions from '@/pages/ViewAllTransactions';
+import ViewAllBills from '@/pages/ViewAllBills';
+import ViewAllGoals from '@/pages/ViewAllGoals';
+import ManageBudget from '@/pages/ManageBudget';
 import Index from '@/pages/Index';
 
 // Import additional pages from routes
@@ -61,8 +65,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />
-              <Route path="/dashboard" element={<UserDashboard />} />
-              <Route path="/admin" element={<AdminDashboard />} />
+              <Route path="/user-dashboard" element={<UserDashboard />} />
+              <Route path="/admin-dashboard" element={<AdminDashboard />} />
               <Route path="/transfer-money" element={<TransferMoney />} />
               <Route path="/pay-bills" element={<PayBills />} />
               <Route path="/deposit-check" element={<DepositCheck />} />
@@ -75,6 +79,12 @@ function App() {
               <Route path="/wealth/portfolio-options" element={<PortfolioOptionsPage />} />
               <Route path="/start-investing" element={<StartInvesting />} />
 
+              {/* Utility Pages */}
+              <Route path="/view-all-transactions" element={<ViewAllTransactions />} />
+              <Route path="/view-all-bills" element={<ViewAllBills />} />
+              <Route path="/view-all-goals" element={<ViewAllGoals />} />
+              <Route path="/manage-budget" element={<ManageBudget />} />
+
               {/* Action Routes */}
               <Route path="/about-us" element={<AboutUs />} />
               <Route path="/learn-more" element={<LearnMore />} />
@@ -86,8 +96,6 @@ function App() {
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/admin-login" element={<AdminLogin />} />
               <Route path="/admin-setup" element={<AdminSetup />} />
-              <Route path="/user-dashboard" element={<UserDashboard />} />
-              <Route path="/admin-dashboard" element={<AdminDashboard />} />
 
               {/* Services Routes */}
               <Route path="/mobile-app" element={<MobileApp />} />

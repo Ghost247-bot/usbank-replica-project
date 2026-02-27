@@ -16,36 +16,21 @@ import AlertsNotifications from '@/components/dashboard/AlertsNotifications';
 import Rewards from '@/components/dashboard/Rewards';
 import Profile from '@/components/dashboard/Profile';
 import { useAuth } from '@/hooks/useAuth';
+import { getUserDisplayName } from '@/utils/user';
 
 const UserDashboard = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
 
-  // Helper function to get user display name
-  const getUserDisplayName = (user: any) => {
-    if (user?.user_metadata?.first_name) {
-      return user.user_metadata.first_name;
-    }
-    if (user?.user_metadata?.full_name) {
-      return user.user_metadata.full_name.split(' ')[0];
-    }
-    if (user?.email) {
-      return user.email.split('@')[0];
-    }
-    return 'User';
-  };
-
   useEffect(() => {
     // Only redirect if we're done loading and there's no user
     if (!loading && !user) {
-      console.log('No user found after loading completed, redirecting to auth');
       navigate('/auth');
     }
   }, [user, loading, navigate]);
 
   // Show loading spinner while auth is initializing
   if (loading) {
-    console.log('Auth loading, showing spinner');
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
@@ -55,7 +40,6 @@ const UserDashboard = () => {
 
   // Don't render anything if no user (will redirect)
   if (!user) {
-    console.log('No user, will redirect');
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
@@ -63,7 +47,6 @@ const UserDashboard = () => {
     );
   }
 
-  console.log('Rendering dashboard for user:', user.id);
 
   return (
     <div className="min-h-screen bg-gray-50">

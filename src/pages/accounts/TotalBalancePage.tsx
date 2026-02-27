@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useAuth } from '@/hooks/useAuth';
 import { useBankingData } from '@/hooks/useBankingData';
+import { formatCurrency } from '@/utils/currency';
 
 const TotalBalancePage = () => {
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ const TotalBalancePage = () => {
         <div className="mb-8">
           <Button 
             variant="ghost" 
-            onClick={() => navigate('/dashboard')}
+            onClick={() => navigate('/user-dashboard')}
             className="mb-4"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
@@ -108,7 +109,7 @@ const TotalBalancePage = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="text-4xl font-bold">
-                    {showBalances ? `$${totalBalance.toFixed(2)}` : '••••••'}
+                    {showBalances ? formatCurrency(totalBalance) : '••••••'}
                   </p>
                   <p className="text-blue-100 mt-2">All accounts combined</p>
                 </div>
@@ -135,7 +136,7 @@ const TotalBalancePage = () => {
                   </CardHeader>
                   <CardContent>
                     <p className="text-2xl font-bold text-gray-900">
-                      {showBalances ? `$${Number(account.balance).toFixed(2)}` : '••••••'}
+                      {showBalances ? formatCurrency(Number(account.balance)) : '••••••'}
                     </p>
                     <p className="text-sm text-gray-600 mt-2">
                       Click to view details
@@ -165,13 +166,13 @@ const TotalBalancePage = () => {
                     <div>
                       <p className="text-sm text-gray-600">Current Balance</p>
                       <p className="text-2xl font-bold text-red-600">
-                        {showBalances ? `$${creditCardBalance.toFixed(2)}` : '••••••'}
+                        {showBalances ? formatCurrency(creditCardBalance) : '••••••'}
                       </p>
                     </div>
                     <div>
                       <p className="text-sm text-gray-600">Total Credit Limit</p>
                       <p className="text-2xl font-bold text-gray-900">
-                        {showBalances ? `$${creditCards.reduce((sum, card) => sum + Number(card.credit_limit), 0).toFixed(2)}` : '••••••'}
+                        {showBalances ? formatCurrency(creditCards.reduce((sum, card) => sum + Number(card.credit_limit), 0)) : '••••••'}
                       </p>
                     </div>
                   </div>
@@ -190,19 +191,19 @@ const TotalBalancePage = () => {
                 <div>
                   <p className="text-sm text-gray-600">Total Assets</p>
                   <p className="text-2xl font-bold text-green-600">
-                    {showBalances ? `$${totalBalance.toFixed(2)}` : '••••••'}
+                    {showBalances ? formatCurrency(totalBalance) : '••••••'}
                   </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Total Liabilities</p>
                   <p className="text-2xl font-bold text-red-600">
-                    {showBalances ? `$${creditCardBalance.toFixed(2)}` : '••••••'}
+                    {showBalances ? formatCurrency(creditCardBalance) : '••••••'}
                   </p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Net Worth</p>
                   <p className="text-2xl font-bold text-blue-600">
-                    {showBalances ? `$${(totalBalance - creditCardBalance).toFixed(2)}` : '••••••'}
+                    {showBalances ? formatCurrency(totalBalance - creditCardBalance) : '••••••'}
                   </p>
                 </div>
               </div>

@@ -3,6 +3,7 @@ import React from 'react';
 import { Badge } from '@/components/ui/badge';
 import { ArrowUpRight, ArrowDownLeft } from 'lucide-react';
 import { format } from 'date-fns';
+import { formatCurrency } from '@/utils/currency';
 
 interface TransactionItemProps {
   transaction: any;
@@ -64,7 +65,7 @@ const TransactionItem = ({ transaction, getAccountName }: TransactionItemProps) 
               ? 'text-green-600' : 'text-red-600'
           }`}>
             {transaction.transaction_type === 'deposit' ? '+' : '-'}
-            ${Number(transaction.amount).toFixed(2)}
+            {formatCurrency(Number(transaction.amount)).replace('$', '')}
           </div>
           <Badge className={getStatusColor(transaction.status)}>
             {transaction.status}

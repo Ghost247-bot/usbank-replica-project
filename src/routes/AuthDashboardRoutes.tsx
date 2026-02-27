@@ -6,6 +6,7 @@ import AdminLogin from "@/pages/AdminLogin";
 import AdminSetup from "@/pages/AdminSetup";
 import UserDashboard from "@/pages/UserDashboard";
 import AdminDashboard from "@/pages/AdminDashboard";
+import ViewAllTransactions from "@/pages/ViewAllTransactions";
 
 const AuthDashboardRoutes = () => (
   <>
@@ -15,6 +16,7 @@ const AuthDashboardRoutes = () => (
     <Route path="/admin-setup" element={<AdminSetup />} />
     <Route path="/user-dashboard" element={<UserDashboard />} />
     <Route path="/admin-dashboard" element={<AdminDashboard />} />
+    <Route path="/view-all-transactions" element={<ViewAllTransactions />} />
   </>
 );
 

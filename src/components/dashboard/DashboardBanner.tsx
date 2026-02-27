@@ -6,6 +6,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
+import { getUserDisplayName } from '@/utils/user';
 
 const DashboardBanner = () => {
   const { user } = useAuth();
@@ -14,11 +15,9 @@ const DashboardBanner = () => {
     queryKey: ['dashboard_banners', user?.id],
     queryFn: async () => {
       if (!user) {
-        console.log('No user found for banners query');
         return [];
       }
       
-      console.log('Fetching banners for user:', user.id);
       
       const { data, error } = await supabase
         .from('dashboard_banners')
@@ -33,7 +32,6 @@ const DashboardBanner = () => {
         throw error;
       }
       
-      console.log('Fetched banners:', data);
       return data || [];
     },
     enabled: !!user,
@@ -72,17 +70,14 @@ const DashboardBanner = () => {
 
   // Show loading state briefly
   if (isLoading) {
-    console.log('Banners loading...');
     return null;
   }
 
   // Don't show anything if no banners or error
   if (error || !banners || banners.length === 0) {
-    console.log('No banners to display:', { error, banners });
     return null;
   }
 
-  console.log('Rendering banners:', banners);
 
   return (
     <div className="space-y-4 mb-8">
@@ -93,7 +88,9 @@ const DashboardBanner = () => {
               <div className="flex items-start space-x-3">
                 {getBannerIcon(banner.banner_type)}
                 <div>
-                  <h4 className="font-semibold text-gray-900">{banner.title}</h4>
+                  <h4 className="font-semibold text-gray-900">
+                    {banner.title.replace('Admin', getUserDisplayName(user))}
+                  </h4>
                   <p className="text-gray-700 mt-1">{banner.message}</p>
                 </div>
               </div>

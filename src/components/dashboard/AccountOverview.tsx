@@ -3,6 +3,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useBankingData } from '@/hooks/useBankingData';
+import { formatCurrency } from '@/utils/currency';
 
 const AccountOverview = () => {
   const navigate = useNavigate();
@@ -16,56 +17,46 @@ const AccountOverview = () => {
     isLoading 
   } = useBankingData();
 
-  // For demo purposes, add some sample balances if all are zero
-  const displayBalances = {
-    totalBalance: totalBalance || 12580.50,
-    checkingBalance: checkingBalance || 3250.25,
-    savingsBalance: savingsBalance || 8500.75,
-    escrowBalance: escrowBalance || 18090900.15,
-    investmentBalance: investmentBalance || 829.50,
-    creditCardBalance: creditCardBalance || 0
-  };
-
   const accounts = [
     {
       title: "Total Balance",
-      amount: displayBalances.totalBalance,
-      description: "Available funds (excluding escrow)",
+      amount: totalBalance,
+      description: "All accounts combined",
       route: "/accounts/total-balance",
       icon: "💰"
     },
     {
       title: "Checking Account", 
-      amount: displayBalances.checkingBalance,
+      amount: checkingBalance,
       description: "Available balance",
       route: "/accounts/checking",
       icon: "💳"
     },
     {
       title: "Savings Account",
-      amount: displayBalances.savingsBalance,
+      amount: savingsBalance,
       description: "1.5% APY earning",
       route: "/accounts/savings",
       icon: "🏦"
     },
     {
       title: "Investment Account",
-      amount: displayBalances.investmentBalance,
+      amount: investmentBalance,
       description: "Portfolio balance",
       route: "/accounts/investment",
       icon: "📈"
     },
     {
       title: "Escrow Account",
-      amount: displayBalances.escrowBalance,
+      amount: escrowBalance,
       description: "Secured funds",
       route: "/accounts/escrow",
       icon: "🏠"
     },
     {
       title: "Credit Card",
-      amount: Math.abs(displayBalances.creditCardBalance),
-      description: displayBalances.creditCardBalance < 0 ? "Current balance" : "No balance",
+      amount: creditCardBalance,
+      description: "Current balance",
       route: "/accounts/credit-card",
       icon: "💳"
     }
@@ -110,7 +101,7 @@ const AccountOverview = () => {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                ${account.amount.toFixed(2)}
+                {formatCurrency(account.amount)}
               </div>
               <p className="text-xs text-muted-foreground">
                 {account.description}
