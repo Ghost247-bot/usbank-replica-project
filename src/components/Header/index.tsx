@@ -16,6 +16,20 @@ const Header = () => {
   const { user, signOut } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  // Helper function to get user display name
+  const getUserDisplayName = (user: any) => {
+    if (user?.user_metadata?.first_name) {
+      return user.user_metadata.first_name;
+    }
+    if (user?.user_metadata?.full_name) {
+      return user.user_metadata.full_name.split(' ')[0];
+    }
+    if (user?.email) {
+      return user.email.split('@')[0];
+    }
+    return 'User';
+  };
+
   const handleMobileMenuToggle = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
@@ -50,7 +64,7 @@ const Header = () => {
                 </div>
                 <div className="flex items-center space-x-2">
                   <span className="text-xs sm:text-sm text-gray-700 hidden sm:block">
-                    Welcome, {user.user_metadata?.first_name || 'User'}
+                    Welcome, {getUserDisplayName(user)}
                   </span>
                   <Button
                     variant="ghost"

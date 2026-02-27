@@ -21,6 +21,20 @@ const UserDashboard = () => {
   const { user, loading } = useAuth();
   const navigate = useNavigate();
 
+  // Helper function to get user display name
+  const getUserDisplayName = (user: any) => {
+    if (user?.user_metadata?.first_name) {
+      return user.user_metadata.first_name;
+    }
+    if (user?.user_metadata?.full_name) {
+      return user.user_metadata.full_name.split(' ')[0];
+    }
+    if (user?.email) {
+      return user.email.split('@')[0];
+    }
+    return 'User';
+  };
+
   useEffect(() => {
     // Only redirect if we're done loading and there's no user
     if (!loading && !user) {
@@ -58,7 +72,7 @@ const UserDashboard = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">
-            Welcome back, {user.user_metadata?.first_name || 'User'}!
+            Welcome back, {getUserDisplayName(user)}!
           </h1>
           <p className="text-gray-600 mt-2">
             Here's an overview of your accounts and recent activity.
