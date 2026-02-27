@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import TopUtilityBar from './TopUtilityBar';
 import Logo from './Logo';
 import DesktopNavigation from './DesktopNavigation';
@@ -10,11 +11,28 @@ import QuickAccessMenu from './QuickAccessMenu';
 import NotificationDropdown from './NotificationDropdown';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from '@/components/ui/button';
-import { LogOut, Menu } from 'lucide-react';
+import { 
+  LogOut, 
+  Menu, 
+  User, 
+  ChevronDown,
+  Home,
+  Settings,
+  CreditCard,
+  TrendingUp
+} from 'lucide-react';
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { getUserDisplayName } from '@/utils/user';
 
 const Header = () => {
   const { user, signOut } = useAuth();
+  const navigate = useNavigate();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const handleMobileMenuToggle = () => {
@@ -49,20 +67,56 @@ const Header = () => {
                   <QuickAccessMenu />
                   <NotificationDropdown />
                 </div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-xs sm:text-sm text-gray-700 hidden sm:block">
-                    Welcome, {getUserDisplayName(user)}
-                  </span>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={signOut}
-                    className="flex items-center space-x-1 text-xs sm:text-sm px-2 sm:px-3"
-                  >
-                    <LogOut className="h-3 w-3 sm:h-4 sm:w-4" />
-                    <span className="hidden sm:inline">Sign Out</span>
-                  </Button>
-                </div>
+                
+                {/* User Dropdown Menu */}
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="flex items-center space-x-2 text-xs sm:text-sm px-2 sm:px-3 hover:bg-gray-100"
+                    >
+                      <User className="h-4 w-4" />
+                      <span className="hidden sm:inline">
+                        {getUserDisplayName(user)}
+                      </span>
+                      <ChevronDown className="h-4 w-4" />
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-56">
+                    <div className="px-2 py-1.5 text-sm text-gray-700 border-b">
+                      <div className="font-medium">{getUserDisplayName(user)}</div>
+                      <div className="text-xs text-gray-500">{user?.email}</div>
+                    </div>
+                    
+                    <DropdownMenuItem onClick={() => navigate('/user-dashboard')} className="cursor-pointer">
+                      <Home className="mr-2 h-4 w-4" />
+                      <span>Dashboard</span>
+                    </DropdownMenuItem>
+                    
+                    <DropdownMenuItem onClick={() => navigate('/accounts/total-balance')} className="cursor-pointer">
+                      <CreditCard className="mr-2 h-4 w-4" />
+                      <span>Accounts</span>
+                    </DropdownMenuItem>
+                    
+                    <DropdownMenuItem onClick={() => navigate('/wealth-management')} className="cursor-pointer">
+                      <TrendingUp className="mr-2 h-4 w-4" />
+                      <span>Wealth Management</span>
+                    </DropdownMenuItem>
+                    
+                    <DropdownMenuItem onClick={() => navigate('/account-settings')} className="cursor-pointer">
+                      <Settings className="mr-2 h-4 w-4" />
+                      <span>Settings</span>
+                    </DropdownMenuItem>
+                    
+                    <DropdownMenuSeparator />
+                    
+                    <DropdownMenuItem onClick={signOut} className="cursor-pointer text-red-600">
+                      <LogOut className="mr-2 h-4 w-4" />
+                      <span>Sign Out</span>
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </>
             ) : (
               <ActionButtons />
