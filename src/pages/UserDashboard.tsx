@@ -15,8 +15,8 @@ import UpcomingBills from '@/components/dashboard/UpcomingBills';
 import AlertsNotifications from '@/components/dashboard/AlertsNotifications';
 import Rewards from '@/components/dashboard/Rewards';
 import Profile from '@/components/dashboard/Profile';
+import WelcomeDropdown from '@/components/dashboard/WelcomeDropdown';
 import { useAuth } from '@/hooks/useAuth';
-import { getUserDisplayName } from '@/utils/user';
 
 const UserDashboard = () => {
   const { user, loading } = useAuth();
@@ -54,9 +54,7 @@ const UserDashboard = () => {
       
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900">
-            Welcome back, {getUserDisplayName(user)}!
-          </h1>
+          <WelcomeDropdown user={user} />
           <p className="text-gray-600 mt-2">
             Here's an overview of your accounts and recent activity.
           </p>
