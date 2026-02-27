@@ -111,12 +111,14 @@ export const useBankingData = () => {
   const isLoading = accountsLoading || cardsLoading || transactionsLoading;
 
   // Calculate balances
-  const totalBalance = accounts.reduce((sum, account) => sum + Number(account.balance), 0);
   const checkingBalance = accounts.find(acc => acc.account_type === 'checking')?.balance || 0;
   const savingsBalance = accounts.find(acc => acc.account_type === 'savings')?.balance || 0;
   const escrowBalance = accounts.find(acc => acc.account_type === 'escrow')?.balance || 0;
   const investmentBalance = accounts.find(acc => acc.account_type === 'investment')?.balance || 0;
   const creditCardBalance = creditCards.reduce((sum, card) => sum + Number(card.current_balance), 0);
+  
+  // Total balance should exclude escrow from the main total and show it separately
+  const totalBalance = checkingBalance + savingsBalance + investmentBalance - creditCardBalance;
 
   console.log('Account balances calculated:', {
     totalBalance,
